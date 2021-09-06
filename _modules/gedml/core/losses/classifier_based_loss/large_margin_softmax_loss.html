@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>gedml.core.losses.classifier_based_loss.large_margin_softmax_loss &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gedml.core.losses.classifier_based_loss.large_margin_softmax_loss</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gedml.core.losses.classifier_based_loss.large_margin_softmax_loss</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">..base_loss</span> <span class="kn">import</span> <span class="n">BaseLoss</span>
+
+<div class="viewcode-block" id="LargeMarginSoftmaxLoss"><a class="viewcode-back" href="../../../../../losses.html#gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss">[docs]</a><span class="k">class</span> <span class="nc">LargeMarginSoftmaxLoss</span><span class="p">(</span><span class="n">BaseLoss</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    modified from: https://github.com/KevinMusgrave/pytorch-metric-learning</span>
+
+<span class="sd">    paper: `Large-Margin Softmax Loss for Convolutional Neural Networks &lt;https://www.jmlr.org/proceedings/papers/v48/liud16.pdf&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">margin</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LargeMarginSoftmaxLoss</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">margin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initiate_margin</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">required_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;cosine&quot;</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">initiate_margin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="c1">## For the trigonometric multiple-angle formula ##</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_range</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span>
+            <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin_choose_n</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span>
+            <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_range</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cos_powers</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_range</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternating</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span>
+            <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_range</span>
+        <span class="p">])</span>
+    
+    <span class="k">def</span> <span class="nf">get_cos_with_margin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cosine</span><span class="p">):</span>
+        <span class="n">cosine</span> <span class="o">=</span> <span class="n">cosine</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;n_range&quot;</span><span class="p">,</span> <span class="s2">&quot;margin_choose_n&quot;</span><span class="p">,</span> <span class="s2">&quot;cos_powers&quot;</span><span class="p">,</span> <span class="s2">&quot;alternating&quot;</span><span class="p">]:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">cosine</span><span class="o">.</span><span class="n">device</span><span class="p">))</span>
+        <span class="n">cos_powered</span> <span class="o">=</span> <span class="n">cosine</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">cos_powers</span>
+        <span class="n">sin_powered</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">cosine</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_range</span>
+        <span class="n">terms</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alternating</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin_choose_n</span> <span class="o">*</span> <span class="n">cos_powered</span> <span class="o">*</span> <span class="n">sin_powered</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">terms</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">get_target_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_mat</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">metric_mat</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">metric_mat</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mask</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">batch_size</span><span class="p">),</span> <span class="n">labels</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">mask</span>
+    
+    <span class="k">def</span> <span class="nf">get_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cosine_of_target_classes</span><span class="p">):</span>
+        <span class="n">angles</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">cosine_of_target_classes</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">angles</span>
+    
+    <span class="k">def</span> <span class="nf">modify_cosine_of_target_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cosine_of_target_classes</span><span class="p">):</span>
+        <span class="n">cos_with_margin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cos_with_margin</span><span class="p">(</span><span class="n">cosine_of_target_classes</span><span class="p">)</span>
+        <span class="n">angles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_angles</span><span class="p">(</span><span class="n">cosine_of_target_classes</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">angles</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">floor</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos_with_margin</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="LargeMarginSoftmaxLoss.compute_loss"><a class="viewcode-back" href="../../../../../losses.html#gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss.compute_loss">[docs]</a>    <span class="k">def</span> <span class="nf">compute_loss</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">metric_mat</span><span class="p">,</span>
+        <span class="n">row_labels</span><span class="p">,</span>
+        <span class="n">col_labels</span><span class="p">,</span>
+        <span class="n">indices_tuple</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_same_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">dtype</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="n">metric_mat</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">metric_mat</span><span class="o">.</span><span class="n">device</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_target_mask</span><span class="p">(</span><span class="n">metric_mat</span><span class="p">,</span> <span class="n">row_labels</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+        <span class="n">cosine_of_target_classes</span> <span class="o">=</span> <span class="n">metric_mat</span><span class="p">[</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">modified_cosine_of_target_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">modify_cosine_of_target_classes</span><span class="p">(</span>
+            <span class="n">cosine_of_target_classes</span> 
+        <span class="p">)</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">modified_cosine_of_target_classes</span> <span class="o">-</span> <span class="n">cosine_of_target_classes</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">metric_mat</span> <span class="o">+</span> <span class="p">(</span><span class="n">mask</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span>
+        <span class="c1"># TODO: lack scaling function</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">cross_entropy</span><span class="p">(</span><span class="n">logits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">row_labels</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">loss</span></div></div>
+    
+
+    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

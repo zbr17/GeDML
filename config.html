@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>config &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="creators" href="creators.html" />
+    <link rel="prev" title="tmux" href="tmux.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">config</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#code-structure">1 Code Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#global-yaml-setting-files">1.1 Global Yaml Setting Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#params-folder">1.2 <code class="docutils literal notranslate"><span class="pre">params</span></code> Folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-folder">1.3 <code class="docutils literal notranslate"><span class="pre">setting</span></code> Folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-setting">2 Custom Setting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#link-yaml-format">2.1 <code class="docutils literal notranslate"><span class="pre">link.yaml</span></code> format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-yaml-format">2.2 <code class="docutils literal notranslate"><span class="pre">convert.yaml</span></code> format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assert-yaml-format">2.3 <strong>assert.yaml</strong> format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#params-format">2.4 <strong>params</strong> format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#demo">3 Demo</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gedml.config">
+<span id="config"></span><h1>config<a class="headerlink" href="#module-gedml.config" title="Permalink to this headline">¶</a></h1>
+<p>This module is designed for storing all the parameters.
+Most of the config data is stored in yaml files. For more information about <cite>yaml</cite>, please refer to <a class="reference external" href="https://yaml.org/">YAML</a>.
+The following sections explain the usage of this module from three aspects:</p>
+<ol class="arabic simple">
+<li><p>code structure</p></li>
+<li><p>custom setting</p></li>
+<li><p>demo</p></li>
+</ol>
+<div class="section" id="code-structure">
+<h2>1 Code Structure<a class="headerlink" href="#code-structure" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/zbr17/GeDML/tree/v1.0.0/src/config/param">param</a></dt><dd><ul>
+<li><p>models</p></li>
+<li><p>losses</p></li>
+<li><p>…</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/zbr17/GeDML/tree/v1.0.0/src/config/setting">setting</a></dt><dd><ul>
+<li><p>core_setting.py</p></li>
+<li><p>launcher_setting.py</p></li>
+<li><p>recorder_setting.py</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><a class="reference external" href="https://github.com/zbr17/GeDML/blob/v1.0.0/src/config/assert.yaml">assert.yaml</a></p></li>
+<li><p><a class="reference external" href="https://github.com/zbr17/GeDML/blob/v1.0.0/src/config/convert.yaml">convert.yaml</a></p></li>
+<li><p><a class="reference external" href="https://github.com/zbr17/GeDML/blob/v1.0.0/src/config/link.yaml">link.yaml</a></p></li>
+</ul>
+<hr class="docutils" />
+<div class="section" id="global-yaml-setting-files">
+<h3>1.1 Global Yaml Setting Files<a class="headerlink" href="#global-yaml-setting-files" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">link.yaml</span></code>. Assemble the module parameters which you need to use. This yaml file has a strict writing format, please refer to <a class="reference internal" href="#config-format"><span class="std std-ref">2 Custom Setting</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">convert.yaml</span></code>. After all the parameters are integrated, we may want to modify some of there parameters. To conveniently modify this parameters, this yaml file define the mapping dict.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assert.yaml</span></code>. <strong>(todo)</strong> Sets the self-check options for intialization, because there are dependencies between algorithm modules. For example, <cite>TripletLoss</cite> can only be used with Euclidean distance. In addition, there is a matching relation between the parameters of different modules. For example, <cite>Resnet50</cite> must be matched with <span class="math notranslate nohighlight">\(feature\_size=2048\)</span>.</p></li>
+</ol>
+</div>
+<div class="section" id="params-folder">
+<h3>1.2 <code class="docutils literal notranslate"><span class="pre">params</span></code> Folder<a class="headerlink" href="#params-folder" title="Permalink to this headline">¶</a></h3>
+<p>Store commonly used parameters include <code class="docutils literal notranslate"><span class="pre">models</span></code>, <code class="docutils literal notranslate"><span class="pre">collectors</span></code>, <code class="docutils literal notranslate"><span class="pre">datasets</span></code>, <code class="docutils literal notranslate"><span class="pre">evaluators</span></code>, <code class="docutils literal notranslate"><span class="pre">gradclipper</span></code>, <code class="docutils literal notranslate"><span class="pre">losses</span></code>, <code class="docutils literal notranslate"><span class="pre">managers</span></code>, … Module <a class="reference external" href="https://github.com/zbr17/GeDML/blob/v1.0.0/src/launcher/creators/config_handler.py">launcher.creators.ConfigHandler</a> will fetch specific parameters from <code class="docutils literal notranslate"><span class="pre">params</span></code> folder according to a <code class="docutils literal notranslate"><span class="pre">link.yaml</span></code> file and merge all the <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> files into a whole <strong>Python Dictionay</strong>.</p>
+</div>
+<div class="section" id="setting-folder">
+<h3>1.3 <code class="docutils literal notranslate"><span class="pre">setting</span></code> Folder<a class="headerlink" href="#setting-folder" title="Permalink to this headline">¶</a></h3>
+<p>There are three <code class="docutils literal notranslate"><span class="pre">.py</span></code> files which define the protocols:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">core_setting.py</span></code>. Define some strings which may be used by <code class="docutils literal notranslate"><span class="pre">core</span></code> module.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">launcher_setting.py</span></code>. Define some strings or mapping function which may be used by <code class="docutils literal notranslate"><span class="pre">launcer</span></code> module and key variables which control the whole framework (e.g. intialization order list)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recorder_setting.py</span></code>. Define some strings which may be used by <code class="docutils literal notranslate"><span class="pre">recorder</span></code> module (if any module wants to add <code class="docutils literal notranslate"><span class="pre">recorder</span></code> property, it must be define according to <code class="docutils literal notranslate"><span class="pre">.py</span></code> file).</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="custom-setting">
+<span id="config-format"></span><h2>2 Custom Setting<a class="headerlink" href="#custom-setting" title="Permalink to this headline">¶</a></h2>
+<p>If you want to add more settings, there are strict formats that you must follow.</p>
+<div class="section" id="link-yaml-format">
+<h3>2.1 <code class="docutils literal notranslate"><span class="pre">link.yaml</span></code> format<a class="headerlink" href="#link-yaml-format" title="Permalink to this headline">¶</a></h3>
+<p><strong>Format</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">module_name1</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">instance_name1</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">config_file_name1.yaml</span>
+  <span class="p p-Indicator">-</span> <span class="nt">instance_name2</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">config_file_name2.yaml</span>
+
+<span class="nt">module_name2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="nn">...</span>
+
+<span class="nt">LINK_SETTING</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">variable_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">module_name</span></code>: This part specifies the parameter files to be merged.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LINK_SETTING</span></code>: Addressed to some methods, <code class="docutils literal notranslate"><span class="pre">LINK_SETTING</span></code> provides convenience for modifying parameters from <code class="docutils literal notranslate"><span class="pre">link\_\*.yaml</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although there is a strict order of intialization which is defined in <a class="reference external" href="https://github.com/zbr17/GeDML/blob/v1.0.0/src/config/setting/launcher_setting.py">config.setting.launcher_setting</a>, the order of modules in <code class="docutils literal notranslate"><span class="pre">link.yaml</span></code> is not required.</p>
+</div>
+</div>
+<div class="section" id="convert-yaml-format">
+<h3>2.2 <code class="docutils literal notranslate"><span class="pre">convert.yaml</span></code> format<a class="headerlink" href="#convert-yaml-format" title="Permalink to this headline">¶</a></h3>
+<p><strong>Format</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">variable_name1</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">module_name1/instance_name1-param_name1</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">module_name2/instance_name2-param_name2</span>
+<span class="nt">variable_name2</span><span class="p">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>This file provides a convenient mapping from a <strong>simple string</strong> to <strong>complex parameters paths</strong>.</p>
+</div>
+<div class="section" id="assert-yaml-format">
+<h3>2.3 <strong>assert.yaml</strong> format<a class="headerlink" href="#assert-yaml-format" title="Permalink to this headline">¶</a></h3>
+<p><strong>(todo)</strong></p>
+</div>
+<div class="section" id="params-format">
+<h3>2.4 <strong>params</strong> format<a class="headerlink" href="#params-format" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because the names of sub-folder in “params” folder strictly corresponds to the names of certain modules, DO NOT modify the names of these folders.</p>
+</div>
+<p><strong>Format</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">classname</span><span class="p">:</span>
+  <span class="n">params</span><span class="p">:</span>
+    <span class="n">param_name1</span><span class="p">:</span> <span class="n">value1</span>
+    <span class="n">param_name2</span><span class="p">:</span> <span class="n">value2</span>
+    <span class="o">...</span>
+  <span class="n">INITIATE</span><span class="p">:</span> <span class="n">initiate_method_name</span>
+</pre></div>
+</div>
+<p>There are two keywords:</p>
+<ul class="simple">
+<li><p><strong>params</strong>: Set all parameters under this keyword.</p></li>
+<li><dl class="simple">
+<dt><strong>INITIATE</strong>: Set special initialization method (default <strong>DO NOTHING</strong>). Each module corresponds to a <strong>creator</strong> initializer which defines “How this module can be initiated”. For example, models’ creator <a class="reference external" href="https://github.com/zbr17/GeDML/blob/v1.0.0/src/launcher/creators/factories/models_creator.py">modelsCreator</a> has defined FOUR initialization methods:</dt><dd><ul>
+<li><p>(default do nothing)</p></li>
+<li><p><strong>delete_last_linear</strong></p></li>
+<li><p><strong>freeze_all</strong></p></li>
+<li><p><strong>freeze_except_last_linear</strong></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>And there are two kinds of parameters:</p>
+<ul class="simple">
+<li><p><strong>Hyperparameters</strong>. These parameters can be defined before training started and the type of them may be <strong>int, float, list, dict, etc</strong>.</p></li>
+<li><dl class="simple">
+<dt><strong>Instances</strong>. These parameters are Python instance which must be created during training. For example, <strong>schedulers</strong> have “optimizer” parameter to be passed. Therefore, three types of “fetching” methods are defined:</dt><dd><ul>
+<li><p><strong>~~_PASS_WITH_OBJECTS_DICT_</strong>. Pass all instances (a dictionary).</p></li>
+<li><p><strong>~~_SEARCH_WITH_SAME_NAME_</strong>. Pass instances with the same name.</p></li>
+<li><p><strong>~~_SEARCH_WITH_TARGET_NAME_</strong>. Pass instances according to the specific target name.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Here are the formats:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">param_name</span><span class="p">:</span>
+  <span class="o">-</span> <span class="o">~~</span><span class="n">_PASS_WITH_OBJECTS_DICT_</span>
+  <span class="o">-</span> <span class="p">(</span><span class="n">none</span><span class="p">)</span>
+  <span class="o">-</span> <span class="p">(</span><span class="n">none</span><span class="p">)</span>
+
+<span class="n">param_name</span><span class="p">:</span>
+  <span class="o">-</span> <span class="o">~~</span><span class="n">_SEARCH_WITH_SAME_NAME_</span>
+  <span class="o">-</span> <span class="n">module_name</span>
+  <span class="o">-</span> <span class="p">(</span><span class="n">none</span><span class="p">)</span>
+
+<span class="n">param_name</span><span class="p">:</span>
+  <span class="o">-</span> <span class="o">~~</span><span class="n">_SEARCH_WITH_TARGET_NAME_</span>
+  <span class="o">-</span> <span class="n">module_name</span>
+  <span class="o">-</span> <span class="n">instance_name</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="demo">
+<h2>3 Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h2>
+<p>Some <strong>demo</strong> configs have been prepared in <a class="reference external" href="https://github.com/zbr17/GeDML/tree/v1.0.0/demo">demo</a>. A <strong>HDML</strong> config demo is displayed below:</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">euclid</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">collectors</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">HDMLCollector</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">selectors</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">DenseTripletSelector</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">losses</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">TripletLoss</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">models</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">trunk</span><span class="p">:</span> <span class="n">googlenet</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder</span><span class="p">:</span> <span class="n">hdml_embedder</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">generator</span><span class="p">:</span> <span class="n">hdml_generator</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder_recon</span><span class="p">:</span> <span class="n">hdml_embedder</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">classifier</span><span class="p">:</span> <span class="n">hdml_classifier</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">evaluators</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">Calculator</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">optimizers</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">trunk</span><span class="p">:</span> <span class="n">RMSprop_trunk</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder</span><span class="p">:</span> <span class="n">RMSprop_embedder</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">generator</span><span class="p">:</span> <span class="n">Adam_hdml_generator</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder_recon</span><span class="p">:</span> <span class="n">RMSprop_embedder</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">classifier</span><span class="p">:</span> <span class="n">Adam_hdml_classifier</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">schedulers</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">trunk</span><span class="p">:</span> <span class="n">on_plateau</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder</span><span class="p">:</span> <span class="n">on_plateau</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">generator</span><span class="p">:</span> <span class="n">on_plateau</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder_recon</span><span class="p">:</span> <span class="n">on_plateau</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">classifier</span><span class="p">:</span> <span class="n">on_plateau</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">gradclipper</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">trunk</span><span class="p">:</span> <span class="n">gradclipper</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder</span><span class="p">:</span> <span class="n">gradclipper</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">generator</span><span class="p">:</span> <span class="n">gradclipper</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">embedder_recon</span><span class="p">:</span> <span class="n">gradclipper</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">classifier</span><span class="p">:</span> <span class="n">gradclipper</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">transforms</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">train</span><span class="p">:</span> <span class="n">train_transforms</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">test</span><span class="p">:</span> <span class="n">eval_transforms</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">datasets</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">train</span><span class="p">:</span> <span class="n">cub200_train</span><span class="o">.</span><span class="n">yaml</span>
+  <span class="o">-</span> <span class="n">test</span><span class="p">:</span> <span class="n">cub200_test</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">collatefns</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">train</span><span class="p">:</span> <span class="n">default</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">recorders</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">base_recorder</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">trainers</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">BaseTrainer</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">testers</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">BaseTester</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">managers</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">default</span><span class="p">:</span> <span class="n">BaseManager</span><span class="o">.</span><span class="n">yaml</span>
+
+<span class="n">LINK_SETTING</span><span class="p">:</span>
+  <span class="n">to_device_list</span><span class="p">:</span> <span class="p">[</span><span class="n">models</span><span class="p">]</span>
+  <span class="n">to_wrap_list</span><span class="p">:</span> <span class="p">[</span><span class="n">models</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="creators.html" class="btn btn-neutral float-right" title="creators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tmux.html" class="btn btn-neutral float-left" title="tmux" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

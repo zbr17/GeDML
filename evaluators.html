@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>evaluators &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="losses" href="losses.html" />
+    <link rel="prev" title="datasets" href="datasets.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">evaluators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class">Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#calculator">Calculator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculatorfrommat">CalculatorFromMat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>evaluators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/evaluators.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gedml.core.evaluators">
+<span id="evaluators"></span><h1>evaluators<a class="headerlink" href="#module-gedml.core.evaluators" title="Permalink to this headline">¶</a></h1>
+<p>This module implements the evaluation indicators, such as F1-score, recall&#64;k, precision&#64;k and etc using faiss-gpu package.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">calculator.py</span></code>: A evaluation manager class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metrics.py</span></code>: All evaluation functions are implemented here.</p></li>
+</ul>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="calculator">
+<h3>Calculator<a class="headerlink" href="#calculator" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.evaluators.calculator.Calculator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.evaluators.calculator.</span></span><span class="sig-name descname"><span class="pre">Calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/evaluators/calculator.html#Calculator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.evaluators.calculator.Calculator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A evaluation manager class. Given <code class="docutils literal notranslate"><span class="pre">query</span></code> and <code class="docutils literal notranslate"><span class="pre">referecne</span></code> vectors, this module will return a evaluation dictionary including all evaluation results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k_list</strong> (<em>list</em>) – K-index list for <code class="docutils literal notranslate"><span class="pre">recall</span> <span class="pre">at</span> <span class="pre">k</span></code> and <code class="docutils literal notranslate"><span class="pre">precision</span> <span class="pre">at</span> <span class="pre">k</span></code>.</p></li>
+<li><p><strong>include</strong> (<em>tuple</em>) – Evaluation functions must be included.</p></li>
+<li><p><strong>exclude</strong> (<em>tuple</em>) – Evaluation functions should be excluded.</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Parameter for knn search.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">k_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_dict</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="n">get_accuracy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.evaluators.calculator.Calculator.get_accuracy">
+<span class="sig-name descname"><span class="pre">get_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeds_same_source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/evaluators/calculator.html#Calculator.get_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.evaluators.calculator.Calculator.get_accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute all evaluation indicators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>np.ndarray</em>) – Samples to be tested (or without labels). size: <span class="math notranslate nohighlight">\(B_1 \times dim\)</span>.</p></li>
+<li><p><strong>reference</strong> (<em>np.ndarray</em>) – Samples working as reference. size: <span class="math notranslate nohighlight">\(B_2 \times dim\)</span>.</p></li>
+<li><p><strong>query_labels</strong> (<em>np.ndarray</em>) – Queris’ labels. size: <span class="math notranslate nohighlight">\(B_1\)</span>.</p></li>
+<li><p><strong>reference_labels</strong> (<em>np.ndarray</em>) – References’ labels. size: <span class="math notranslate nohighlight">\(B_2\)</span>.</p></li>
+<li><p><strong>embeds_same_source</strong> (<em>bool</em>) – Whether <code class="docutils literal notranslate"><span class="pre">query</span></code> and <code class="docutils literal notranslate"><span class="pre">reference</span></code> data are from the same source.</p></li>
+<li><p><strong>include</strong> (<em>tuple</em>) – Evaluation functions to include.</p></li>
+<li><p><strong>exclude</strong> (<em>tuple</em>) – Evaluation functions to exclude.</p></li>
+<li><p><strong>device_ids</strong> (<em>list</em>) – Device indices to call by Faiss package. default: None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary which contains all results.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="calculatorfrommat">
+<h3>CalculatorFromMat<a class="headerlink" href="#calculatorfrommat" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.evaluators.calculator_mat.CalculatorFromMat">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.evaluators.calculator_mat.</span></span><span class="sig-name descname"><span class="pre">CalculatorFromMat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/evaluators/calculator_mat.html#CalculatorFromMat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.evaluators.calculator_mat.CalculatorFromMat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A evaluation manager class. Given <code class="docutils literal notranslate"><span class="pre">query</span></code> and <code class="docutils literal notranslate"><span class="pre">referecne</span></code> vectors, this module will return a evaluation dictionary including all evaluation results (Given metric matrix)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k_list</strong> (<em>list</em>) – K-index list for <code class="docutils literal notranslate"><span class="pre">recall</span> <span class="pre">at</span> <span class="pre">k</span></code> and <code class="docutils literal notranslate"><span class="pre">precision</span> <span class="pre">at</span> <span class="pre">k</span></code>.</p></li>
+<li><p><strong>include</strong> (<em>tuple</em>) – Evaluation functions must be included.</p></li>
+<li><p><strong>exclude</strong> (<em>tuple</em>) – Evaluation functions should be excluded.</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Parameter for knn search.</p></li>
+<li><p><strong>is_min</strong> (<em>bool</em>) – Whether to choose the min (or max) value as the “nearest” sample.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span> <span class="o">=</span> <span class="n">CalculatorFromMat</span><span class="p">(</span><span class="n">k_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_dict</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="n">get_accuracy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.evaluators.calculator_mat.CalculatorFromMat.get_accuracy">
+<span class="sig-name descname"><span class="pre">get_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeds_same_source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/evaluators/calculator_mat.html#CalculatorFromMat.get_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.evaluators.calculator_mat.CalculatorFromMat.get_accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute all evaluation indicators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>np.ndarray</em>) – Distance matrix to be tested. size: <span class="math notranslate nohighlight">\(B_1 \times B_2\)</span>.</p></li>
+<li><p><strong>query_labels</strong> (<em>np.ndarray</em>) – Queris’ labels. size: <span class="math notranslate nohighlight">\(B_1\)</span>.</p></li>
+<li><p><strong>reference_labels</strong> (<em>np.ndarray</em>) – References’ labels. size: <span class="math notranslate nohighlight">\(B_2\)</span>.</p></li>
+<li><p><strong>embeds_same_source</strong> (<em>bool</em>) – Whether <code class="docutils literal notranslate"><span class="pre">query</span></code> and <code class="docutils literal notranslate"><span class="pre">reference</span></code> data are from the same source.</p></li>
+<li><p><strong>include</strong> (<em>tuple</em>) – Evaluation functions to include.</p></li>
+<li><p><strong>exclude</strong> (<em>tuple</em>) – Evaluation functions to exclude.</p></li>
+<li><p><strong>device_ids</strong> (<em>list</em>) – Device indices to call by Faiss package. default: None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary which contains all results.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="losses.html" class="btn btn-neutral float-right" title="losses" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="datasets.html" class="btn btn-neutral float-left" title="datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

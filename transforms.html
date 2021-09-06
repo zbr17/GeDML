@@ -1,0 +1,690 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>transforms &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tmux" href="tmux.html" />
+    <link rel="prev" title="selectors" href="selectors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">selectors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">transforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class">Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#converttobgr">ConvertToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiplier">Multiplier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#twocropstransformwrapper">TwoCropsTransformWrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defaulttransformwrapper">DefaultTransformWrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resize">Resize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#randomhorizontalflip">RandomHorizontalFlip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#randomresizedcrop">RandomResizedCrop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#randomgrayscale">RandomGrayscale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#colorjitter">ColorJitter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#centercrop">CenterCrop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#totensor">ToTensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#normalize">Normalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compose">Compose</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>transforms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/transforms.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gedml.core.transforms">
+<span id="transforms"></span><h1>transforms<a class="headerlink" href="#module-gedml.core.transforms" title="Permalink to this headline">¶</a></h1>
+<p>There are two kinds of <code class="docutils literal notranslate"><span class="pre">transforms</span></code>:</p>
+<ol class="arabic simple">
+<li><p><strong>augumentation method</strong>. Define how an image is augumented.</p></li>
+<li><p><strong>wrapping method</strong>. Define how to combine multi streams.</p></li>
+</ol>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="converttobgr">
+<h3>ConvertToBGR<a class="headerlink" href="#converttobgr" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.transforms.img_transforms.ConvertToBGR">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.transforms.img_transforms.</span></span><span class="sig-name descname"><span class="pre">ConvertToBGR</span></span><a class="reference internal" href="_modules/gedml/core/transforms/img_transforms.html#ConvertToBGR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.transforms.img_transforms.ConvertToBGR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Converts a PIL image from RGB to BGR.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="multiplier">
+<h3>Multiplier<a class="headerlink" href="#multiplier" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.transforms.img_transforms.Multiplier">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.transforms.img_transforms.</span></span><span class="sig-name descname"><span class="pre">Multiplier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/transforms/img_transforms.html#Multiplier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.transforms.img_transforms.Multiplier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Multiply the pixel value by a constant.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="twocropstransformwrapper">
+<h3>TwoCropsTransformWrapper<a class="headerlink" href="#twocropstransformwrapper" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.transforms.wrapper_transforms.TwoCropsTransformWrapper">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.transforms.wrapper_transforms.</span></span><span class="sig-name descname"><span class="pre">TwoCropsTransformWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_transform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/transforms/wrapper_transforms.html#TwoCropsTransformWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.transforms.wrapper_transforms.TwoCropsTransformWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Take two random crops of one image as the query and key.
+modified from: <a class="reference external" href="https://github.com/facebookresearch/moco">https://github.com/facebookresearch/moco</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="defaulttransformwrapper">
+<h3>DefaultTransformWrapper<a class="headerlink" href="#defaulttransformwrapper" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.transforms.wrapper_transforms.DefaultTransformWrapper">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.transforms.wrapper_transforms.</span></span><span class="sig-name descname"><span class="pre">DefaultTransformWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_transform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/transforms/wrapper_transforms.html#DefaultTransformWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.transforms.wrapper_transforms.DefaultTransformWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Default wrapper.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="resize">
+<h3>Resize<a class="headerlink" href="#resize" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.Resize">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">Resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#Resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.Resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Resize the input image to the given size.
+The image can be a PIL Image or a torch Tensor, in which case it is expected
+to have […, H, W] shape, where … means an arbitrary number of leading dimensions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>sequence</em><em> or </em><em>int</em>) – Desired output size. If size is a sequence like
+(h, w), output size will be matched to this. If size is an int,
+smaller edge of the image will be matched to this number.
+i.e, if height &gt; width, then image will be rescaled to
+(size * height / width, size).
+In torchscript mode padding as single int is not supported, use a tuple or
+list of length 1: <code class="docutils literal notranslate"><span class="pre">[size,</span> <span class="pre">]</span></code>.</p></li>
+<li><p><strong>interpolation</strong> (<em>int</em><em>, </em><em>optional</em>) – Desired interpolation enum defined by <a href="#id1"><span class="problematic" id="id2">`filters`_</span></a>.
+Default is <code class="docutils literal notranslate"><span class="pre">PIL.Image.BILINEAR</span></code>. If input is Tensor, only <code class="docutils literal notranslate"><span class="pre">PIL.Image.NEAREST</span></code>, <code class="docutils literal notranslate"><span class="pre">PIL.Image.BILINEAR</span></code>
+and <code class="docutils literal notranslate"><span class="pre">PIL.Image.BICUBIC</span></code> are supported.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.Resize.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#Resize.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.Resize.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Image to be scaled.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rescaled image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="randomhorizontalflip">
+<h3>RandomHorizontalFlip<a class="headerlink" href="#randomhorizontalflip" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.RandomHorizontalFlip">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">RandomHorizontalFlip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#RandomHorizontalFlip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.RandomHorizontalFlip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Horizontally flip the given image randomly with a given probability.
+The image can be a PIL Image or a torch Tensor, in which case it is expected
+to have […, H, W] shape, where … means an arbitrary number of leading
+dimensions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> (<em>float</em>) – probability of the image being flipped. Default value is 0.5</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.RandomHorizontalFlip.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#RandomHorizontalFlip.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.RandomHorizontalFlip.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Image to be flipped.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Randomly flipped image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="randomresizedcrop">
+<h3>RandomResizedCrop<a class="headerlink" href="#randomresizedcrop" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.RandomResizedCrop">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">RandomResizedCrop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.08,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.75,</span> <span class="pre">1.3333333333333333)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#RandomResizedCrop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.RandomResizedCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Crop the given image to random size and aspect ratio.
+The image can be a PIL Image or a Tensor, in which case it is expected
+to have […, H, W] shape, where … means an arbitrary number of leading dimensions</p>
+<p>A crop of random size (default: of 0.08 to 1.0) of the original size and a random
+aspect ratio (default: of 3/4 to 4/3) of the original aspect ratio is made. This crop
+is finally resized to given size.
+This is popularly used to train the Inception networks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em><em> or </em><em>sequence</em>) – expected output size of each edge. If size is an
+int instead of sequence like (h, w), a square output size <code class="docutils literal notranslate"><span class="pre">(size,</span> <span class="pre">size)</span></code> is
+made. If provided a tuple or list of length 1, it will be interpreted as (size[0], size[0]).</p></li>
+<li><p><strong>scale</strong> (<em>tuple of float</em>) – range of size of the origin size cropped</p></li>
+<li><p><strong>ratio</strong> (<em>tuple of float</em>) – range of aspect ratio of the origin aspect ratio cropped.</p></li>
+<li><p><strong>interpolation</strong> (<em>int</em>) – Desired interpolation enum defined by <a href="#id3"><span class="problematic" id="id4">`filters`_</span></a>.
+Default is <code class="docutils literal notranslate"><span class="pre">PIL.Image.BILINEAR</span></code>. If input is Tensor, only <code class="docutils literal notranslate"><span class="pre">PIL.Image.NEAREST</span></code>, <code class="docutils literal notranslate"><span class="pre">PIL.Image.BILINEAR</span></code>
+and <code class="docutils literal notranslate"><span class="pre">PIL.Image.BICUBIC</span></code> are supported.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.RandomResizedCrop.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#RandomResizedCrop.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.RandomResizedCrop.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Image to be cropped and resized.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Randomly cropped and resized image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.RandomResizedCrop.get_params">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#RandomResizedCrop.get_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.RandomResizedCrop.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for <code class="docutils literal notranslate"><span class="pre">crop</span></code> for a random sized crop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Input image.</p></li>
+<li><p><strong>scale</strong> (<em>list</em>) – range of scale of the origin size cropped</p></li>
+<li><p><strong>ratio</strong> (<em>list</em>) – range of aspect ratio of the origin aspect ratio cropped</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>params (i, j, h, w) to be passed to <code class="docutils literal notranslate"><span class="pre">crop</span></code> for a random</dt><dd><p>sized crop.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="randomgrayscale">
+<h3>RandomGrayscale<a class="headerlink" href="#randomgrayscale" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.RandomGrayscale">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">RandomGrayscale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#RandomGrayscale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.RandomGrayscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Randomly convert image to grayscale with a probability of p (default 0.1).
+The image can be a PIL Image or a Tensor, in which case it is expected
+to have […, 3, H, W] shape, where … means an arbitrary number of leading
+dimensions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> (<em>float</em>) – probability that image should be converted to grayscale.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Grayscale version of the input image with probability p and unchanged
+with probability (1-p).
+- If input image is 1 channel: grayscale version is 1 channel
+- If input image is 3 channel: grayscale version is 3 channel with r == g == b</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.RandomGrayscale.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#RandomGrayscale.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.RandomGrayscale.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Image to be converted to grayscale.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Randomly grayscaled image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="colorjitter">
+<h3>ColorJitter<a class="headerlink" href="#colorjitter" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.ColorJitter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">ColorJitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brightness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saturation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#ColorJitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.ColorJitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Randomly change the brightness, contrast and saturation of an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brightness</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter brightness.
+brightness_factor is chosen uniformly from [max(0, 1 - brightness), 1 + brightness]
+or the given [min, max]. Should be non negative numbers.</p></li>
+<li><p><strong>contrast</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter contrast.
+contrast_factor is chosen uniformly from [max(0, 1 - contrast), 1 + contrast]
+or the given [min, max]. Should be non negative numbers.</p></li>
+<li><p><strong>saturation</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter saturation.
+saturation_factor is chosen uniformly from [max(0, 1 - saturation), 1 + saturation]
+or the given [min, max]. Should be non negative numbers.</p></li>
+<li><p><strong>hue</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter hue.
+hue_factor is chosen uniformly from [-hue, hue] or the given [min, max].
+Should have 0&lt;= hue &lt;= 0.5 or -0.5 &lt;= min &lt;= max &lt;= 0.5.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.ColorJitter.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#ColorJitter.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.ColorJitter.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Input image.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Color jittered image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.ColorJitter.get_params">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brightness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saturation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#ColorJitter.get_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.ColorJitter.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a randomized transform to be applied on image.</p>
+<p>Arguments are same as that of __init__.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Transform which randomly adjusts brightness, contrast and
+saturation in a random order.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="centercrop">
+<h3>CenterCrop<a class="headerlink" href="#centercrop" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.CenterCrop">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">CenterCrop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#CenterCrop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.CenterCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Crops the given image at the center.
+The image can be a PIL Image or a torch Tensor, in which case it is expected
+to have […, H, W] shape, where … means an arbitrary number of leading dimensions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<em>sequence</em><em> or </em><em>int</em>) – Desired output size of the crop. If size is an
+int instead of sequence like (h, w), a square crop (size, size) is
+made. If provided a tuple or list of length 1, it will be interpreted as (size[0], size[0]).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.CenterCrop.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#CenterCrop.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.CenterCrop.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Image to be cropped.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cropped image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="totensor">
+<h3>ToTensor<a class="headerlink" href="#totensor" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.ToTensor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">ToTensor</span></span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#ToTensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.ToTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Convert a <code class="docutils literal notranslate"><span class="pre">PIL</span> <span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> to tensor. This transform does not support torchscript.</p>
+<p>Converts a PIL Image or numpy.ndarray (H x W x C) in the range
+[0, 255] to a torch.FloatTensor of shape (C x H x W) in the range [0.0, 1.0]
+if the PIL Image belongs to one of the modes (L, LA, P, I, F, RGB, YCbCr, RGBA, CMYK, 1)
+or if the numpy.ndarray has dtype = np.uint8</p>
+<p>In the other cases, tensors are returned without scaling.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because the input image is scaled to [0.0, 1.0], this transformation should not be used when
+transforming target image masks. See the <a class="reference external" href="https://github.com/pytorch/vision/tree/master/references/segmentation">references</a> for implementing the transforms for image masks.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="normalize">
+<h3>Normalize<a class="headerlink" href="#normalize" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.Normalize">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">Normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#Normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.Normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Normalize a tensor image with mean and standard deviation.
+Given mean: <code class="docutils literal notranslate"><span class="pre">(mean[1],...,mean[n])</span></code> and std: <code class="docutils literal notranslate"><span class="pre">(std[1],..,std[n])</span></code> for <code class="docutils literal notranslate"><span class="pre">n</span></code>
+channels, this transform will normalize each channel of the input
+<code class="docutils literal notranslate"><span class="pre">torch.*Tensor</span></code> i.e.,
+<code class="docutils literal notranslate"><span class="pre">output[channel]</span> <span class="pre">=</span> <span class="pre">(input[channel]</span> <span class="pre">-</span> <span class="pre">mean[channel])</span> <span class="pre">/</span> <span class="pre">std[channel]</span></code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This transform acts out of place, i.e., it does not mutate the input tensor.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean</strong> (<em>sequence</em>) – Sequence of means for each channel.</p></li>
+<li><p><strong>std</strong> (<em>sequence</em>) – Sequence of standard deviations for each channel.</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em><em>,</em><em>optional</em>) – Bool to make this operation in-place.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.Normalize.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#Normalize.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.Normalize.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tensor</strong> (<em>Tensor</em>) – Tensor image to be normalized.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Normalized Tensor image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="compose">
+<h3>Compose<a class="headerlink" href="#compose" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchvision.transforms.transforms.Compose">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">torchvision.transforms.transforms.</span></span><span class="sig-name descname"><span class="pre">Compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transforms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchvision/transforms/transforms.html#Compose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchvision.transforms.transforms.Compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Composes several transforms together. This transform does not support torchscript.
+Please, see the note below.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transforms</strong> (list of <code class="docutils literal notranslate"><span class="pre">Transform</span></code> objects) – list of transforms to compose.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to script the transformations, please use <code class="docutils literal notranslate"><span class="pre">torch.nn.Sequential</span></code> as below.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transforms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">)),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scripted_transforms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">transforms</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Make sure to use only scriptable transformations, i.e. that work with <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code>, does not require
+<cite>lambda</cite> functions or <code class="docutils literal notranslate"><span class="pre">PIL.Image</span></code>.</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="tmux.html" class="btn btn-neutral float-right" title="tmux" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="selectors.html" class="btn btn-neutral float-left" title="selectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>recorder &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="trainers" href="trainers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">recorder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class">Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#baserecorder">BaseRecorder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>recorder</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/recorder.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gedml.recorder">
+<span id="recorder"></span><h1>recorder<a class="headerlink" href="#module-gedml.recorder" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Recorder</span></code> can record statistics in any module as long as the module follows specific protocol.</p>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="baserecorder">
+<h3>BaseRecorder<a class="headerlink" href="#baserecorder" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.recorder.base_recorder.BaseRecorder">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.recorder.base_recorder.</span></span><span class="sig-name descname"><span class="pre">BaseRecorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'main'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint_if_exist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_old_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_resume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_wandb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initiate_create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/recorder/base_recorder.html#BaseRecorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.recorder.base_recorder.BaseRecorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Recorder can search and save two forms of information:</p>
+<ol class="arabic simple">
+<li><p>Attributions of module. If the module is inherited from <code class="docutils literal notranslate"><span class="pre">WithRecorder</span></code> or the module maintain a <strong>to-record</strong> list named ‘to_record_list’.</p></li>
+<li><p>Dictionary with specific format:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">table_name</span><span class="p">:</span>
+        <span class="n">item_name</span><span class="p">:</span>
+            <span class="n">value</span>
+            <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>str</em>) – Path where to save the statistics and checkpoint.</p></li>
+<li><p><strong>hint_if_exist</strong> (<em>bool</em>) – Whether to hint if the folder is existed (in case that user delete the folder by mistake)</p></li>
+<li><p><strong>delete_old_folder</strong> (<em>bool</em>) – Whether to delete the old folder if the folder is existed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.recorder.base_recorder.BaseRecorder.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/recorder/base_recorder.html#BaseRecorder.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.recorder.base_recorder.BaseRecorder.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the information from a module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em><em> or </em><em>obj</em>) – Dictionary of obj with <strong>TO_RECORD_LIST</strong> attribute.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Specific name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>(dict, int)</p>
+<ol class="arabic simple">
+<li><p>output_dict (dict): information dictionary to be saved.</p></li>
+<li><p>step (int): step counted by <code class="docutils literal notranslate"><span class="pre">recorder</span></code>.</p></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.recorder.base_recorder.BaseRecorder.load_models">
+<span class="sig-name descname"><span class="pre">load_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/recorder/base_recorder.html#BaseRecorder.load_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.recorder.base_recorder.BaseRecorder.load_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>module</em>) – Modules with <strong>TO_SAVE_LIST</strong>.</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – Step (or epoch).</p></li>
+<li><p><strong>device</strong> (<em>device</em>) – The computing device to load.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.recorder.base_recorder.BaseRecorder.save_models">
+<span class="sig-name descname"><span class="pre">save_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/recorder/base_recorder.html#BaseRecorder.save_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.recorder.base_recorder.BaseRecorder.save_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>module</em>) – Modules with <strong>TO_SAVE_LIST</strong>.</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – Step (or epoch)</p></li>
+<li><p><strong>best</strong> (<em>bool</em>) – Whether to be the best checkpoint.</p></li>
+<li><p><strong>delete_old</strong> (<em>bool</em>) – Whether to delete the old checkpoint.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.recorder.base_recorder.BaseRecorder.search_best_epoch">
+<span class="sig-name descname"><span class="pre">search_best_epoch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primary_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/recorder/base_recorder.html#BaseRecorder.search_best_epoch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.recorder.base_recorder.BaseRecorder.search_best_epoch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search best epoch according given evaluation indicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The csv file.</p></li>
+<li><p><strong>primary_key</strong> (<em>str</em>) – The primary_key to be searched.</p></li>
+<li><p><strong>maximum</strong> (<em>bool</em>) – Whether to regard the maximum to be the best.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(best step, best metric)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.recorder.base_recorder.BaseRecorder.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/recorder/base_recorder.html#BaseRecorder.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.recorder.base_recorder.BaseRecorder.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – Dictionary to be recorded.</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – Step (optional).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="trainers.html" class="btn btn-neutral float-left" title="trainers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

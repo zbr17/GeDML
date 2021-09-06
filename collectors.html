@@ -1,0 +1,690 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>collectors &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="datasets" href="datasets.html" />
+    <link rel="prev" title="Welcome to GeDML’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">collectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class">Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#defaultcollector">DefaultCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proxycollector">ProxyCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mococollector">MoCoCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simsiamcollector">SimSiamCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hdmlcollector">HDMLCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#damlcollector">DAMLCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dvmlcollector">DVMLCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#globalproxycollector">GlobalProxyCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defaultglobalcollector">_DefaultGlobalCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basecollector">BaseCollector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>collectors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/collectors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gedml.core.collectors">
+<span id="collectors"></span><h1>collectors<a class="headerlink" href="#module-gedml.core.collectors" title="Permalink to this headline">¶</a></h1>
+<p>Collectors have two main functions: synthesizing (or collecting) samples and compute metric matrix (which will be passed to selectors and losses).</p>
+<p>All methods are listed below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>method</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BaseCollector</p></td>
+<td><p>Base class.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DefaultCollector</p></td>
+<td><p>Do nothing.</p></td>
+</tr>
+<tr class="row-even"><td><p>ProxyCollector</p></td>
+<td><p>Maintain a set of proxies</p></td>
+</tr>
+<tr class="row-odd"><td><p>MoCoCollector</p></td>
+<td><p>paper: <strong>Momentum Contrast for Unsupervised Visual Representation Learning</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>SimSiamCollector</p></td>
+<td><p>paper: <strong>Exploring Simple Siamese Representation Learning</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>HDMLCollector</p></td>
+<td><p>paper: <strong>Hardness-Aware Deep Metric Learning</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>DAMLCollector</p></td>
+<td><p>paper: <strong>Deep Adversarial Metric Learning</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>DVMLCollector</p></td>
+<td><p>paper: <strong>Deep Variational Metric Learning</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">embedders</span></code> have significent difference with <code class="docutils literal notranslate"><span class="pre">collectors</span></code>. <code class="docutils literal notranslate"><span class="pre">embedders</span></code> also take charge of generating embeddings which will be used to compute metrics.</p>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="defaultcollector">
+<h3>DefaultCollector<a class="headerlink" href="#defaultcollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.default_collector.DefaultCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.iteration_collectors.default_collector.</span></span><span class="sig-name descname"><span class="pre">DefaultCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/default_collector.html#DefaultCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.default_collector.DefaultCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.base_collector.BaseCollector" title="gedml.core.collectors.base_collector.BaseCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.base_collector.BaseCollector</span></code></a></p>
+<p>This is the default collector which directly computes metric matrix using embeddings.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.default_collector.DefaultCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/default_collector.html#DefaultCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.default_collector.DefaultCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do nothing. Copy embeddings as proxies and copy labels as proxies labels.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="proxycollector">
+<h3>ProxyCollector<a class="headerlink" href="#proxycollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.iteration_collectors.proxy_collector.</span></span><span class="sig-name descname"><span class="pre">ProxyCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centers_per_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularize_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'softtriple'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularize_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/proxy_collector.html#ProxyCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.base_collector.BaseCollector" title="gedml.core.collectors.base_collector.BaseCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.base_collector.BaseCollector</span></code></a></p>
+<p>Maintain proxy parameters to support proxy-based metric learning methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_classes</strong> (<em>int</em>) – Number of classes. default: 100.</p></li>
+<li><p><strong>embeddings_dim</strong> (<em>int</em>) – Dimension of embeddings. default: 128.</p></li>
+<li><p><strong>centers_per_class</strong> (<em>int</em>) – Number of centers per class. default: 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/proxy_collector.html#ProxyCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute similarity (or distance) matrix between embeddings and proxies.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector.initiate_params">
+<span class="sig-name descname"><span class="pre">initiate_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/proxy_collector.html#ProxyCollector.initiate_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector.initiate_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate proxies.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="mococollector">
+<h3>MoCoCollector<a class="headerlink" href="#mococollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.iteration_collectors.moco_collector.</span></span><span class="sig-name descname"><span class="pre">MoCoCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_trunk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_embedder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bank_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">65536</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.07</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/moco_collector.html#MoCoCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.base_collector.BaseCollector" title="gedml.core.collectors.base_collector.BaseCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.base_collector.BaseCollector</span></code></a></p>
+<p>Paper: <a class="reference external" href="https://openaccess.thecvf.com/content_CVPR_2020/html/He_Momentum_Contrast_for_Unsupervised_Visual_Representation_Learning_CVPR_2020_paper.html">Momentum Contrast for Unsupervised Visual Representation Learning</a></p>
+<p>Use Momentum Contrast (MoCo) for unsupervised visual representation learning. This code is modified from: <a class="reference external" href="https://github.com/facebookresearch/moco">https://github.com/facebookresearch/moco</a>. In this paper, a dynamic dictionary with a queue and a moving-averaged encoder are built.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_trunk</strong> (<em>torch.nn.Module</em>) – default: ResNet50</p></li>
+<li><p><strong>query_embedder</strong> (<em>torch.nn.Module</em>) – multi-layer perceptron</p></li>
+<li><p><strong>embeddings_dim</strong> (<em>int</em>) – dimension of embeddings. default: 128</p></li>
+<li><p><strong>bank_size</strong> (<em>int</em>) – size of the memory bank. default: 65536</p></li>
+<li><p><strong>m</strong> (<em>float</em>) – weight of moving-average. default: 0.999</p></li>
+<li><p><strong>T</strong> (<em>float</em>) – coefficient of softmax</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/moco_collector.html#MoCoCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maintain a large memory bank to boost unsupervised learning performance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>torch.Tensor</em>) – A batch of key images. size: <span class="math notranslate nohighlight">\(B \times C \times H \times W\)</span></p></li>
+<li><p><strong>embeddings</strong> (<em>torch.Tensor</em>) – A batch of query embeddings. size: <span class="math notranslate nohighlight">\(B \times dim\)</span></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector.initiate_params">
+<span class="sig-name descname"><span class="pre">initiate_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/moco_collector.html#MoCoCollector.initiate_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector.initiate_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel the gradient of key_trunk and key_embedder</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/moco_collector.html#MoCoCollector.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.moco_collector.MoCoCollector.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update key encoder using moving-average.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="simsiamcollector">
+<h3>SimSiamCollector<a class="headerlink" href="#simsiamcollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.simsiam_collector.SimSiamCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.iteration_collectors.simsiam_collector.</span></span><span class="sig-name descname"><span class="pre">SimSiamCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/simsiam_collector.html#SimSiamCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.simsiam_collector.SimSiamCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.base_collector.BaseCollector" title="gedml.core.collectors.base_collector.BaseCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.base_collector.BaseCollector</span></code></a></p>
+<p>Paper: <a class="reference external" href="https://arxiv.org/abs/2011.10566">Exploring Simple Siamese Representation Learning</a></p>
+<p>This method use none of the following to learn meaningful representations:</p>
+<ol class="arabic simple">
+<li><p>negative sample pairs;</p></li>
+<li><p>large batches;</p></li>
+<li><p>momentum encoders.</p></li>
+</ol>
+<p>And a stop-gradient operation plays an essential role in preventing collapsing.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.simsiam_collector.SimSiamCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/simsiam_collector.html#SimSiamCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.simsiam_collector.SimSiamCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>For simplicity, two data streams will be combined together and be passed through <code class="docutils literal notranslate"><span class="pre">embeddings</span></code> parameter. In function <code class="docutils literal notranslate"><span class="pre">collect</span></code>, two data streams will be split (first half for first stream; second half for second stream).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>torch.Tensor</em>) – A batch of key images (<strong>not used</strong>). size: <span class="math notranslate nohighlight">\(B \times C \times H \times W\)</span></p></li>
+<li><p><strong>embeddings</strong> (<em>torch.Tensor</em>) – A batch of query embeddings. size: <span class="math notranslate nohighlight">\(2B \times dim\)</span></p></li>
+<li><p><strong>labels</strong> (<em>torch.Tensor</em>) – Labels of the input. size: <span class="math notranslate nohighlight">\(2B \times 1\)</span></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="hdmlcollector">
+<h3>HDMLCollector<a class="headerlink" href="#hdmlcollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.hdml_collector.HDMLCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.iteration_collectors.hdml_collector.</span></span><span class="sig-name descname"><span class="pre">HDMLCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">90.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coef_lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_plus_scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'positive_distance'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_plus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/hdml_collector.html#HDMLCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.hdml_collector.HDMLCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.base_collector.BaseCollector" title="gedml.core.collectors.base_collector.BaseCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.base_collector.BaseCollector</span></code></a></p>
+<p>Use variational autoencoder to decompose intra-class invariance and intra-class variance.</p>
+<p>Paper: <a class="reference external" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Zheng_Hardness-Aware_Deep_Metric_Learning_CVPR_2019_paper.html">Hardness-Aware Deep Metric Learning</a></p>
+<p>Four types of loss:
+(loss_avg = loss_m,
+loss_gen = loss_recon + loss_soft)</p>
+<ol class="arabic simple">
+<li><p>loss_recon</p></li>
+<li><p>loss_soft</p></li>
+<li><p>loss_syn</p></li>
+<li><p>loss_m</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>generator</strong> (<em>torch.nn.Module</em>) – multi-layer perceptron</p></li>
+<li><p><strong>embedder</strong> (<em>torch.nn.Module</em>) – multi-layer perceptron</p></li>
+<li><p><strong>classifier</strong> (<em>torch.nn.Module</em>) – multi-layer perceptrons</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – 90.0 (NPairLoss) or 7.0 (TripletLoss)</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – 1.0e4</p></li>
+<li><p><strong>coef_lambda</strong> (<em>float</em>) – 0.5</p></li>
+<li><p><strong>soft_weight</strong> (<em>float</em>) – 1.0e4</p></li>
+<li><p><strong>d_plus_scheme</strong> (<em>str</em>) – default: <code class="docutils literal notranslate"><span class="pre">positive_distance</span></code></p></li>
+<li><p><strong>d_plus</strong> (<em>float</em>) – Constant or positive pair distance. default: 0.5</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.hdml_collector.HDMLCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/hdml_collector.html#HDMLCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.hdml_collector.HDMLCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define four kinds of losses.</p>
+<p><span class="math notranslate nohighlight">\(loss_{total} = w_{recon} \times loss_{recon} + w_{soft} \times loss_{soft} + w_m \times loss_m + w_{syn} \times loss_{syn}\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{recon} = mean(|f_{pos} - f_{pos-recon}|^2_2)\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{soft} = CrossEntropy(Prob_{recon}, Labels_{recon})\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_m = loss_{metric}(matrix_{m})\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_syn = loss_{metric}(matrix_{syn})\)</span></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.hdml_collector.HDMLCollector.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/hdml_collector.html#HDMLCollector.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.hdml_collector.HDMLCollector.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>In HDML paper, an adaptive weighting method is proposed. Therefore, before each epoch <code class="docutils literal notranslate"><span class="pre">loss_avg</span></code> and <code class="docutils literal notranslate"><span class="pre">loss_gen</span></code> must be updated from outside <code class="docutils literal notranslate"><span class="pre">trainer</span></code></p>
+<p><span class="math notranslate nohighlight">\(loss_{avg} = loss_m\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{gen} = loss_{recon} + loss_{soft}\)</span></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="damlcollector">
+<h3>DAMLCollector<a class="headerlink" href="#damlcollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.daml_collector.DAMLCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.iteration_collectors.daml_collector.</span></span><span class="sig-name descname"><span class="pre">DAMLCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/daml_collector.html#DAMLCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.daml_collector.DAMLCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.base_collector.BaseCollector" title="gedml.core.collectors.base_collector.BaseCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.base_collector.BaseCollector</span></code></a></p>
+<p>NOTE: only support Triplet-Loss.</p>
+<p>Paper: <a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2018/html/Duan_Deep_Adversarial_Metric_CVPR_2018_paper.html">Deep Adversarial Metric Learning</a></p>
+<p>Training steps:</p>
+<ol class="arabic simple">
+<li><p>pretrain the deep metric learning model without the hard negative generator;</p></li>
+<li><p>initialize the generator adversarial to the pre-trained metric;</p></li>
+<li><p>jointly optimize both networks during each iteration end-to-end</p></li>
+</ol>
+<p>Three losses for hard negative generation:</p>
+<ol class="arabic simple">
+<li><p>the synthetic samples should be close to the anchor in the original feature space;</p></li>
+<li><p>the synthetic samples should perserve the annotation information;</p></li>
+<li><p>the synthetic samples should be misclassified by the learned metric</p></li>
+</ol>
+<p>Default backbone structure:</p>
+<ol class="arabic simple">
+<li><p>trunk: <code class="docutils literal notranslate"><span class="pre">GoogLeNet</span></code></p></li>
+<li><p>embedder: one-layer perceptron</p></li>
+<li><p>generator: three-layer perceptron</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embedder</strong> (<em>torch.nn.Module</em>) – embedder model (default: one-layer perceptron)</p></li>
+<li><p><strong>generator</strong> (<em>torch.nn.Module</em>) – generator model (default: three-layer perceptron)</p></li>
+<li><p><strong>lambda_0</strong> (<em>int</em>) – default: 1</p></li>
+<li><p><strong>lambda_1</strong> (<em>int</em>) – default: 1</p></li>
+<li><p><strong>lambda_2</strong> (<em>int</em>) – default: 50</p></li>
+<li><p><strong>alpha</strong> (<em>int</em>) – default: 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.daml_collector.DAMLCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/daml_collector.html#DAMLCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.daml_collector.DAMLCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>There are four losses to be computed in <code class="docutils literal notranslate"><span class="pre">collect</span></code> function (All losses will be computed in this function, i.e. NOT pass to <code class="docutils literal notranslate"><span class="pre">selectors</span></code> or <code class="docutils literal notranslate"><span class="pre">losses</span></code> modules)</p>
+<p><span class="math notranslate nohighlight">\(loss_{total} = \lambda_0 \times loss_m + \lambda_1 \times loss_{reg} + \lambda_2 \times loss_{adv} + loss_{hard}\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_m = mean(ReLU(D_{ap emb} - D_{an emb} - \alpha))\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{adv} = mean(ReLU(D_{an feat} - D_{ap feat} - \alpha))\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{reg} = mean(|f_{syn} - f_{neg}|^2_2)\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{hard} = mean(|f_{syn} - f_{anchor}|^2_2)\)</span></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.daml_collector.DAMLCollector.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/daml_collector.html#DAMLCollector.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.daml_collector.DAMLCollector.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the interface that collector can update itself by giving specific information (default do nothing)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dvmlcollector">
+<h3>DVMLCollector<a class="headerlink" href="#dvmlcollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.iteration_collectors.dvml_collector.</span></span><span class="sig-name descname"><span class="pre">DVMLCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedder_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder_std</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_4</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/dvml_collector.html#DVMLCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.base_collector.BaseCollector" title="gedml.core.collectors.base_collector.BaseCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.base_collector.BaseCollector</span></code></a></p>
+<p>Paper: <a class="reference external" href="https://openaccess.thecvf.com/content_ECCV_2018/html/Xudong_Lin_Deep_Variational_Metric_ECCV_2018_paper.html">Deep Variational Metric Learning</a></p>
+<p>Four losses:</p>
+<ol class="arabic simple">
+<li><p>loss_kl: KL divergence between learned distribution and isotropic multivariate Gaussian</p></li>
+<li><p>loss_recon: reconstruction loss of original images and images generated by the decoder</p></li>
+<li><p>metric learning loss of learned intra-class invariance</p></li>
+<li><p>metric learning loss of the combination of sampled intra-class variance and learned intra-class invariance</p></li>
+</ol>
+<p>Default parameters recommended in the paper:</p>
+<ol class="arabic simple">
+<li><p>lr = 0.0001</p></li>
+<li><p>T = 20 (for sample generation)</p></li>
+<li><p>batch_size = 128 (pair-based) or 120 (triplet-based)</p></li>
+</ol>
+<p>There are two phases during training:</p>
+<p>1. first phase: cut off the back-propagation of the gradients from the decoder network:
+<code class="docutils literal notranslate"><span class="pre">lambda_1</span></code> = 1,
+<code class="docutils literal notranslate"><span class="pre">lambda_2</span></code> = 1,
+<code class="docutils literal notranslate"><span class="pre">lambda_3</span></code> = 0.1,
+<code class="docutils literal notranslate"><span class="pre">lambda_4</span></code> = 1,</p>
+<p>2. second phase: release the constraint:
+<code class="docutils literal notranslate"><span class="pre">lambda_1</span></code> = 0.8,
+<code class="docutils literal notranslate"><span class="pre">lambda_2</span></code> = 1,
+<code class="docutils literal notranslate"><span class="pre">lambda_3</span></code> = 0.2,
+<code class="docutils literal notranslate"><span class="pre">lambda_4</span></code> = 0.8,</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embedder_mean</strong> (<em>torch.nn.Module</em>) – multi-layer perceptron</p></li>
+<li><p><strong>embedder_std</strong> (<em>torch.nn.Module</em>) – multi-layer perceptron</p></li>
+<li><p><strong>decoder</strong> (<em>torch.nn.Module</em>) – multi-layer perceptron</p></li>
+<li><p><strong>T</strong> (<em>int</em>) – default: 20</p></li>
+<li><p><strong>phase</strong> (<em>int</em>) – 1 for <code class="docutils literal notranslate"><span class="pre">first</span> <span class="pre">phase</span></code> and 2 for <code class="docutils literal notranslate"><span class="pre">second</span> <span class="pre">phase</span></code></p></li>
+<li><p><strong>lambda_1</strong> (<em>int</em>) – first phase: 1; second phase: 0.8</p></li>
+<li><p><strong>lambda_2</strong> (<em>int</em>) – first phase: 1; second phase: 1</p></li>
+<li><p><strong>lambda_3</strong> (<em>int</em>) – first phase: 0.1; second phase: 0.2</p></li>
+<li><p><strong>lambda_4</strong> (<em>int</em>) – first phase: 1; second phase: 0.8</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/dvml_collector.html#DVMLCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Four losses should be computed in function <code class="docutils literal notranslate"><span class="pre">collect</span></code>:</p>
+<p><span class="math notranslate nohighlight">\(loss_{total} = \lambda_1 \times loss_{kl} + \lambda_2 \times loss_{recon} + \lambda_3 \times loss_{syn} + \lambda_4 \times loss_{invariant}\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{kl} = KL(p_{dist}, q_{dist})\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{recon} = mean(|f_{decode} - f_{ori}|^2_2)\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{syn} = loss_{metric}(matrix_{syn}, labels)\)</span></p>
+<p><span class="math notranslate nohighlight">\(loss_{invariant} = loss_{metric}(matrix_{inv}, labels)\)</span></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/iteration_collectors/dvml_collector.html#DVMLCollector.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the interface that collector can update itself by giving specific information (default do nothing)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="globalproxycollector">
+<h3>GlobalProxyCollector<a class="headerlink" href="#globalproxycollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.epoch_collectors.global_proxy_collector.GlobalProxyCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.epoch_collectors.global_proxy_collector.</span></span><span class="sig-name descname"><span class="pre">GlobalProxyCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Adam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'lr':</span> <span class="pre">0.001}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'batch_size':</span> <span class="pre">120,</span> <span class="pre">'drop_last':</span> <span class="pre">False,</span> <span class="pre">'num_workers':</span> <span class="pre">8,</span> <span class="pre">'shuffle':</span> <span class="pre">True}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_patience</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repre_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disc_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/epoch_collectors/global_proxy_collector.html#GlobalProxyCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.epoch_collectors.global_proxy_collector.GlobalProxyCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector" title="gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.iteration_collectors.proxy_collector.ProxyCollector</span></code></a>, <a class="reference internal" href="#gedml.core.collectors.epoch_collectors._default_global_collector._DefaultGlobalCollector" title="gedml.core.collectors.epoch_collectors._default_global_collector._DefaultGlobalCollector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.collectors.epoch_collectors._default_global_collector._DefaultGlobalCollector</span></code></a></p>
+<p>Compute the global proxies before updating other parameters.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="defaultglobalcollector">
+<h3>_DefaultGlobalCollector<a class="headerlink" href="#defaultglobalcollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.epoch_collectors._default_global_collector._DefaultGlobalCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.epoch_collectors._default_global_collector.</span></span><span class="sig-name descname"><span class="pre">_DefaultGlobalCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataloader_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'batch_size':</span> <span class="pre">120,</span> <span class="pre">'drop_last':</span> <span class="pre">False,</span> <span class="pre">'num_workers':</span> <span class="pre">8,</span> <span class="pre">'shuffle':</span> <span class="pre">True}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/epoch_collectors/_default_global_collector.html#_DefaultGlobalCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.epoch_collectors._default_global_collector._DefaultGlobalCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="basecollector">
+<h3>BaseCollector<a class="headerlink" href="#basecollector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.collectors.base_collector.BaseCollector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.collectors.base_collector.</span></span><span class="sig-name descname"><span class="pre">BaseCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/base_collector.html#BaseCollector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.base_collector.BaseCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="modules.html#gedml.core.modules.with_recorder.WithRecorder" title="gedml.core.modules.with_recorder.WithRecorder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.modules.with_recorder.WithRecorder</span></code></a></p>
+<p>Base class of collector module, which defines main collector method in function <code class="docutils literal notranslate"><span class="pre">collect</span></code> and <code class="docutils literal notranslate"><span class="pre">update</span></code>, and defines default parameters in function <code class="docutils literal notranslate"><span class="pre">output_list</span></code>, <code class="docutils literal notranslate"><span class="pre">input_list</span></code> and <code class="docutils literal notranslate"><span class="pre">_default_next_module</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>metric</strong> (<em>metric instance</em>) – metric to compute matrix (e.g. euclidean or cosine)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metric</span> <span class="o">=</span> <span class="n">MetricFactory</span><span class="p">(</span><span class="n">is_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metric_name</span><span class="o">=</span><span class="s2">&quot;cosine&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">227</span><span class="p">,</span> <span class="mi">227</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">DefaultCollector</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># collector forward</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_dict</span> <span class="o">=</span> <span class="n">collector</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.base_collector.BaseCollector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/collectors/base_collector.html#BaseCollector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.base_collector.BaseCollector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>In <code class="docutils literal notranslate"><span class="pre">collect</span></code> function, three kinds of operation may be done:</p>
+<ol class="arabic simple">
+<li><p>maintain sets of parameters about collecting (or synthesizing) samples</p></li>
+<li><p>compute metric matrix and pass to next module</p></li>
+<li><p>compute some regularization term using embeddings</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>torch.Tensor</em>) – Images with RGB channels. size: <span class="math notranslate nohighlight">\(B \times C \times H \times W\)</span></p></li>
+<li><p><strong>embeddings</strong> (<em>torch.Tensor</em>) – Embedding. size: <span class="math notranslate nohighlight">\(B \times dim\)</span></p></li>
+<li><p><strong>lables</strong> (<em>torch.Tensor</em>) – Ground truth of dataset. size: <span class="math notranslate nohighlight">\(B \times 1\)</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>include metric matrix, labels etc according to function <code class="docutils literal notranslate"><span class="pre">output_list</span></code>.</p>
+<p>Let <span class="math notranslate nohighlight">\(B_{row}\)</span> be the length of rows and <span class="math notranslate nohighlight">\(B_{col}\)</span> be the length of columns, typical output type is listed below:</p>
+<ol class="arabic simple">
+<li><p>metric matrix (torch.Tensor): size: <span class="math notranslate nohighlight">\(B_{row} \times B_{col}\)</span></p></li>
+<li><p>labels of rows (torch.Tensor): size: <span class="math notranslate nohighlight">\(B_{row} \times 1\)</span> or <span class="math notranslate nohighlight">\(B_{row} \times B_{col}\)</span></p></li>
+<li><p>labels of columns (torch.Tensor): size: <span class="math notranslate nohighlight">\(1 \times B_{col}\)</span> or <span class="math notranslate nohighlight">\(B_{row} \times B_{col}\)</span></p></li>
+<li><p>is_from_same_source (bool): indicate whether row vectors and column vectors are from the same data</p></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.collectors.base_collector.BaseCollector.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/collectors/base_collector.html#BaseCollector.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.collectors.base_collector.BaseCollector.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the interface that collector can update itself by giving specific information (default do nothing)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="datasets.html" class="btn btn-neutral float-right" title="datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to GeDML’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

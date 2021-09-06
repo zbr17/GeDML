@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>gedml.core.collectors.iteration_collectors.dvml_collector &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gedml.core.collectors.iteration_collectors.dvml_collector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gedml.core.collectors.iteration_collectors.dvml_collector</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span> 
+<span class="kn">import</span> <span class="nn">torch.distributions</span> <span class="k">as</span> <span class="nn">distributions</span>
+
+<span class="kn">from</span> <span class="nn">..base_collector</span> <span class="kn">import</span> <span class="n">BaseCollector</span>
+
+<div class="viewcode-block" id="DVMLCollector"><a class="viewcode-back" href="../../../../../collectors.html#gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector">[docs]</a><span class="k">class</span> <span class="nc">DVMLCollector</span><span class="p">(</span><span class="n">BaseCollector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Paper: `Deep Variational Metric Learning &lt;https://openaccess.thecvf.com/content_ECCV_2018/html/Xudong_Lin_Deep_Variational_Metric_ECCV_2018_paper.html&gt;`_</span>
+
+<span class="sd">    Four losses:</span>
+
+<span class="sd">    1. loss_kl: KL divergence between learned distribution and isotropic multivariate Gaussian</span>
+<span class="sd">    2. loss_recon: reconstruction loss of original images and images generated by the decoder</span>
+<span class="sd">    3. metric learning loss of learned intra-class invariance</span>
+<span class="sd">    4. metric learning loss of the combination of sampled intra-class variance and learned intra-class invariance</span>
+
+<span class="sd">    Default parameters recommended in the paper:</span>
+
+<span class="sd">    1. lr = 0.0001</span>
+<span class="sd">    2. T = 20 (for sample generation)</span>
+<span class="sd">    3. batch_size = 128 (pair-based) or 120 (triplet-based)</span>
+
+<span class="sd">    There are two phases during training:</span>
+
+<span class="sd">    1. first phase: cut off the back-propagation of the gradients from the decoder network: </span>
+<span class="sd">    ``lambda_1`` = 1,</span>
+<span class="sd">    ``lambda_2`` = 1,</span>
+<span class="sd">    ``lambda_3`` = 0.1,</span>
+<span class="sd">    ``lambda_4`` = 1,</span>
+<span class="sd">    </span>
+<span class="sd">    2. second phase: release the constraint:</span>
+<span class="sd">    ``lambda_1`` = 0.8,</span>
+<span class="sd">    ``lambda_2`` = 1,</span>
+<span class="sd">    ``lambda_3`` = 0.2,</span>
+<span class="sd">    ``lambda_4`` = 0.8,</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        embedder_mean (torch.nn.Module): multi-layer perceptron</span>
+<span class="sd">        embedder_std (torch.nn.Module): multi-layer perceptron</span>
+<span class="sd">        decoder (torch.nn.Module): multi-layer perceptron</span>
+<span class="sd">        T (int): default: 20</span>
+<span class="sd">        phase (int): 1 for ``first phase`` and 2 for ``second phase``</span>
+<span class="sd">        lambda_1 (int): first phase: 1; second phase: 0.8</span>
+<span class="sd">        lambda_2 (int): first phase: 1; second phase: 1</span>
+<span class="sd">        lambda_3 (int): first phase: 0.1; second phase: 0.2</span>
+<span class="sd">        lambda_4 (int): first phase: 1; second phase: 0.8</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">embedder_mean</span><span class="p">,</span>
+        <span class="n">embedder_std</span><span class="p">,</span>
+        <span class="n">decoder</span><span class="p">,</span>
+        <span class="n">T</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">phase</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">lambda_1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lambda_2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lambda_3</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lambda_4</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DVMLCollector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedder_mean</span> <span class="o">=</span> <span class="n">embedder_mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedder_std</span> <span class="o">=</span> <span class="n">embedder_std</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">decoder</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">T</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phase</span> <span class="o">=</span> <span class="n">phase</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span> <span class="o">=</span> <span class="n">lambda_1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span> <span class="o">=</span> <span class="n">lambda_2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span> <span class="o">=</span> <span class="n">lambda_3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span> <span class="o">=</span> <span class="n">lambda_4</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initiate_default_lambda</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_initiate_default_lambda</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set parameters ``lambda_x``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">phase</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">phase</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;parameter &#39;phase&#39; must be 1 or 2!&quot;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="DVMLCollector.update"><a class="viewcode-back" href="../../../../../collectors.html#gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DVMLCollector.forward"><a class="viewcode-back" href="../../../../../collectors.html#gedml.core.collectors.iteration_collectors.dvml_collector.DVMLCollector.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">embeddings</span><span class="p">,</span>
+        <span class="n">features</span><span class="p">,</span>
+        <span class="n">labels</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Four losses should be computed in function ``collect``: </span>
+
+<span class="sd">        :math:`loss_{total} = \lambda_1 \\times loss_{kl} + \lambda_2 \\times loss_{recon} + \lambda_3 \\times loss_{syn} + \lambda_4 \\times loss_{invariant}`</span>
+
+<span class="sd">        :math:`loss_{kl} = KL(p_{dist}, q_{dist})`</span>
+
+<span class="sd">        :math:`loss_{recon} = mean(|f_{decode} - f_{ori}|^2_2)`</span>
+
+<span class="sd">        :math:`loss_{syn} = loss_{metric}(matrix_{syn}, labels)`</span>
+
+<span class="sd">        :math:`loss_{invariant} = loss_{metric}(matrix_{inv}, labels)`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">embedding_size</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">feature_size</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">is_same_source</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># compute mu and std</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedder_mean</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="n">log_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedder_std</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_var</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">q_distributions</span> <span class="o">=</span> <span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+        <span class="n">p_distributions</span> <span class="o">=</span> <span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># for discriminate intra-class invariant features: loss_invariant</span>
+        <span class="n">metric_mat_inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">(</span><span class="n">embeddings</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+        <span class="n">row_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">col_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># loss_kl</span>
+        <span class="n">loss_kl</span> <span class="o">=</span> <span class="n">distributions</span><span class="o">.</span><span class="n">kl_divergence</span><span class="p">(</span><span class="n">q_distributions</span><span class="p">,</span> <span class="n">p_distributions</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="c1"># two phase</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">phase</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">embeddings_var</span> <span class="o">=</span> <span class="n">q_distributions</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+            <span class="n">embeddings_syn</span> <span class="o">=</span> <span class="n">embeddings</span> <span class="o">+</span> <span class="n">embeddings_var</span>
+            <span class="n">features_decode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="n">embeddings_syn</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">phase</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">embeddings_var</span> <span class="o">=</span> <span class="n">q_distributions</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">,))</span>
+            <span class="n">embeddings_syn</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">embeddings_var</span>
+            <span class="n">features_decode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span>
+                <span class="n">embeddings_syn</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">embedding_size</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">feature_size</span><span class="p">)</span>
+            <span class="c1"># use the first synthetic </span>
+            <span class="n">embeddings_syn</span> <span class="o">=</span> <span class="n">embeddings_syn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="c1"># loss_recon</span>
+        <span class="n">loss_recon</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">features_decode</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+
+        <span class="c1"># for discriminate synthesized features</span>
+        <span class="n">metric_mat_syn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">(</span><span class="n">embeddings_syn</span><span class="p">,</span> <span class="n">embeddings_syn</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">metric_mat_inv</span><span class="p">,</span>
+            <span class="n">row_labels</span><span class="p">,</span>
+            <span class="n">col_labels</span><span class="p">,</span>
+            <span class="n">is_same_source</span><span class="p">,</span>
+            <span class="n">metric_mat_syn</span><span class="p">,</span>
+            <span class="n">loss_kl</span><span class="p">,</span>
+            <span class="n">loss_recon</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_1</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_2</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_3</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lambda_4</span>
+        <span class="p">)</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>losses &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="metrics" href="metrics.html" />
+    <link rel="prev" title="evaluators" href="evaluators.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluators.html">evaluators</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">losses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classifier-based">classifier-based</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pair-based">pair-based</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#proxy-based">proxy-based</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#class">Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#baseloss">BaseLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crossentropyloss">CrossEntropyLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#largemarginsoftmaxloss">LargeMarginSoftmaxLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arcfaceloss">ArcFaceLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cosfaceloss">CosFaceLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contrastiveloss">ContrastiveLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#marginloss">MarginLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tripletloss">TripletLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#angularloss">AngularLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#circleloss">CircleLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fastaploss">FastAPLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#liftedstructureloss">LiftedStructureLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multisimilarityloss">MultiSimilarityLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#npairloss">NPairLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#signaltonoiseratioloss">SignalToNoiseRatioLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pospairloss">PosPairLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proxyloss">ProxyLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proxyanchorloss">ProxyAnchorLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#softtripleloss">SoftTripleLoss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>losses</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/losses.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gedml.core.losses">
+<span id="losses"></span><h1>losses<a class="headerlink" href="#module-gedml.core.losses" title="Permalink to this headline">¶</a></h1>
+<p>All losses are divided into three groups:</p>
+<ol class="arabic simple">
+<li><p><strong>classifier-based</strong></p></li>
+<li><p><strong>pair-based</strong></p></li>
+<li><p><strong>proxy-based</strong></p></li>
+</ol>
+<div class="section" id="classifier-based">
+<h2>classifier-based<a class="headerlink" href="#classifier-based" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>method</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CrossEntropyLoss</p></td>
+<td><p>Cross entropy loss for unsupervised methods</p></td>
+</tr>
+<tr class="row-odd"><td><p>LargeMarginSoftmaxLoss</p></td>
+<td><p>paper: <strong>Large-Margin Softmax Loss for Convolutional Neural Networks</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>ArcFaceLoss</p></td>
+<td><p>paper: <strong>ArcFace: Additive Angular Margin Loss for Deep Face Recognition</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>CosFaceLoss</p></td>
+<td><p>paper: <strong>CosFace: Large Margin Cosine Loss for Deep Face Recognition</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pair-based">
+<h2>pair-based<a class="headerlink" href="#pair-based" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>method</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ContrastiveLoss</p></td>
+<td><p>paper: <strong>Learning a Similarity Metric Discriminatively, with Application to Face Verification</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>MarginLoss</p></td>
+<td><p>paper: <strong>Sampling Matters in Deep Embedding Learning</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>TripletLoss</p></td>
+<td><p>paper: <strong>Learning local feature descriptors with triplets and shallow convolutional neural networks</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>AngularLoss</p></td>
+<td><p>paper: <strong>Deep Metric Learning with Angular Loss</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>CircleLoss</p></td>
+<td><p>paper: <strong>Circle Loss: A Unified Perspective of Pair Similarity Optimization</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>FastAPLoss</p></td>
+<td><p>paper: <strong>Deep Metric Learning to Rank</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>LiftedStructureLoss</p></td>
+<td><p>paper: <strong>Deep Metric Learning via Lifted Structured Feature Embedding</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>MultiSimilarityLoss</p></td>
+<td><p>paper: <strong>Multi-Similarity Loss With General Pair Weighting for Deep Metric Learning</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>NPairLoss</p></td>
+<td><p>paper: <strong>Improved Deep Metric Learning with Multi-class N-pair Loss Objective</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>SignalToNoiseRatioLoss</p></td>
+<td><p>paper: <strong>Signal-To-Noise Ratio: A Robust Distance Metric for Deep Metric Learning</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>PosPairLoss</p></td>
+<td><p>paper: <strong>Exploring Simple Siamese Representation Learning</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="proxy-based">
+<h2>proxy-based<a class="headerlink" href="#proxy-based" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>method</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ProxyLoss</p></td>
+<td><p>paper: <strong>No Fuss Distance Metric Learning Using Proxies</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>ProxyAnchorLoss</p></td>
+<td><p>paper: <strong>Proxy Anchor Loss for Deep Metric Learning</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>SoftTripleLoss</p></td>
+<td><p>paper: <strong>SoftTriple Loss: Deep Metric Learning Without Triplet Sampling</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>Take <code class="docutils literal notranslate"><span class="pre">ContrastiveLoss</span></code> for example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">loss_func</span> <span class="o">=</span> <span class="n">ContrastiveLoss</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">labels</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">labels</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="baseloss">
+<h3>BaseLoss<a class="headerlink" href="#baseloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.base_loss.BaseLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.base_loss.</span></span><span class="sig-name descname"><span class="pre">BaseLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/base_loss.html#BaseLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.base_loss.BaseLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="modules.html#gedml.core.modules.with_recorder.WithRecorder" title="gedml.core.modules.with_recorder.WithRecorder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.modules.with_recorder.WithRecorder</span></code></a></p>
+<p>Base loss module. The output of this module will be wrapped with “FINISH” flag which indicates the output doesn’t need to be further processed.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.base_loss.BaseLoss.compute_loss">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/base_loss.html#BaseLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.base_loss.BaseLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.base_loss.BaseLoss.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/base_loss.html#BaseLoss.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.base_loss.BaseLoss.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="crossentropyloss">
+<h3>CrossEntropyLoss<a class="headerlink" href="#crossentropyloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.classifier_based_loss.cross_entropy_loss.CrossEntropyLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.classifier_based_loss.cross_entropy_loss.</span></span><span class="sig-name descname"><span class="pre">CrossEntropyLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/classifier_based_loss/cross_entropy_loss.html#CrossEntropyLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.classifier_based_loss.cross_entropy_loss.CrossEntropyLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="http://openaccess.thecvf.com/content_CVPR_2020/html/He_Momentum_Contrast_for_Unsupervised_Visual_Representation_Learning_CVPR_2020_paper.html">Momentum Contrast for Unsupervised Visual Representation Learning</a></p>
+<p>Cross-entropy loss designed for MoCo.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.classifier_based_loss.cross_entropy_loss.CrossEntropyLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/classifier_based_loss/cross_entropy_loss.html#CrossEntropyLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.classifier_based_loss.cross_entropy_loss.CrossEntropyLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="largemarginsoftmaxloss">
+<h3>LargeMarginSoftmaxLoss<a class="headerlink" href="#largemarginsoftmaxloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.</span></span><span class="sig-name descname"><span class="pre">LargeMarginSoftmaxLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/classifier_based_loss/large_margin_softmax_loss.html#LargeMarginSoftmaxLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>modified from: <a class="reference external" href="https://github.com/KevinMusgrave/pytorch-metric-learning">https://github.com/KevinMusgrave/pytorch-metric-learning</a></p>
+<p>paper: <a class="reference external" href="https://www.jmlr.org/proceedings/papers/v48/liud16.pdf">Large-Margin Softmax Loss for Convolutional Neural Networks</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/classifier_based_loss/large_margin_softmax_loss.html#LargeMarginSoftmaxLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="arcfaceloss">
+<h3>ArcFaceLoss<a class="headerlink" href="#arcfaceloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.classifier_based_loss.arcface_loss.ArcFaceLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.classifier_based_loss.arcface_loss.</span></span><span class="sig-name descname"><span class="pre">ArcFaceLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/classifier_based_loss/arcface_loss.html#ArcFaceLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.classifier_based_loss.arcface_loss.ArcFaceLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss" title="gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Deng_ArcFace_Additive_Angular_Margin_Loss_for_Deep_Face_Recognition_CVPR_2019_paper.html">ArcFace: Additive Angular Margin Loss for Deep Face Recognition</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="cosfaceloss">
+<h3>CosFaceLoss<a class="headerlink" href="#cosfaceloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.classifier_based_loss.cosface_loss.CosFaceLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.classifier_based_loss.cosface_loss.</span></span><span class="sig-name descname"><span class="pre">CosFaceLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/classifier_based_loss/cosface_loss.html#CosFaceLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.classifier_based_loss.cosface_loss.CosFaceLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss" title="gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.classifier_based_loss.large_margin_softmax_loss.LargeMarginSoftmaxLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="http://openaccess.thecvf.com/content_cvpr_2018/html/Wang_CosFace_Large_Margin_CVPR_2018_paper.html">CosFace: Large Margin Cosine Loss for Deep Face Recognition</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="contrastiveloss">
+<h3>ContrastiveLoss<a class="headerlink" href="#contrastiveloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.contrastive_loss.ContrastiveLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.contrastive_loss.</span></span><span class="sig-name descname"><span class="pre">ContrastiveLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/contrastive_loss.html#ContrastiveLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.contrastive_loss.ContrastiveLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/1467314/">Learning a Similarity Metric Discriminatively, with Application to Face Verification</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.contrastive_loss.ContrastiveLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/contrastive_loss.html#ContrastiveLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.contrastive_loss.ContrastiveLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="marginloss">
+<h3>MarginLoss<a class="headerlink" href="#marginloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.margin_loss.MarginLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.margin_loss.</span></span><span class="sig-name descname"><span class="pre">MarginLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_constant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_similarity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/margin_loss.html#MarginLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.margin_loss.MarginLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="http://openaccess.thecvf.com/content_iccv_2017/html/Wu_Sampling_Matters_in_ICCV_2017_paper.html">Sampling Matters in Deep Embedding Learning</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.margin_loss.MarginLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/margin_loss.html#MarginLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.margin_loss.MarginLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tripletloss">
+<h3>TripletLoss<a class="headerlink" href="#tripletloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.triplet_loss.TripletLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.triplet_loss.</span></span><span class="sig-name descname"><span class="pre">TripletLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/triplet_loss.html#TripletLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.triplet_loss.TripletLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://www.researchgate.net/profile/Krystian_Mikolajczyk/publication/317192886_Learning_local_feature_descriptors_with_triplets_and_shallow_convolutional_neural_networks/links/5a038dad0f7e9beb1770c3c2/Learning-local-feature-descriptors-with-triplets-and-shallow-convolutional-neural-networks.pdf">Learning local feature descriptors with triplets and shallow convolutional neural networks</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.triplet_loss.TripletLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/triplet_loss.html#TripletLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.triplet_loss.TripletLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="angularloss">
+<h3>AngularLoss<a class="headerlink" href="#angularloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.angular_loss.AngularLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.angular_loss.</span></span><span class="sig-name descname"><span class="pre">AngularLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/angular_loss.html#AngularLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.angular_loss.AngularLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://openaccess.thecvf.com/content_iccv_2017/html/Wang_Deep_Metric_Learning_ICCV_2017_paper.html">Deep Metric Learning with Angular Loss</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.angular_loss.AngularLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/angular_loss.html#AngularLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.angular_loss.AngularLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="circleloss">
+<h3>CircleLoss<a class="headerlink" href="#circleloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.circle_loss.CircleLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.circle_loss.</span></span><span class="sig-name descname"><span class="pre">CircleLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/circle_loss.html#CircleLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.circle_loss.CircleLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>modified from: <a class="reference external" href="https://github.com/KevinMusgrave/pytorch-metric-learning">https://github.com/KevinMusgrave/pytorch-metric-learning</a></p>
+<p>paper: <a class="reference external" href="http://openaccess.thecvf.com/content_CVPR_2020/html/Sun_Circle_Loss_A_Unified_Perspective_of_Pair_Similarity_Optimization_CVPR_2020_paper.html">Circle Loss: A Unified Perspective of Pair Similarity Optimization</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.circle_loss.CircleLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/circle_loss.html#CircleLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.circle_loss.CircleLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="fastaploss">
+<h3>FastAPLoss<a class="headerlink" href="#fastaploss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.fast_ap_loss.FastAPLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.fast_ap_loss.</span></span><span class="sig-name descname"><span class="pre">FastAPLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/fast_ap_loss.html#FastAPLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.fast_ap_loss.FastAPLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>modified from: <a class="reference external" href="https://github.com/KevinMusgrave/pytorch-metric-learning">https://github.com/KevinMusgrave/pytorch-metric-learning</a></p>
+<p>paper: <a class="reference external" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Cakir_Deep_Metric_Learning_to_Rank_CVPR_2019_paper.html">Deep Metric Learning to Rank</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.fast_ap_loss.FastAPLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/fast_ap_loss.html#FastAPLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.fast_ap_loss.FastAPLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="liftedstructureloss">
+<h3>LiftedStructureLoss<a class="headerlink" href="#liftedstructureloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.lifted_structure_loss.LiftedStructureLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.lifted_structure_loss.</span></span><span class="sig-name descname"><span class="pre">LiftedStructureLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neg_margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/lifted_structure_loss.html#LiftedStructureLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.lifted_structure_loss.LiftedStructureLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Song_Deep_Metric_Learning_CVPR_2016_paper.html">Deep Metric Learning via Lifted Structured Feature Embedding</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.lifted_structure_loss.LiftedStructureLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/lifted_structure_loss.html#LiftedStructureLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.lifted_structure_loss.LiftedStructureLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="multisimilarityloss">
+<h3>MultiSimilarityLoss<a class="headerlink" href="#multisimilarityloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.multi_similarity_loss.MultiSimilarityLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.multi_similarity_loss.</span></span><span class="sig-name descname"><span class="pre">MultiSimilarityLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/multi_similarity_loss.html#MultiSimilarityLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.multi_similarity_loss.MultiSimilarityLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Wang_Multi-Similarity_Loss_With_General_Pair_Weighting_for_Deep_Metric_Learning_CVPR_2019_paper.html">Multi-Similarity Loss With General Pair Weighting for Deep Metric Learning</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.multi_similarity_loss.MultiSimilarityLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/multi_similarity_loss.html#MultiSimilarityLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.multi_similarity_loss.MultiSimilarityLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="npairloss">
+<h3>NPairLoss<a class="headerlink" href="#npairloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.n_pair_loss.NPairLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.n_pair_loss.</span></span><span class="sig-name descname"><span class="pre">NPairLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/n_pair_loss.html#NPairLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.n_pair_loss.NPairLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>Work with NPairSelector (Recommend)</p>
+<p>paper: <a class="reference external" href="http://www.nec-labs.com/uploads/images/Department-Images/MediaAnalytics/papers/nips16_npairmetriclearning.pdf">Improved deep metric learning with multi-class n-pair loss objective</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.n_pair_loss.NPairLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/n_pair_loss.html#NPairLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.n_pair_loss.NPairLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="signaltonoiseratioloss">
+<h3>SignalToNoiseRatioLoss<a class="headerlink" href="#signaltonoiseratioloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.signal_to_noise_ratio_loss.SignalToNoiseRatioLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.signal_to_noise_ratio_loss.</span></span><span class="sig-name descname"><span class="pre">SignalToNoiseRatioLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/signal_to_noise_ratio_loss.html#SignalToNoiseRatioLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.signal_to_noise_ratio_loss.SignalToNoiseRatioLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.pair_based_loss.contrastive_loss.ContrastiveLoss" title="gedml.core.losses.pair_based_loss.contrastive_loss.ContrastiveLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.pair_based_loss.contrastive_loss.ContrastiveLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Yuan_Signal-To-Noise_Ratio_A_Robust_Distance_Metric_for_Deep_Metric_Learning_CVPR_2019_paper.html">Signal-To-Noise Ratio: A Robust Distance Metric for Deep Metric Learning</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="pospairloss">
+<h3>PosPairLoss<a class="headerlink" href="#pospairloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.pos_pair_loss.PosPairLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.pair_based_loss.pos_pair_loss.</span></span><span class="sig-name descname"><span class="pre">PosPairLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/pos_pair_loss.html#PosPairLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.pos_pair_loss.PosPairLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>Designed for SimSiam.</p>
+<p>paper: <a class="reference external" href="https://arxiv.org/abs/2011.10566">Exploring Simple Siamese Representation Learning</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.pair_based_loss.pos_pair_loss.PosPairLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/pair_based_loss/pos_pair_loss.html#PosPairLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.pair_based_loss.pos_pair_loss.PosPairLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="proxyloss">
+<h3>ProxyLoss<a class="headerlink" href="#proxyloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.proxy_based_loss.proxy_loss.ProxyLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.proxy_based_loss.proxy_loss.</span></span><span class="sig-name descname"><span class="pre">ProxyLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/proxy_based_loss/proxy_loss.html#ProxyLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.proxy_based_loss.proxy_loss.ProxyLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://openaccess.thecvf.com/content_iccv_2017/html/Movshovitz-Attias_No_Fuss_Distance_ICCV_2017_paper.html">No Fuss Distance Metric Learning Using Proxies</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.proxy_based_loss.proxy_loss.ProxyLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/proxy_based_loss/proxy_loss.html#ProxyLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.proxy_based_loss.proxy_loss.ProxyLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="proxyanchorloss">
+<h3>ProxyAnchorLoss<a class="headerlink" href="#proxyanchorloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.proxy_based_loss.proxy_anchor_loss.ProxyAnchorLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.proxy_based_loss.proxy_anchor_loss.</span></span><span class="sig-name descname"><span class="pre">ProxyAnchorLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/proxy_based_loss/proxy_anchor_loss.html#ProxyAnchorLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.proxy_based_loss.proxy_anchor_loss.ProxyAnchorLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="http://openaccess.thecvf.com/content_CVPR_2020/html/Kim_Proxy_Anchor_Loss_for_Deep_Metric_Learning_CVPR_2020_paper.html">Proxy Anchor Loss for Deep Metric Learning</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.proxy_based_loss.proxy_anchor_loss.ProxyAnchorLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/proxy_based_loss/proxy_anchor_loss.html#ProxyAnchorLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.proxy_based_loss.proxy_anchor_loss.ProxyAnchorLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="softtripleloss">
+<h3>SoftTripleLoss<a class="headerlink" href="#softtripleloss" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.losses.proxy_based_loss.soft_triple_loss.SoftTripleLoss">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.losses.proxy_based_loss.soft_triple_loss.</span></span><span class="sig-name descname"><span class="pre">SoftTripleLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centers_per_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">la</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/losses/proxy_based_loss/soft_triple_loss.html#SoftTripleLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.proxy_based_loss.soft_triple_loss.SoftTripleLoss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.losses.base_loss.BaseLoss" title="gedml.core.losses.base_loss.BaseLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.losses.base_loss.BaseLoss</span></code></a></p>
+<p>paper: <a class="reference external" href="https://openaccess.thecvf.com/content_ICCV_2019/html/Qian_SoftTriple_Loss_Deep_Metric_Learning_Without_Triplet_Sampling_ICCV_2019_paper.html">SoftTriple Loss: Deep Metric Learning Without Triplet Sampling</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.losses.proxy_based_loss.soft_triple_loss.SoftTripleLoss.compute_loss">
+<span class="sig-name descname"><span class="pre">compute_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_tuple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="_modules/gedml/core/losses/proxy_based_loss/soft_triple_loss.html#SoftTripleLoss.compute_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.losses.proxy_based_loss.soft_triple_loss.SoftTripleLoss.compute_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute loss value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of matrix columns.</p></li>
+<li><p><strong>indices_tuple</strong> (<em>dict</em>) – Dict that has two keys: “tuples” and “flags”</p></li>
+<li><p><strong>weights</strong> (<em>torch.Tensor</em>) – Can be element-wised, tuple-wised etc.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Final loss value (a tensor value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="metrics.html" class="btn btn-neutral float-right" title="metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="evaluators.html" class="btn btn-neutral float-left" title="evaluators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

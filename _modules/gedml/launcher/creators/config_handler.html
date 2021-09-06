@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>gedml.launcher.creators.config_handler &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gedml.launcher.creators.config_handler</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gedml.launcher.creators.config_handler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">.creator_manager</span> <span class="kn">import</span> <span class="n">CreatorManager</span>
+<span class="kn">from</span> <span class="nn">..misc</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">...config.setting.launcher_setting</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_LINK_PATH</span><span class="p">,</span>
+    <span class="n">DEFAULT_PARAMS_PATH</span><span class="p">,</span>
+    <span class="n">DEFAULT_WRAPPER_PATH</span><span class="p">,</span>
+    <span class="n">DEFAULT_ASSERT_PATH</span><span class="p">,</span>
+    <span class="n">CLASS_KEY</span><span class="p">,</span>
+    <span class="n">PARAMS_KEY</span><span class="p">,</span>
+    <span class="n">INITIATE_KEY</span><span class="p">,</span>
+    <span class="n">WRAPPER_KEY</span><span class="p">,</span>
+    <span class="n">OBJECTS_KEY</span><span class="p">,</span>
+    <span class="n">SEARCH_PARAMS_CONDITION</span><span class="p">,</span>
+    <span class="n">SEARCH_PARAMS_FLAG</span><span class="p">,</span>
+    <span class="n">SEARCH_TOP_CLASS</span><span class="p">,</span>
+    <span class="n">SEARCH_TAR_NAME</span><span class="p">,</span>
+    <span class="n">WILDCARD</span><span class="p">,</span>
+    <span class="n">SPLITER</span><span class="p">,</span>
+    <span class="n">ATTRSYM</span><span class="p">,</span>
+    <span class="n">INITATE_ORDER_LIST</span><span class="p">,</span>
+    <span class="n">WRAPPER_LIST</span><span class="p">,</span>
+    <span class="n">LINK_GENERAL_KEY</span><span class="p">,</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="ConfigHandler"><a class="viewcode-back" href="../../../../creators.html#gedml.launcher.creators.config_handler.ConfigHandler">[docs]</a><span class="k">class</span> <span class="nc">ConfigHandler</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class takes charge of reading yaml files, combining config parameters, modifying local parameters and initializing modules.</span>
+
+<span class="sd">    ``ConfigHandler`` will call ``CreatorManager`` to use corresponding sub-creator to do the initialization respectly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        link_path (str):</span>
+<span class="sd">            Path where the ``link.yaml`` is stored.</span>
+<span class="sd">        params_path (str):</span>
+<span class="sd">            Path where the params configs are stored.</span>
+<span class="sd">        assert_path (str):</span>
+<span class="sd">            Path where the ``assert.yaml`` is stored. (To be done!)</span>
+<span class="sd">        is_confirm_first (bool):</span>
+<span class="sd">            Whether to confirm before starting initialization. default: True.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; config_handler = ConfigHandler()</span>
+<span class="sd">        &gt;&gt;&gt; config_handler.get_params_dict()</span>
+<span class="sd">        &gt;&gt;&gt; objects_dict = config_handler.create_all()</span>
+
+<span class="sd">    Todo:</span>
+<span class="sd">        - assert parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">convert_dict</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">link_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">assert_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">params_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">wrapper_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_confirm_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_dict</span> <span class="o">=</span> <span class="n">convert_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">link_path</span>
+            <span class="k">if</span> <span class="n">link_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">DEFAULT_LINK_PATH</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assert_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">assert_path</span>
+            <span class="k">if</span> <span class="n">assert_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">DEFAULT_ASSERT_PATH</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">params_path</span>
+            <span class="k">if</span> <span class="n">params_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">DEFAULT_PARAMS_PATH</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wrapper_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">wrapper_path</span>
+            <span class="k">if</span> <span class="n">wrapper_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">DEFAULT_WRAPPER_PATH</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_confirm_first</span> <span class="o">=</span> <span class="n">is_confirm_first</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">creator_manager</span> <span class="o">=</span> <span class="n">CreatorManager</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initiate_params</span><span class="p">()</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">core_modules_order_to_create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">INITATE_ORDER_LIST</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">output_wrapper_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">WRAPPER_LIST</span>
+
+    <span class="k">def</span> <span class="nf">_get_params_dict_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_info</span><span class="p">,</span> <span class="n">module_type</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_info</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span><span class="p">[</span><span class="n">module_type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">module_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_wrapper_list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapper_dict</span><span class="p">[</span><span class="n">module_type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data_info</span><span class="p">:</span>
+            <span class="c1"># parameters</span>
+            <span class="n">item_key</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_key</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">item_value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_value</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">item_params_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params_path</span><span class="p">,</span> <span class="n">module_type</span><span class="p">,</span> <span class="n">item_value</span><span class="p">)</span>
+            <span class="n">item_params_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="n">item_params_path</span><span class="p">)</span>
+            <span class="n">class_value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_key</span><span class="p">(</span><span class="n">item_params_dict</span><span class="p">)</span>
+            <span class="n">params_value</span> <span class="o">=</span> <span class="n">item_params_dict</span><span class="p">[</span><span class="n">class_value</span><span class="p">][</span><span class="n">PARAMS_KEY</span><span class="p">]</span>
+            <span class="n">initiate_value</span> <span class="o">=</span> <span class="n">item_params_dict</span><span class="p">[</span><span class="n">class_value</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">INITIATE_KEY</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span><span class="p">[</span><span class="n">module_type</span><span class="p">][</span><span class="n">item_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">CLASS_KEY</span><span class="p">:</span> <span class="n">class_value</span><span class="p">,</span>
+                <span class="n">PARAMS_KEY</span><span class="p">:</span> <span class="n">params_value</span><span class="p">,</span>
+                <span class="n">INITIATE_KEY</span><span class="p">:</span> <span class="n">initiate_value</span>
+            <span class="p">}</span>
+            <span class="c1"># wrapper</span>
+            <span class="k">if</span> <span class="n">module_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_wrapper_list</span><span class="p">:</span>
+                <span class="n">item_wrapper_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapper_path</span><span class="p">,</span> <span class="n">module_type</span><span class="p">,</span> <span class="n">class_value</span> <span class="o">+</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">item_wrapper_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="n">item_wrapper_path</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Load specific wrapper config: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_wrapper_path</span><span class="p">))</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">item_wrapper_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapper_path</span><span class="p">,</span> <span class="n">module_type</span><span class="p">,</span> <span class="s2">&quot;_DEFAULT.yaml&quot;</span><span class="p">)</span>
+                    <span class="n">item_wrapper_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="n">item_wrapper_path</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Load default wrapper config: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_wrapper_path</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wrapper_dict</span><span class="p">[</span><span class="n">module_type</span><span class="p">][</span><span class="n">item_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">item_wrapper_dict</span>
+    
+    <span class="k">def</span> <span class="nf">_get_wrapper_dict_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_info</span><span class="p">,</span> <span class="n">module_type</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_info</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data_info</span><span class="p">:</span>
+            <span class="n">item_key</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_key</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">item_value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_value</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">item_params_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapper_path</span><span class="p">,</span> <span class="n">module_type</span><span class="p">,</span> <span class="p">)</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    config setting</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ConfigHandler.register_packages"><a class="viewcode-back" href="../../../../creators.html#gedml.launcher.creators.config_handler.ConfigHandler.register_packages">[docs]</a>    <span class="k">def</span> <span class="nf">register_packages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module_name</span><span class="p">,</span> <span class="n">extra_package</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register new packages into the specific module-creator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            module_name (str):</span>
+<span class="sd">                The specific module-creator.</span>
+<span class="sd">            extra_package (list or module):</span>
+<span class="sd">                Extra packages to be added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creator_manager</span><span class="o">.</span><span class="n">register_packages</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">extra_package</span><span class="p">)</span></div>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    About construction of objects dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_get_objects_dict_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_info</span><span class="p">,</span> <span class="n">module_type</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params_info</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> 
+        <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_search_params</span><span class="p">(</span>
+                <span class="n">module_params</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
+                <span class="n">instance_name</span><span class="o">=</span><span class="n">k</span>
+            <span class="p">)</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">creator_manager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">module_type</span><span class="o">=</span><span class="n">module_type</span><span class="p">,</span>
+                <span class="n">module_params</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;... </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> created, id=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">k</span><span class="p">,</span>
+                    <span class="n">v</span><span class="p">[</span><span class="n">CLASS_KEY</span><span class="p">],</span>
+                    <span class="nb">id</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+    
+    <span class="k">def</span> <span class="nf">_maybe_search_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module_params</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
+        <span class="n">module_args</span> <span class="o">=</span> <span class="n">module_params</span><span class="p">[</span><span class="n">PARAMS_KEY</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">module_args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">search_func_name</span> <span class="o">=</span> <span class="n">SEARCH_PARAMS_CONDITION</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">search_func_name</span><span class="p">:</span>
+                    <span class="n">top_class</span> <span class="o">=</span> <span class="n">SEARCH_TOP_CLASS</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                    <span class="n">target_name</span> <span class="o">=</span> <span class="n">SEARCH_TAR_NAME</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                    <span class="n">search_func_name</span> <span class="o">=</span> <span class="n">search_func_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">SEARCH_PARAMS_FLAG</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="n">module_args</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_func_name</span><span class="p">)(</span><span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">module_args</span>
+    
+    <span class="k">def</span> <span class="nf">_search_with_same_name_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">):</span>
+        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">operate_dict_recursively</span><span class="p">(</span>
+            <span class="n">src_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span><span class="p">[</span><span class="n">top_class</span><span class="p">],</span>
+            <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">==</span><span class="n">instance_name</span><span class="p">,</span>
+            <span class="n">operation</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">x</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">instance_dict</span><span class="p">[</span><span class="n">instance_name</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">_search_with_target_name_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">):</span>
+        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">operate_dict_recursively</span><span class="p">(</span>
+            <span class="n">src_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span><span class="p">[</span><span class="n">top_class</span><span class="p">],</span>
+            <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">==</span><span class="n">target_name</span><span class="p">,</span>
+            <span class="n">operation</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">x</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">instance_dict</span><span class="p">[</span><span class="n">target_name</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">_search_with_target_attr_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">):</span>
+        <span class="n">module_name</span><span class="p">,</span> <span class="n">attr_name</span> <span class="o">=</span> <span class="n">target_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">operate_dict_recursively</span><span class="p">(</span>
+            <span class="n">src_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span><span class="p">[</span><span class="n">top_class</span><span class="p">],</span>
+            <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">==</span><span class="n">module_name</span><span class="p">,</span>
+            <span class="n">operation</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">x</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance_dict</span><span class="p">[</span><span class="n">module_name</span><span class="p">],</span> <span class="n">attr_name</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_pass_with_objects_dict_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span>
+    
+    <span class="k">def</span> <span class="nf">_pass_with_wrapper_dict_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">target_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapper_dict</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    About construction of link config and params dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="ConfigHandler.get_params_dict"><a class="viewcode-back" href="../../../../creators.html#gedml.launcher.creators.config_handler.ConfigHandler.get_params_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_params_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modify_link_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read and combine config parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            link_config (dict):</span>
+<span class="sd">                Link dictionary.</span>
+<span class="sd">            modify_link_dict (dict):</span>
+<span class="sd">                Modify link config. (Default = None)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: params&#39; dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">link_config</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">link_config</span>
+            <span class="k">if</span> <span class="n">link_config</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">link_config</span>
+        <span class="p">)</span>
+
+        <span class="c1"># maybe modify link dict</span>
+        <span class="k">if</span> <span class="n">modify_link_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">modify_link_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_key</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_value</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">target_list</span> <span class="o">=</span> <span class="n">link_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span>
+                    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">t_item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">target_list</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_key</span><span class="p">(</span><span class="n">t_item</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                            <span class="n">index</span> <span class="o">=</span> <span class="n">idx</span>
+                    <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                        <span class="n">link_config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_list</span>
+                        <span class="n">link_config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+                        <span class="p">)</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Add </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">link_config</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Modify </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Link-config has been modified!&quot;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wrapper_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">link_config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_params_dict_operation</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span></div>
+    
+    <span class="k">def</span> <span class="nf">get_objects_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">,</span> <span class="n">link_config</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">condition</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">core_modules_order_to_create</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">link_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">condition</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">link_config</span><span class="p">[</span><span class="n">k</span><span class="p">]):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">operate_dict_recursively</span><span class="p">(</span>
+                        <span class="n">src_dict</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                        <span class="n">condition</span><span class="o">=</span><span class="n">condition</span><span class="p">,</span>
+                        <span class="n">operation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_objects_dict_operation</span><span class="p">,</span>
+                        <span class="n">flag_dict</span><span class="o">=</span><span class="n">link_config</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+                        <span class="n">addtion_params</span><span class="o">=</span><span class="n">k</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_objects_dict_operation</span><span class="p">(</span><span class="n">params_dict</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span>
+    
+    <span class="k">def</span> <span class="nf">load_link_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link_config</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">link_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">general_setting</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">LINK_GENERAL_KEY</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">initiate_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_link_config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assert_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">assert_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_link</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">show_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;#####################&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Load link config&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;#####################&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">LINK_GENERAL_KEY</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;... </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;... ... </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_key</span><span class="p">(</span><span class="n">item</span><span class="p">),</span>
+                            <span class="n">utils</span><span class="o">.</span><span class="n">get_first_dict_value</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_confirm_first</span><span class="p">:</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Confirm: ...&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ConfigHandler.create_all"><a class="viewcode-back" href="../../../../creators.html#gedml.launcher.creators.config_handler.ConfigHandler.create_all">[docs]</a>    <span class="k">def</span> <span class="nf">create_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change_dict</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize all modules according to params dictionary.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            change_dict (dict):</span>
+<span class="sd">                Dictionary that overwrites certain parameters. (optional)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: initialized objects dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;#####################&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Create objects&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;#####################&quot;</span><span class="p">)</span>
+
+        <span class="c1"># update according to argparse</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maybe_modify_params_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span><span class="p">,</span> <span class="n">change_dict</span><span class="p">)</span>
+
+        <span class="c1"># update according to general_setting in link_config</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_setting</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maybe_modify_params_dict</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_setting</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">maybe_assert_params_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_objects_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_config</span><span class="p">)</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects_dict</span></div>
+    
+    <span class="k">def</span> <span class="nf">get_certain_params_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change_list</span><span class="p">,</span> <span class="n">params_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">params_dict</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params_dict</span>
+            <span class="k">if</span> <span class="n">params_dict</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">params_dict</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">change_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="n">output_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">change_list</span><span class="p">:</span>
+            <span class="n">curr_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">modify_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">modify_path</span> <span class="ow">in</span> <span class="n">modify_list</span><span class="p">:</span>
+                <span class="n">top_class</span><span class="p">,</span> <span class="n">remain_str</span> <span class="o">=</span> <span class="n">modify_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">SPLITER</span><span class="p">)</span>
+                <span class="n">instance_name</span><span class="p">,</span> <span class="n">attr_name</span> <span class="o">=</span> <span class="n">remain_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ATTRSYM</span><span class="p">)</span>
+                <span class="c1"># search the instance</span>
+                <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">operate_dict_recursively</span><span class="p">(</span>
+                    <span class="n">src_dict</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="n">top_class</span><span class="p">],</span>
+                    <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">==</span><span class="n">instance_name</span><span class="p">,</span>
+                    <span class="n">operation</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">x</span>
+                <span class="p">)[</span><span class="n">instance_name</span><span class="p">]</span>
+                <span class="c1"># record parameters</span>
+                <span class="n">curr_dict</span><span class="p">[</span><span class="n">modify_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance_dict</span><span class="p">[</span><span class="n">PARAMS_KEY</span><span class="p">][</span><span class="n">attr_name</span><span class="p">]</span>
+            <span class="n">output_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">curr_dict</span>
+        <span class="k">return</span> <span class="n">output_dict</span>
+
+    
+    <span class="k">def</span> <span class="nf">maybe_modify_params_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">,</span> <span class="n">change_dict</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">change_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">change_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">modify_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">modify_path</span> <span class="ow">in</span> <span class="n">modify_list</span><span class="p">:</span>
+                <span class="n">top_class</span><span class="p">,</span> <span class="n">remain_str</span> <span class="o">=</span> <span class="n">modify_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">SPLITER</span><span class="p">)</span>
+                <span class="n">instance_name</span><span class="p">,</span> <span class="n">attr_name</span> <span class="o">=</span> <span class="n">remain_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ATTRSYM</span><span class="p">)</span>
+                <span class="c1"># search the instance</span>
+                <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">operate_dict_recursively</span><span class="p">(</span>
+                    <span class="n">src_dict</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="n">top_class</span><span class="p">],</span>
+                    <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">==</span><span class="n">instance_name</span><span class="p">,</span>
+                    <span class="n">operation</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">x</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instance_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="c1"># change parameters</span>
+                <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2"> doesn&#39;t exist! modify failed!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span>
+                    <span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">instance_dict</span><span class="p">[</span><span class="n">PARAMS_KEY</span><span class="p">][</span><span class="n">attr_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2"> is changed to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">top_class</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">v</span>
+                    <span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">params_dict</span>
+
+    <span class="k">def</span> <span class="nf">maybe_assert_params_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_dict</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;&#39;maybe_assert_params_dict&#39; is not implemented!&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

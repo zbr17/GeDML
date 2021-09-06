@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>gedml.launcher.testers.base_tester &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gedml.launcher.testers.base_tester</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gedml.launcher.testers.base_tester</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="kn">from</span> <span class="nn">..misc</span> <span class="kn">import</span> <span class="n">utils</span>
+
+<div class="viewcode-block" id="BaseTester"><a class="viewcode-back" href="../../../../testers.html#gedml.launcher.testers.base_tester.BaseTester">[docs]</a><span class="k">class</span> <span class="nc">BaseTester</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``BaseTester`` takes charge of testing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        batch_size (int):</span>
+<span class="sd">            Batch size.</span>
+<span class="sd">        dataset_num_workers (int):</span>
+<span class="sd">            Number of processes to load data.</span>
+<span class="sd">        is_normalize (bool):</span>
+<span class="sd">            Whether to normalize embeddings.</span>
+<span class="sd">        splits_to_eval (list(str)):</span>
+<span class="sd">            List of sub-dataset to evaluate.</span>
+<span class="sd">        is_distributed (bool):</span>
+<span class="sd">            Whether to set in the distributed mode.</span>
+<span class="sd">    </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; tester = BaseTester(32)</span>
+<span class="sd">        &gt;&gt;&gt; tester.prepare(...) # load models etc.</span>
+<span class="sd">        &gt;&gt;&gt; results = tester.test()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">dataset_num_workers</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">is_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">splits_to_eval</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">],</span>
+        <span class="n">is_distributed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_num_workers</span> <span class="o">=</span> <span class="n">dataset_num_workers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_normalize</span> <span class="o">=</span> <span class="n">is_normalize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splits_to_eval</span> <span class="o">=</span> <span class="n">splits_to_eval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_distributed</span> <span class="o">=</span> <span class="n">is_distributed</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initiate_property</span><span class="p">()</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialization</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">initiate_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trainable_object_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;models&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;collectors&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        
+    <span class="k">def</span> <span class="nf">initiate_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">splits_to_eval</span>
+        <span class="p">}</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set and Get</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_batch_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+    
+    <span class="k">def</span> <span class="nf">set_distributed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_distributed</span> <span class="o">=</span> <span class="n">flag</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    test</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BaseTester.prepare"><a class="viewcode-back" href="../../../../testers.html#gedml.launcher.testers.base_tester.BaseTester.prepare">[docs]</a>    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">models</span><span class="p">,</span>
+        <span class="n">datasets</span><span class="p">,</span>
+        <span class="n">evaluators</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">,</span>
+        <span class="n">device_ids</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load objects to be tested.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            models (dict):</span>
+<span class="sd">                Dictionary of models.</span>
+<span class="sd">            datasets (dict):</span>
+<span class="sd">                Dictionary of datasets.</span>
+<span class="sd">            evaluators (dict):</span>
+<span class="sd">                Dictioanry of evaluators.</span>
+<span class="sd">            device (device):</span>
+<span class="sd">                Computation device.</span>
+<span class="sd">            device_ids (list(int)):</span>
+<span class="sd">                Instruct Faiss package to use the corresponding devices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># pass parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="n">models</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="n">datasets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evaluators</span> <span class="o">=</span> <span class="n">evaluators</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span> <span class="o">=</span> <span class="n">device_ids</span></div>
+
+<div class="viewcode-block" id="BaseTester.test"><a class="viewcode-back" href="../../../../testers.html#gedml.launcher.testers.base_tester.BaseTester.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start testing.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: evaluation results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initiate_datasets</span><span class="p">()</span>
+        <span class="c1"># start to test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_to_eval</span><span class="p">()</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># get the dataset loader</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initiate_dataloader</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+                <span class="c1"># get the embeddings</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_embeddings</span><span class="p">()</span>
+                <span class="c1"># compute the metrics</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_metrics</span><span class="p">()</span>
+                <span class="n">outputs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="k">return</span> <span class="n">outputs</span></div>
+    
+    <span class="k">def</span> <span class="nf">set_to_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">trainable_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainable_object_list</span><span class="p">:</span>
+            <span class="n">trainable_object</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainable_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">trainable_object</span>  <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not a member of trainer&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">trainable_name</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">trainable_object</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="n">v</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">initiate_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: Initiating dataloader&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">sampler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># get dataloader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">),</span>
+            <span class="n">sampler</span><span class="o">=</span><span class="n">sampler</span><span class="p">,</span>
+            <span class="n">drop_last</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">pin_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_num_workers</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataloader_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">get_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Compute eval embeddings&quot;</span>
+        <span class="p">)</span>
+        <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataloader_iter</span><span class="p">)</span>
+        <span class="n">embeddings_list</span><span class="p">,</span> <span class="n">labels_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">info_dict</span> <span class="ow">in</span> <span class="n">pbar</span><span class="p">:</span>
+            <span class="c1"># get data</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">info_dict</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="c1"># forward</span>
+            <span class="n">embedding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_embeddings</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">embeddings_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">embedding</span><span class="p">)</span>
+            <span class="n">labels_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">embeddings_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">labels_list</span><span class="p">)</span>
+
+        <span class="c1"># to numpy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">compute_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">embedding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_models</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> 
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_normalize</span> 
+            <span class="k">else</span> <span class="n">embedding</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">forward_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">embedding_trunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">](</span>
+            <span class="n">data</span>
+        <span class="p">)</span>
+        <span class="n">embedding_embedder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">[</span><span class="s2">&quot;embedder&quot;</span><span class="p">](</span>
+            <span class="n">embedding_trunk</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">embedding_embedder</span>
+    
+    <span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">metrics_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluators</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_accuracy</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span>
+            <span class="kc">True</span><span class="p">,</span>
+            <span class="n">device_ids</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">metrics_dict</span></div>
+    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

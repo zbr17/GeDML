@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>selectors &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="transforms" href="transforms.html" />
+    <link rel="prev" title="samplers" href="samplers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">samplers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">selectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class">Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#baseselector">BaseSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defaultselector">DefaultSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#densetripletselector">DenseTripletSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#densepairselector">DensePairSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distanceweightedselector">DistanceWeightedSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#semihardselector">SemiHardSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#randomtripletselector">RandomTripletSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hardselector">HardSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hardpairselector">HardPairSelector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>selectors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/selectors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gedml.core.selectors">
+<span id="selectors"></span><h1>selectors<a class="headerlink" href="#module-gedml.core.selectors" title="Permalink to this headline">¶</a></h1>
+<p>This module is aimed at <strong>How to select samples to provide more information for training</strong>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>method</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BaseSelector</p></td>
+<td><p>Base class.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DefaultSelector</p></td>
+<td><p>Do nothing.</p></td>
+</tr>
+<tr class="row-even"><td><p>DenseTripletSelector</p></td>
+<td><p>Select all triples.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DensePairSelector</p></td>
+<td><p>Select all pairs.</p></td>
+</tr>
+<tr class="row-even"><td><p>DistanceWeightedSelector</p></td>
+<td><p>Distance weighted selector</p></td>
+</tr>
+<tr class="row-odd"><td><p>SemiHardSelector</p></td>
+<td><p>Semi-hard selector</p></td>
+</tr>
+<tr class="row-even"><td><p>RandomTripletSelector</p></td>
+<td><p>Randomly select triplets</p></td>
+</tr>
+<tr class="row-odd"><td><p>HardSelector</p></td>
+<td><p>Hardest hard sample</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="baseselector">
+<h3>BaseSelector<a class="headerlink" href="#baseselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.base_selector.BaseSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.base_selector.</span></span><span class="sig-name descname"><span class="pre">BaseSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/base_selector.html#BaseSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.base_selector.BaseSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="modules.html#gedml.core.modules.with_recorder.WithRecorder" title="gedml.core.modules.with_recorder.WithRecorder"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.modules.with_recorder.WithRecorder</span></code></a></p>
+<p>Base class of <code class="docutils literal notranslate"><span class="pre">selectors</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.base_selector.BaseSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/selectors/base_selector.html#BaseSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.base_selector.BaseSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of columns.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – Whether the two data streams are from the same source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>Five type of elements:</p>
+<ol class="arabic simple">
+<li><p>metric_mat (torch.Tensor): Metric matrix.</p></li>
+<li><p>labels_row (torch.Tensor): Labels of rows.</p></li>
+<li><p>labels_col (torch.Tensor): Labels of columns.</p></li>
+<li><p>is_same_source (bool): Whether the two tensors are from the same source.</p></li>
+<li><p>indices_tuple (dict): Dict that has two key: “tuples” and “flags”</p></li>
+<li><p>weights (torch.Tensor): Weights.</p></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="defaultselector">
+<h3>DefaultSelector<a class="headerlink" href="#defaultselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.default_selector.DefaultSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.default_selector.</span></span><span class="sig-name descname"><span class="pre">DefaultSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/default_selector.html#DefaultSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.default_selector.DefaultSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>Do nothing selector.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.default_selector.DefaultSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/selectors/default_selector.html#DefaultSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.default_selector.DefaultSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do nothing.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="densetripletselector">
+<h3>DenseTripletSelector<a class="headerlink" href="#densetripletselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.dense_triplet_selector.DenseTripletSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.dense_triplet_selector.</span></span><span class="sig-name descname"><span class="pre">DenseTripletSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/dense_triplet_selector.html#DenseTripletSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.dense_triplet_selector.DenseTripletSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>Select all triplets.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.dense_triplet_selector.DenseTripletSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/selectors/dense_triplet_selector.html#DenseTripletSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.dense_triplet_selector.DenseTripletSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select all triplets.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="densepairselector">
+<h3>DensePairSelector<a class="headerlink" href="#densepairselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.dense_pair_selector.DensePairSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.dense_pair_selector.</span></span><span class="sig-name descname"><span class="pre">DensePairSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/dense_pair_selector.html#DensePairSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.dense_pair_selector.DensePairSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>Select all pairs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.dense_pair_selector.DensePairSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/selectors/dense_pair_selector.html#DensePairSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.dense_pair_selector.DensePairSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select all pairs.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="distanceweightedselector">
+<h3>DistanceWeightedSelector<a class="headerlink" href="#distanceweightedselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.distance_weighted_selector.DistanceWeightedSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.distance_weighted_selector.</span></span><span class="sig-name descname"><span class="pre">DistanceWeightedSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/distance_weighted_selector.html#DistanceWeightedSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.distance_weighted_selector.DistanceWeightedSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>Distance weighted sampling method, euclidean distance metric is required.</p>
+<p>paper: <a class="reference external" href="http://openaccess.thecvf.com/content_iccv_2017/html/Wu_Sampling_Matters_in_ICCV_2017_paper.html">Sampling Matters in Deep Embedding Learning</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.distance_weighted_selector.DistanceWeightedSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/selectors/distance_weighted_selector.html#DistanceWeightedSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.distance_weighted_selector.DistanceWeightedSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly select a positive sample for anchor sample and select a negative sample for anchor sample according to the distance weighted probability.</p>
+<p>The distribution of pairwise distances follows:</p>
+<p><span class="math notranslate nohighlight">\(q(d) \propto d^{n-2} [1 - \frac{1}{4} d^2 ]^{\frac{n-3}{2}}\)</span></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="semihardselector">
+<h3>SemiHardSelector<a class="headerlink" href="#semihardselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.semi_hard_selector.SemiHardSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.semi_hard_selector.</span></span><span class="sig-name descname"><span class="pre">SemiHardSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/semi_hard_selector.html#SemiHardSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.semi_hard_selector.SemiHardSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>Semi-hard sampling method, euclidean distance metric is required.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.semi_hard_selector.SemiHardSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/semi_hard_selector.html#SemiHardSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.semi_hard_selector.SemiHardSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly select a positive sample and select a negative sample holds:</p>
+<p><span class="math notranslate nohighlight">\(d_p &lt; d_n &lt; d_p + margin\)</span></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="randomtripletselector">
+<h3>RandomTripletSelector<a class="headerlink" href="#randomtripletselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.random_triplet_selector.RandomTripletSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.random_triplet_selector.</span></span><span class="sig-name descname"><span class="pre">RandomTripletSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/random_triplet_selector.html#RandomTripletSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.random_triplet_selector.RandomTripletSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>Semi-hard sampling method, euclidean distance metric is required.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.random_triplet_selector.RandomTripletSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/random_triplet_selector.html#RandomTripletSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.random_triplet_selector.RandomTripletSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly select a positive sample and a negative sample</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="hardselector">
+<h3>HardSelector<a class="headerlink" href="#hardselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.hard_selector.HardSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.hard_selector.</span></span><span class="sig-name descname"><span class="pre">HardSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hardneg_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_similarity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/hard_selector.html#HardSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.hard_selector.HardSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>A self-defined selector according to distance weighted sampling method</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.hard_selector.HardSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/selectors/hard_selector.html#HardSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.hard_selector.HardSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of columns.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – Whether the two data streams are from the same source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>Five type of elements:</p>
+<ol class="arabic simple">
+<li><p>metric_mat (torch.Tensor): Metric matrix.</p></li>
+<li><p>labels_row (torch.Tensor): Labels of rows.</p></li>
+<li><p>labels_col (torch.Tensor): Labels of columns.</p></li>
+<li><p>is_same_source (bool): Whether the two tensors are from the same source.</p></li>
+<li><p>indices_tuple (dict): Dict that has two key: “tuples” and “flags”</p></li>
+<li><p>weights (torch.Tensor): Weights.</p></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="hardpairselector">
+<h3>HardPairSelector<a class="headerlink" href="#hardpairselector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gedml.core.selectors.hard_pair_selector.HardPairSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gedml.core.selectors.hard_pair_selector.</span></span><span class="sig-name descname"><span class="pre">HardPairSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hardneg_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_similarity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gedml/core/selectors/hard_pair_selector.html#HardPairSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.hard_pair_selector.HardPairSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gedml.core.selectors.base_selector.BaseSelector" title="gedml.core.selectors.base_selector.BaseSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">gedml.core.selectors.base_selector.BaseSelector</span></code></a></p>
+<p>A self-defined selector according to distance weighted sampling method</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gedml.core.selectors.hard_pair_selector.HardPairSelector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_same_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="_modules/gedml/core/selectors/hard_pair_selector.html#HardPairSelector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gedml.core.selectors.hard_pair_selector.HardPairSelector.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_mat</strong> (<em>torch.Tensor</em>) – Metric matrix.</p></li>
+<li><p><strong>row_labels</strong> (<em>torch.Tensor</em>) – Labels of rows.</p></li>
+<li><p><strong>col_labels</strong> (<em>torch.Tensor</em>) – Labels of columns.</p></li>
+<li><p><strong>is_same_source</strong> (<em>bool</em>) – Whether the two data streams are from the same source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>Five type of elements:</p>
+<ol class="arabic simple">
+<li><p>metric_mat (torch.Tensor): Metric matrix.</p></li>
+<li><p>labels_row (torch.Tensor): Labels of rows.</p></li>
+<li><p>labels_col (torch.Tensor): Labels of columns.</p></li>
+<li><p>is_same_source (bool): Whether the two tensors are from the same source.</p></li>
+<li><p>indices_tuple (dict): Dict that has two key: “tuples” and “flags”</p></li>
+<li><p>weights (torch.Tensor): Weights.</p></li>
+</ol>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="transforms.html" class="btn btn-neutral float-right" title="transforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="samplers.html" class="btn btn-neutral float-left" title="samplers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

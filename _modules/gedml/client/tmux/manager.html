@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>gedml.client.tmux.manager &mdash; GeDML 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GeDML
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">core</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../collectors.html">collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../datasets.html">datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../evaluators.html">evaluators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../losses.html">losses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../metrics.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html">models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../samplers.html">samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../selectors.html">selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transforms.html">transforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">client</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tmux.html">tmux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">config</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../config.html">config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">launcher</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../creators.html">creators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../managers.html">managers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../testers.html">testers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../trainers.html">trainers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">recorder</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../recorder.html">recorder</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GeDML</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gedml.client.tmux.manager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gedml.client.tmux.manager</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">libtmux</span>
+
+<span class="k">def</span> <span class="nf">clear_tmux</span><span class="p">(</span><span class="n">session_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Kill the specified tmux session.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        session_name(str):</span>
+<span class="sd">            The name of tmux session to be killed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target_session</span> <span class="o">=</span> <span class="n">TmuxManager</span><span class="p">(</span><span class="n">session_name</span><span class="o">=</span><span class="n">session_name</span><span class="p">)</span>
+    <span class="n">target_session</span><span class="o">.</span><span class="n">close_all</span><span class="p">()</span>
+    <span class="k">del</span> <span class="n">target_session</span>
+
+<div class="viewcode-block" id="TmuxManager"><a class="viewcode-back" href="../../../../tmux.html#gedml.client.tmux.manager.TmuxManager">[docs]</a><span class="k">class</span> <span class="nc">TmuxManager</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class to manage the Tmux software.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Tmux must be installed before.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        session_name(str):</span>
+<span class="sd">            The name of tmux session.</span>
+<span class="sd">        conda_env(str):</span>
+<span class="sd">            The name of conda environment for window intialization.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; manager = TmuxManager()</span>
+<span class="sd">        &gt;&gt;&gt; manager.new_window(window_name=&quot;test&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; cmd = &quot;clear&quot;</span>
+<span class="sd">        &gt;&gt;&gt; manager.send_cmd(cmd)</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        session:</span>
+<span class="sd">            Current tmux session pointer.</span>
+<span class="sd">        curr_window:</span>
+<span class="sd">            Current tmux window pointer.</span>
+<span class="sd">        curr_pane:</span>
+<span class="sd">            Current tmux pane pointer by which user can send command.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">session_name</span><span class="o">=</span><span class="s1">&#39;borel&#39;</span><span class="p">,</span>
+        <span class="n">conda_env</span><span class="o">=</span><span class="s2">&quot;pytorch&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_name</span> <span class="o">=</span> <span class="n">session_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conda_env</span> <span class="o">=</span> <span class="n">conda_env</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initiate_manager</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="TmuxManager.initiate_manager"><a class="viewcode-back" href="../../../../tmux.html#gedml.client.tmux.manager.TmuxManager.initiate_manager">[docs]</a>    <span class="k">def</span> <span class="nf">initiate_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initiate libtmux.Server and create specified session.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">libtmux</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span>
+        <span class="c1"># initiate session</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">find_where</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;session_name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_name</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">new_session</span><span class="p">(</span>
+                <span class="n">session_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session_name</span>
+            <span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">list_windows</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_pane</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_window</span><span class="o">.</span><span class="n">list_panes</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
+    
+<div class="viewcode-block" id="TmuxManager.new_window"><a class="viewcode-back" href="../../../../tmux.html#gedml.client.tmux.manager.TmuxManager.new_window">[docs]</a>    <span class="k">def</span> <span class="nf">new_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a new tmux window.</span>
+
+<span class="sd">        After creating the tmux window, conda initialization command will be sent to enter into the specified conda environment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            window_name(str):</span>
+<span class="sd">                The name of window to be created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">new_window</span><span class="p">(</span>
+            <span class="n">window_name</span><span class="o">=</span><span class="n">window_name</span><span class="p">,</span>
+            <span class="n">attach</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">list_windows</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_pane</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_window</span><span class="o">.</span><span class="n">list_panes</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># to conda environment</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;conda activate </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conda_env</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_pane</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="TmuxManager.send_cmd"><a class="viewcode-back" href="../../../../tmux.html#gedml.client.tmux.manager.TmuxManager.send_cmd">[docs]</a>    <span class="k">def</span> <span class="nf">send_cmd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send command to the current tmux pane.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cmd(str):</span>
+<span class="sd">                Command to be sent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_pane</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="TmuxManager.close_all"><a class="viewcode-back" href="../../../../tmux.html#gedml.client.tmux.manager.TmuxManager.close_all">[docs]</a>    <span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Close all tmux window.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_list</span><span class="p">:</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">kill_window</span><span class="p">()</span></div></div>
+
+
+    
+
+    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Borui Zhang.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
