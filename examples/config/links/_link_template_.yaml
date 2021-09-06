@@ -1,0 +1,58 @@
+metrics:
+  - default: TODO:
+
+collectors:
+  - default: TODO:
+
+selectors:
+  - default: TODO:
+
+losses:
+  - default: TODO:
+
+models:
+  - trunk: TODO:
+  - embedder: TODO:
+
+evaluators:
+  - default: Calculator.yaml
+
+optimizers:
+  - trunk: RMSprop_trunk.yaml
+  - embedder: RMSprop_embedder.yaml
+
+schedulers:
+  - trunk: on_plateau.yaml
+  - embedder: on_plateau.yaml
+
+gradclipper:
+  - trunk: gradclipper.yaml
+  - embedder: gradclipper.yaml
+
+transforms:
+  - train: train_transforms.yaml
+  - test: eval_transforms.yaml
+
+datasets:
+  - train: cub200_train.yaml
+  - test: cub200_test.yaml
+
+# samplers:
+#   - train: MPerClassSampler.yaml
+
+collatefns:
+  - train: default.yaml
+
+recorders:
+  - default: base_recorder.yaml
+
+trainers: 
+  - default: BaseTrainer.yaml
+
+testers:
+  - default: BaseTester.yaml
+
+managers:
+  - default: BaseManager.yaml
+
+LINK_SETTING: {}

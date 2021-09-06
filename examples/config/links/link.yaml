@@ -1,0 +1,58 @@
+metrics:
+  - default: euclid.yaml
+
+collectors:
+  - default: DefaultCollector.yaml
+
+selectors:
+  - default: DenseTripletSelector.yaml
+
+losses:
+  - default: TripletLoss.yaml
+
+models:
+  - trunk: resnet50.yaml
+  - embedder: MLP_resnet50.yaml
+
+evaluators:
+  - default: Calculator.yaml
+
+optimizers:
+  - trunk: RMSprop_trunk.yaml
+  - embedder: RMSprop_embedder.yaml
+
+schedulers:
+  - trunk: on_plateau.yaml
+  - embedder: on_plateau.yaml
+
+gradclipper:
+  - trunk: gradclipper.yaml
+  - embedder: gradclipper.yaml
+
+transforms:
+  - train: train_transforms.yaml
+  - test: eval_transforms.yaml
+
+datasets:
+  - train: cub200_train.yaml
+  - test: cub200_test.yaml
+
+# samplers:
+#   - train: MPerClassSampler.yaml
+
+collatefns:
+  - train: default.yaml
+
+recorders:
+  - default: base_recorder.yaml
+
+trainers: 
+  - default: BaseTrainer.yaml
+
+testers:
+  - default: BaseTester.yaml
+
+managers:
+  - default: BaseManager.yaml
+
+

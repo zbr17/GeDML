@@ -1,0 +1,4 @@
+MLP:
+  params:
+    first_relu: false
+    layer_size_list: [1024, 512]

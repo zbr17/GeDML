@@ -1,0 +1,35 @@
+name: Documentation
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Push Sphinx Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up python3.6
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.6
+      - name: Install dependencies
+        run: |
+          pip install sphinx
+          pip install sphinx_rtd_theme
+          pip install -r requirements.txt
+      - name: Build sphinx documentation
+        run: |
+          export PYTHONPATH=$(pwd)/src:$PYTHONPATH
+          cd .docsrc
+          make html
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .docsrc/build/html/
+      - name: Clean output
+        run: |
+          rm -r .docsrc/build/*
+        

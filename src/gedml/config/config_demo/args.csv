@@ -1,0 +1,20 @@
+name,type,default,help,default
+"""--save_path""",str,"os.path.join(workspace, ""experiments/GeDML/"")","""global setting""","[""recorders/default-root""]"
+"""--data_path""",str,"os.path.join(workspace, ""datasets/"")","""global setting""","[""datasets/train-root"", ""datasets/test-root""]"
+"""--save_name""",str,"""TEST""","""global setting""",
+"""--link_path""",str,None,"""global setting""",
+"""--delete_old""","""store_true""",False,"""global setting""","[""recorders/default-delete_old_folder""]"
+"""--device""",int,[0],"""global setting""","[""managers/default-device""]"
+"""--device_type""",str,"""DP""","""global setting""","[""managers/default-device_wrapper_type""]"
+"""--num_worders""",int,8,"""global setting""","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]"
+"""--is_distributed""","""store_true""",False,"""global setting""","[""managers/default-is_distributed""]"
+"""--is_resume""","""store_true""",False,"""global setting""","[""managers/default-is_resume""]"
+"""--use_wandb""","""store_true""",False,"""global setting""","[""recorders/default-use_wandb""]"
+"""--to_device_list""",str,[],"""global setting""","[""managers/default-to_device_list""]"
+"""--to_wrap_list""",str,[],"""global setting""","[""managers/default-to_wrap_list""]"
+"""--margin_alpha""",float,0.2,"""losses""","[""losses/default-alpha""]"
+"""--margin_beta""",float,1.2,"""losses""","[""losses/default-beta""]"
+"""--batch_size""",int,32,"""train""","[""trainers/default-batch_size""]"
+"""--lr""",float,0.0001,"""train""","[""optimizers/trunk-lr"", ""optimizers/embedder-lr"", ""optimizers/loss-lr""]"
+"""--test_batch_size""",int,32,"""test""","[""testers/default-batch_size""]"
+"""--splits_to_eval""",str,"[""test"", ""train""]","""test""","[""testers/default-splits_to_eval""]"

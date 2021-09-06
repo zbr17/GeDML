@@ -1,0 +1,64 @@
+metrics:
+  - default: euclid.yaml
+
+collectors:
+  - default: DAMLCollector.yaml
+
+selectors:
+  - default: DenseTripletSelector.yaml
+
+losses:
+  - default: TripletLoss.yaml
+
+models:
+  - trunk: googlenet.yaml
+  - embedder: daml_embedder.yaml
+  - generator: daml_generator.yaml
+
+evaluators:
+  - default: Calculator.yaml
+
+optimizers:
+  - trunk: Adam_trunk.yaml
+  - embedder: Adam_embedder.yaml
+  - generator: Adam_embedder.yaml 
+
+schedulers:
+  - trunk: on_plateau.yaml
+  - embedder: on_plateau.yaml
+  - generator: on_plateau.yaml 
+
+gradclipper:
+  - trunk: gradclipper.yaml
+  - embedder: gradclipper.yaml
+  - generator: gradclipper.yaml 
+
+transforms:
+  - train: train_transforms.yaml
+  - test: eval_transforms.yaml
+
+datasets:
+  - train: cub200_train.yaml
+  - test: cub200_test.yaml
+
+# samplers:
+#   - train: MPerClassSampler.yaml
+
+collatefns:
+  - train: default.yaml
+
+recorders:
+  - default: base_recorder.yaml
+
+trainers: 
+  - default: BaseTrainer.yaml
+
+testers:
+  - default: BaseTester.yaml
+
+managers:
+  - default: BaseManager.yaml
+
+LINK_SETTING:
+  to_device_list: [models]
+  to_wrap_list: [models]

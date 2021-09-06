@@ -1,0 +1,23 @@
+BaseManager:
+  params:
+    trainer:
+      - ~~_SEARCH_WITH_TARGET_NAME_
+      - trainers
+      - default
+    tester:
+      - ~~_SEARCH_WITH_TARGET_NAME_
+      - testers
+      - default
+    recorder:
+      - ~~_SEARCH_WITH_TARGET_NAME_
+      - recorders
+      - default
+    objects_dict: 
+      - ~~_PASS_WITH_OBJECTS_DICT_
+      - null
+      - null
+    device: [0]
+    is_resume: true
+    is_distributed: false
+    device_wrapper_type: DP
+    dist_port: 23456

@@ -1,0 +1,72 @@
+metrics:
+  - default: euclid.yaml
+
+collectors:
+  - default: HDMLCollector.yaml
+
+selectors:
+  - default: DenseTripletSelector.yaml
+
+losses:
+  - default: TripletLoss.yaml
+
+models:
+  - trunk: googlenet.yaml
+  - embedder: hdml_embedder.yaml
+  - generator: hdml_generator.yaml
+  - embedder_recon: hdml_embedder.yaml
+  - classifier: hdml_classifier.yaml
+
+evaluators:
+  - default: Calculator.yaml
+
+optimizers:
+  - trunk: RMSprop_trunk.yaml
+  - embedder: RMSprop_embedder.yaml
+  - generator: Adam_hdml_generator.yaml
+  - embedder_recon: RMSprop_embedder.yaml
+  - classifier: Adam_hdml_classifier.yaml
+
+schedulers:
+  - trunk: on_plateau.yaml
+  - embedder: on_plateau.yaml
+  - generator: on_plateau.yaml
+  - embedder_recon: on_plateau.yaml
+  - classifier: on_plateau.yaml
+
+gradclipper:
+  - trunk: gradclipper.yaml
+  - embedder: gradclipper.yaml
+  - generator: gradclipper.yaml
+  - embedder_recon: gradclipper.yaml
+  - classifier: gradclipper.yaml
+
+transforms:
+  - train: train_transforms.yaml
+  - test: eval_transforms.yaml
+
+datasets:
+  - train: cub200_train.yaml
+  - test: cub200_test.yaml
+
+# samplers:
+#   - train: MPerClassSampler.yaml
+
+collatefns:
+  - train: default.yaml
+
+recorders:
+  - default: base_recorder.yaml
+
+trainers: 
+  - default: BaseTrainer.yaml
+
+testers:
+  - default: BaseTester.yaml
+
+managers:
+  - default: BaseManager.yaml
+
+LINK_SETTING:
+  to_device_list: [models]
+  to_wrap_list: [models]

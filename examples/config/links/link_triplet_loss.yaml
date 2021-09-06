@@ -1,0 +1,59 @@
+metrics:
+  - default: euclid_normalized.yaml
+
+collectors:
+  - default: DefaultCollector.yaml
+
+selectors:
+  - default: SemiHardSelector.yaml
+
+losses:
+  - default: TripletLoss.yaml
+
+models:
+  - trunk: bninception.yaml
+  - embedder: MLP_bninception.yaml
+
+evaluators:
+  - default: Calculator.yaml
+
+optimizers:
+  - trunk: AdamW_trunk.yaml
+  - embedder: AdamW_embedder.yaml
+
+schedulers:
+  - trunk: step_lr.yaml
+  - embedder: step_lr.yaml
+
+gradclipper:
+  - trunk: gradclipper_models.yaml
+  - embedder: gradclipper_models.yaml
+
+transforms:
+  - train: train_transforms.yaml
+  - test: eval_transforms.yaml
+
+datasets:
+  - train: cub200_train.yaml
+  - test: cub200_test.yaml
+
+# samplers:
+#   - train: MPerClassSampler.yaml
+
+collatefns:
+  - train: default.yaml
+
+recorders:
+  - default: base_recorder.yaml
+
+trainers: 
+  - default: BaseTrainer.yaml
+
+testers:
+  - default: BaseTester.yaml
+
+managers:
+  - default: BaseManager.yaml
+
+LINK_SETTING: 
+  to_device_list: [models, losses]

@@ -1,0 +1,22 @@
+input: [data, embeddings, features, labels]
+map:
+  selectors/default/loss_m: 
+      metric_mat: 0
+      row_labels: 1
+      col_labels: 2
+      is_same_source: 6
+  selectors/default/loss_syn: 
+      metric_mat: 3
+      row_labels: 4
+      col_labels: 5
+      is_same_source: 6
+  FINISH/default/loss_recon: 
+      loss: 7
+      weight: 9
+  FINISH/default/loss_soft: 
+      loss: 8
+      weight: 10
+  FINISH/default/loss_m: 
+      weight: 11
+  FINISH/default/loss_syn: 
+      weight: 12

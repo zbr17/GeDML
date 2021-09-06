@@ -1,0 +1,7 @@
+BaseRecorder:
+  params:
+    project_name: GeDML
+    root: <WORKSPACE>/experiments/GeDML/test
+    delete_old_folder: true
+    hint_if_exist: true
+    is_resume: false
