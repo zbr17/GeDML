@@ -37,16 +37,23 @@ cudnn.deterministic = True
 cudnn.benchmark = True
 
 # get confighandler
+config_root = os.path.abspath(opj(__file__, "../config/"))
 if opt.link_path is None:
-    link_root = csv_path = os.path.abspath(opj(__file__, "../config/"))
+    link_root = os.path.join(config_root, "links")
     if opt.setting is None:
         opt.link_path = opj(link_root, "link.yaml")
     else:
         opt.link_path = os.path.join(link_root, "link_" + opt.setting + ".yaml")
+opt.assert_path = os.path.join(config_root, "assert.yaml")
+opt.param_path = os.path.join(config_root, "param")
+opt.wrapper_path = os.path.join(config_root, "wrapper")
 
 config_handler = ConfigHandler(
     convert_dict=convert_dict,
     link_path=opt.link_path,
+    assert_path=opt.assert_path,
+    params_path=opt.param_path,
+    wrapper_path=opt.wrapper_path,
     is_confirm_first=True
 )
 

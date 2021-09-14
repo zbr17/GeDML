@@ -31,9 +31,9 @@ pip install gedml
 
 # Quickstart
 
-Please set the environment variable `WORKSPACE` first to indicate where to manage your project.
+Please set the environment variable `WORKSPACE` first to indicate where to manage your project and download [`config`](examples/config) which include `args.csv`, `assert.yaml`, `links`, `param`, `wrapper`.
 
-TODO: bridge between DML and SSL.
+(Demo of convenient and fast switching between DML and SSL)
 
 ## Setting launch.json in VS Code
 
@@ -59,7 +59,14 @@ TODO: bridge between DML and SSL.
 Use `ConfigHandler` to create all objects.
 
 ```python
-config_handler = ConfigHandler()
+config_handler = ConfigHandler(
+    convert_dict=convert_dict,
+    link_path=link_path,
+    assert_path=assert_path,
+    params_path=param_path,
+    wrapper_path=wrapper_path,
+    is_confirm_first=True
+)
 config_handler.get_params_dict()
 objects_dict = config_handler.create_all()
 ```
@@ -106,15 +113,18 @@ This project is modular in design. The pipeline diagram is as follows:
 
 ## Code structure
 
-- [_debug](https://github.com/zbr17/GeDML/tree/v1.0.0/_debug): Debug files.
-- [demo](https://github.com/zbr17/GeDML/tree/v1.0.0/demo): Demos of configuration files.
-- [docs](https://github.com/zbr17/GeDML/tree/v1.0.0/docs): Documentation.
-- [src](https://github.com/zbr17/GeDML/tree/v1.0.0/src): Source code.
-  - [core](https://github.com/zbr17/GeDML/tree/v1.0.0/src/core): Losses, selectors, collectors, etc.
-  - [client](https://github.com/zbr17/GeDML/tree/v1.0.0/src/client): Tmux manager.
-  - [config](https://github.com/zbr17/GeDML/tree/v1.0.0/src/config): Config files including `link`, `convert`, `assert` and `params`.
-  - [launcher](https://github.com/zbr17/GeDML/tree/v1.0.0/src/launcher): Manager, Trainer, Tester, etc.
-  - [recorder](https://github.com/zbr17/GeDML/tree/v1.0.0/src/recorder): Recorder.
+<!-- - [.docsrc](.docsrc): Code for documentation generation.
+- [.github](.github): CI/CD. -->
+- [tests](tests): Debug files.
+- [examples](examples): Demos.
+  - [config](examples/config): Folder which stores [`links`](examples/config/links), [`param`](examples/config/param), [`wrapper`](examples/config/wrapper), [`args.yaml`](examples/config/args.csv) and [`assert.yaml`](examples/config/assert.yaml).
+  - [demo.py](examples/demo.py): A demo python file.
+- [src/gedml](src/gedml): Main code.
+  - [core](src/gedml/core): Losses, selectors, collectors, etc.
+  - [client](src/gedml/client): Tmux manager.
+  - [config](src/gedml/config): Config files which define the hyper-string etc.
+  - [launcher](src/gedml/launcher): Manager, Trainer, Tester, etc.
+  - [recorder](src/gedml/recorder): Recorder.
 
 # Method
 

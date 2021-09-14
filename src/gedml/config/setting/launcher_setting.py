@@ -1,9 +1,4 @@
 import os
-DEFAULT_CONFIG_ROOT = os.path.abspath(os.path.join(__file__, "../../"))
-DEFAULT_LINK_PATH = os.path.join(DEFAULT_CONFIG_ROOT, "config_demo/link.yaml")
-DEFAULT_ASSERT_PATH = os.path.join(DEFAULT_CONFIG_ROOT, "config_demo/assert.yaml")
-DEFAULT_PARAMS_PATH = os.path.join(DEFAULT_CONFIG_ROOT, "param")
-DEFAULT_WRAPPER_PATH = os.path.join(DEFAULT_CONFIG_ROOT, "wrapper")
 
 CLASS_KEY = "type"
 PARAMS_KEY = "params"

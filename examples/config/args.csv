@@ -1,4 +1,4 @@
-name,type,default,help,default
+name,type,default,help,margin_loss
 """--save_path""",str,"os.path.join(os.environ[""WORKSPACE""], ""experiments/GeDML/"")","""global setting""","[""recorders/default-root""]"
 """--data_path""",str,"os.path.join(os.environ[""WORKSPACE""], ""datasets/cub200"")","""global setting""","[""datasets/train-root"", ""datasets/test-root""]"
 """--save_name""",str,"""TEST""","""global setting""",

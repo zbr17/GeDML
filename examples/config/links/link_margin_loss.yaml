@@ -5,7 +5,7 @@ collectors:
   - default: DefaultCollector.yaml
 
 selectors:
-  - default: DistanceWeightedSelector.yaml
+  - default: HardSelector.yaml
 
 losses:
   - default: MarginLoss.yaml

@@ -3,10 +3,6 @@ import logging
 from .creator_manager import CreatorManager
 from ..misc import utils
 from ...config.setting.launcher_setting import (
-    DEFAULT_LINK_PATH,
-    DEFAULT_PARAMS_PATH,
-    DEFAULT_WRAPPER_PATH,
-    DEFAULT_ASSERT_PATH,
     CLASS_KEY,
     PARAMS_KEY,
     INITIATE_KEY,
@@ -58,26 +54,10 @@ class ConfigHandler:
         is_confirm_first=True,
     ):
         self.convert_dict = convert_dict
-        self.link_path = (
-            link_path
-            if link_path is not None
-            else DEFAULT_LINK_PATH
-        )
-        self.assert_path = (
-            assert_path
-            if assert_path is not None
-            else DEFAULT_ASSERT_PATH
-        )
-        self.params_path = (
-            params_path
-            if params_path is not None
-            else DEFAULT_PARAMS_PATH
-        )
-        self.wrapper_path = (
-            wrapper_path
-            if wrapper_path is not None
-            else DEFAULT_WRAPPER_PATH
-        )
+        self.link_path = link_path
+        self.assert_path = assert_path
+        self.params_path = params_path
+        self.wrapper_path = wrapper_path
         self.is_confirm_first = is_confirm_first
 
         self.creator_manager = CreatorManager()
