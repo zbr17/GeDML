@@ -29,6 +29,73 @@
 pip install gedml
 ```
 
+# Quickstart
+
+Please set the environment variable `WORKSPACE` first to indicate where to manage your project.
+
+TODO: bridge between DML and SSL.
+
+## Setting launch.json in VS Code
+
+```json
+"env": {
+    "CUDA_VISIBLE_DEVICES": "0"
+},
+"args": [
+    "--device", "0",
+    "--delete_old",
+    "--batch_size", "180",
+    "--test_batch_size", "180",
+    "--setting", "margin_loss",
+    "--margin_alpha", "1",
+    "--margin_beta", "0.5",
+    "--lr", "0.00003",
+    // "--use_wandb",
+]
+```
+
+## Initialization
+
+Use `ConfigHandler` to create all objects.
+
+```python
+config_handler = ConfigHandler()
+config_handler.get_params_dict()
+objects_dict = config_handler.create_all()
+```
+
+## Start
+
+Use `manager` to automatically call `trainer` and `tester`.
+
+```python
+manager = utils.get_default(objects_dict, "managers")
+manager.run()
+```
+
+Directly use `trainer` and `tester`.
+
+```python
+trainer = utils.get_default(objects_dict, "trainers")
+tester = utils.get_default(objects_dict, "testers")
+recorder = utils.get_default(objects_dict, "recorders")
+
+# start to train
+utils.func_params_mediator(
+    [objects_dict],
+    trainer.__call__
+)
+
+# start to test
+metrics = utils.func_params_mediator(
+    [
+        {"recorders": recorder},
+        objects_dict,
+    ],
+    tester.__call__
+)
+```
+
 # Framework
 
 This project is modular in design. The pipeline diagram is as follows:
@@ -107,52 +174,6 @@ This project is modular in design. The pipeline diagram is as follows:
 | DefaultSelector | Do nothing |
 | DenseTripletSelector | Select all triples |
 | DensePairSelector | Select all pairs |
-
-# Quickstart
-
-Please set the environment variable `WORKSPACE` first to indicate where to manage your project.
-
-## Initialization
-
-Use `ConfigHandler` to create all objects.
-
-```python
-config_handler = ConfigHandler()
-config_handler.get_params_dict()
-objects_dict = config_handler.create_all()
-```
-
-## Start
-
-Use `manager` to automatically call `trainer` and `tester`.
-
-```python
-manager = utils.get_default(objects_dict, "managers")
-manager.run()
-```
-
-Directly use `trainer` and `tester`.
-
-```python
-trainer = utils.get_default(objects_dict, "trainers")
-tester = utils.get_default(objects_dict, "testers")
-recorder = utils.get_default(objects_dict, "recorders")
-
-# start to train
-utils.func_params_mediator(
-    [objects_dict],
-    trainer.__call__
-)
-
-# start to test
-metrics = utils.func_params_mediator(
-    [
-        {"recorders": recorder},
-        objects_dict,
-    ],
-    tester.__call__
-)
-```
 
 # Document 
 For more information, please refer to: 
