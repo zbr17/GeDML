@@ -56,10 +56,24 @@ Please set the environment variable `WORKSPACE` first to indicate where to manag
 
 ## Initialization
 
+Use `ParserWithConvert` to get parameters
+
+```python
+>>> from gedml.launcher.misc import ParserWithConvert
+>>> csv_path = ...
+>>> parser = ParserWithConvert(csv_path=csv_path, name="...")
+>>> opt, convert_dict = parser.render()
+```
+
 Use `ConfigHandler` to create all objects.
 
 ```python
-config_handler = ConfigHandler(
+>>> from gedml.launcher.creators import ConfigHandler
+>>> link_path = ...
+>>> assert_path = ...
+>>> param_path = ...
+>>> wrapper_path = ...
+>>> config_handler = ConfigHandler(
     convert_dict=convert_dict,
     link_path=link_path,
     assert_path=assert_path,
@@ -67,8 +81,8 @@ config_handler = ConfigHandler(
     wrapper_path=wrapper_path,
     is_confirm_first=True
 )
-config_handler.get_params_dict()
-objects_dict = config_handler.create_all()
+>>> config_handler.get_params_dict()
+>>> objects_dict = config_handler.create_all()
 ```
 
 ## Start
@@ -76,25 +90,25 @@ objects_dict = config_handler.create_all()
 Use `manager` to automatically call `trainer` and `tester`.
 
 ```python
-manager = utils.get_default(objects_dict, "managers")
-manager.run()
+>>> from gedml.launcher.misc import utils
+>>> manager = utils.get_default(objects_dict, "managers")
+>>> manager.run()
 ```
 
 Or directly use `trainer` and `tester`.
 
 ```python
-trainer = utils.get_default(objects_dict, "trainers")
-tester = utils.get_default(objects_dict, "testers")
-recorder = utils.get_default(objects_dict, "recorders")
-
+>>> from gedml.launcher.misc import utils
+>>> trainer = utils.get_default(objects_dict, "trainers")
+>>> tester = utils.get_default(objects_dict, "testers")
+>>> recorder = utils.get_default(objects_dict, "recorders")
 # start to train
-utils.func_params_mediator(
+>>> utils.func_params_mediator(
     [objects_dict],
     trainer.__call__
 )
-
 # start to test
-metrics = utils.func_params_mediator(
+>>> metrics = utils.func_params_mediator(
     [
         {"recorders": recorder},
         objects_dict,
