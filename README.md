@@ -73,7 +73,7 @@ manager = utils.get_default(objects_dict, "managers")
 manager.run()
 ```
 
-Directly use `trainer` and `tester`.
+Or directly use `trainer` and `tester`.
 
 ```python
 trainer = utils.get_default(objects_dict, "trainers")
