@@ -187,11 +187,14 @@ class ConfigHandler:
         )
         return getattr(instance_dict[module_name], attr_name)
     
-    def _pass_with_objects_dict_(self, top_class, instance_name, target_name):
+    def _pass_with_objects_dict_(self, *args, **kwargs):
         return self.objects_dict
     
-    def _pass_with_wrapper_dict_(self, top_class, instance_name, target_name):
+    def _pass_with_wrapper_dict_(self, *args, **kwargs):
         return self.wrapper_dict
+    
+    def _pass_with_params_dict_(self, *args, **kwargs):
+        return self.params_dict
     
     """
     About construction of link config and params dict

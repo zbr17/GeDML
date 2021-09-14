@@ -5,3 +5,7 @@ BaseRecorder:
     delete_old_folder: true
     hint_if_exist: true
     is_resume: false
+    params_to_save: 
+      - ~~_PASS_WITH_PARAMS_DICT_
+      - none
+      - none

@@ -1,8 +1,9 @@
 import os
 import logging
 import csv
-from torch.utils.tensorboard import SummaryWriter
+import yaml
 import wandb
+from torch.utils.tensorboard import SummaryWriter
 import torch
 from . import utils
 from ..config.setting.recorder_setting import CSV_FOLDER, MODEL_FOLDER, BOARD_FOLDER, WANDB_FOLDER, TO_SAVE_LIST, DEVICE, STEP_MODEL_SUFFIX, BEST_MODEL_SUFFIX, LOAD_EXCEPT_FUNC
@@ -24,6 +25,7 @@ class BaseInfoWriter:
         hint_if_exist=True,
         is_resume=False,
         use_wandb=True,
+        params_to_save=None,
     ): 
         self.project_name = project_name
         self.root = root
@@ -32,6 +34,7 @@ class BaseInfoWriter:
         self.hint_if_exist = hint_if_exist
         self.is_resume = is_resume
         self.use_wandb = use_wandb
+        self.params_to_save = params_to_save
 
         self.csv_path, self.model_path, self.board_path, self.wandb_path = None, None, None, None
 
@@ -62,6 +65,11 @@ class BaseInfoWriter:
     def init_folders(self):
         # create root folder
         self.root = utils.create_folder(self.root, is_resume=self.is_resume, hint_if_exist=self.hint_if_exist, delete_old_folders=self.delete_old_folder)
+        # save config file
+        if isinstance(self.params_to_save, dict):
+            config_path = os.path.join(self.root, "config.yaml")
+            with open(config_path, mode="w", encoding="utf-8") as f:
+                yaml.dump(self.params_to_save, f, allow_unicode=True)
         # create sub folders
         for item in self.folders_list:
             self._meta_path_factory(item)

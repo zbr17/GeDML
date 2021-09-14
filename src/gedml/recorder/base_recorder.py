@@ -44,6 +44,7 @@ class BaseRecorder:
         delete_old_folder=True,
         is_resume=False,
         use_wandb=True,
+        params_to_save=None,
         initiate_create=True,
     ):
         self.project_name = project_name
@@ -54,6 +55,7 @@ class BaseRecorder:
         self.delete_old_folder = delete_old_folder
         self.is_resume = is_resume
         self.use_wandb = use_wandb
+        self.params_to_save = params_to_save
 
         if initiate_create:
             self.create_exp_root()
@@ -77,7 +79,8 @@ class BaseRecorder:
             hint_if_exist=self.hint_if_exist,
             delete_old_folder=self.delete_old_folder,
             is_resume=self.is_resume,
-            use_wandb=self.use_wandb
+            use_wandb=self.use_wandb,
+            params_to_save=self.params_to_save
         )
     
     def delete_folders(self, group_name):
