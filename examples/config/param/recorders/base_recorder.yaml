@@ -7,9 +7,9 @@ BaseRecorder:
     is_resume: false
     params_to_save: 
       - ~~_PASS_WITH_PARAMS_DICT_
-      - none
-      - none
+      - null
+      - null
     link_config:
       - ~~_PASS_WITH_LINK_CONFIG_
-      - none
-      - none
+      - null
+      - null

@@ -3,5 +3,5 @@ Adam:
     params: 
       - ~~_SEARCH_WITH_SAME_NAME_
       - models
-      - none
+      - null
     lr: 0.001

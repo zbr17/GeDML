@@ -16,7 +16,8 @@
 
 # News
 
-> -  **[2021-9-13]**: **`v0.0.1` has been released: `config.yaml` will be created to store the configuration in the experiment folder.**
+> - **[2021-9-13]**: **`v0.0.1` has been released  
+>   - **New features:** `config.yaml` will be created to store the configuration in the experiment folder.**
 > - **[2021-9-6]**: `v0.0.0` has been released.
 
 # Introduction
@@ -240,6 +241,8 @@ We will continually update the optimal parameters of different configs in [Tsing
 - [ ] distributed methods and Non-distributed methods!!!
 - [ ] write github action to automate unit-test, package publish and docs building.
 - [ ] add cross-validation splits protocol.
+- [ ] generate pipeline graph and store in the experiment folder.
+- [ ] pipeline should be defined in the link-file with default configuration.
 
 # Important TODO
 - [ ] write `DML` to `SSL` Demos.

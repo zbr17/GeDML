@@ -3,6 +3,6 @@ StepLR:
     optimizer:
       - ~~_SEARCH_WITH_SAME_NAME_
       - optimizers
-      - none
+      - null
     step_size: 10
     gamma: 0.5

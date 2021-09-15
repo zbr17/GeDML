@@ -1,7 +1,7 @@
 gradclipper:
   params:
     parameters:
-      - ~~_SEARCH_WITH_TARGET_NAME_
+      - ~~_SEARCH_WITH_SAME_NAME_
       - collectors
-      - default
+      - null
     max_norm: 10

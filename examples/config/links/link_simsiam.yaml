@@ -5,7 +5,7 @@ collectors:
   - default: SimSiamCollector.yaml
 
 selectors:
-  - default: DenseTripletSelector.yaml
+  - default: DensePairtSelector.yaml
 
 losses:
   - default: PosPairLoss.yaml
@@ -18,16 +18,19 @@ evaluators:
   - default: Calculator.yaml
 
 optimizers:
-  - trunk: RMSprop_trunk.yaml
-  - embedder: RMSprop_embedder.yaml
+  - trunk: AdamW_trunk.yaml
+  - embedder: AdamW_embedder.yaml
+  - collector: AdamW_collector.yaml
 
 schedulers:
-  - trunk: on_plateau.yaml
-  - embedder: on_plateau.yaml
+  - trunk: step_lr.yaml
+  - embedder: step_lr.yaml
+  - collector: step_lr.yaml
 
 gradclipper:
   - trunk: gradclipper.yaml
   - embedder: gradclipper.yaml
+  - collector: gradclipper.yaml
 
 transforms:
   - train: moco_train_transforms.yaml

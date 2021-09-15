@@ -3,5 +3,5 @@ gradclipper:
     parameters:
       - ~~_SEARCH_WITH_SAME_NAME_
       - models
-      - none
+      - null
     max_norm: 10

@@ -1,7 +1,8 @@
-Adam:
+AdamW:
   params:
     params: 
       - ~~_SEARCH_WITH_SAME_NAME_
       - models
-      - none
-    lr: 0.001
+      - null
+    lr: 0.00001
+    weight_decay: 0.0001
