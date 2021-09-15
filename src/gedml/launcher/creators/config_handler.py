@@ -196,6 +196,9 @@ class ConfigHandler:
     def _pass_with_params_dict_(self, *args, **kwargs):
         return self.params_dict
     
+    def _pass_with_link_config_(self, *args, **kwargs):
+        return self.link_config
+    
     """
     About construction of link config and params dict
     """

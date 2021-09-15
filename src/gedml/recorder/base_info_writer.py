@@ -3,6 +3,7 @@ import logging
 import csv
 import yaml
 import wandb
+from copy import deepcopy
 from torch.utils.tensorboard import SummaryWriter
 import torch
 from . import utils
@@ -26,6 +27,7 @@ class BaseInfoWriter:
         is_resume=False,
         use_wandb=True,
         params_to_save=None,
+        link_config=None,
     ): 
         self.project_name = project_name
         self.root = root
@@ -35,6 +37,7 @@ class BaseInfoWriter:
         self.is_resume = is_resume
         self.use_wandb = use_wandb
         self.params_to_save = params_to_save
+        self.link_config = link_config
 
         self.csv_path, self.model_path, self.board_path, self.wandb_path = None, None, None, None
 
@@ -66,13 +69,31 @@ class BaseInfoWriter:
         # create root folder
         self.root = utils.create_folder(self.root, is_resume=self.is_resume, hint_if_exist=self.hint_if_exist, delete_old_folders=self.delete_old_folder)
         # save config file
-        if isinstance(self.params_to_save, dict):
-            config_path = os.path.join(self.root, "config.yaml")
-            with open(config_path, mode="w", encoding="utf-8") as f:
-                yaml.dump(self.params_to_save, f, allow_unicode=True)
+        self.save_params()
         # create sub folders
         for item in self.folders_list:
             self._meta_path_factory(item)
+    
+    def save_params(self):
+        if isinstance(self.params_to_save, dict):
+            param_path = os.path.join(self.root, "param")
+            utils.create_folder(param_path, hint_if_exist=False, delete_old_folders=True)
+            for class_name, item_list in self.link_config.items():
+                sub_param_path = os.path.join(param_path, class_name)
+                os.makedirs(sub_param_path)
+                for item_info in item_list:
+                    # get yaml file name
+                    item_name = utils.get_first_key_of_dict(item_info)
+                    yaml_name = item_info[item_name]
+                    sub_save_path = os.path.join(sub_param_path, item_name + "-" + yaml_name)
+                    # get dictionary to save
+                    sub_dict = deepcopy(self.params_to_save[class_name][item_name])
+                    object_name = sub_dict.pop("type")
+                    sub_dict = {object_name: sub_dict}
+                    # save
+                    with open(sub_save_path, mode="w", encoding="utf-8") as f:
+                        yaml.dump(sub_dict, f, allow_unicode=True)
+
     
     def init_update_handler(self):
         utils.meta_call_factory(

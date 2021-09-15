@@ -9,3 +9,7 @@ BaseRecorder:
       - ~~_PASS_WITH_PARAMS_DICT_
       - none
       - none
+    link_config:
+      - ~~_PASS_WITH_LINK_CONFIG_
+      - none
+      - none
