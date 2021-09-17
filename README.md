@@ -74,10 +74,10 @@ For SSL setting:
 
 ```json
 "env": {
-    "CUDA_VISIBLE_DEVICES": "0"
+    "CUDA_VISIBLE_DEVICES": "0,1",
 },
 "args": [
-    "--device", "0",
+    "--device", "0", "1", 
     "--delete_old",
     "--batch_size", "180",
     "--test_batch_size", "180",
@@ -85,6 +85,7 @@ For SSL setting:
     "--lr_trunk", "0.00003",
     "--lr_embedder", "0.0003",
     "--lr_collector", "0.0003",
+    "--dataset", "imagenet",
     // "--use_wandb",
 ]
 ```
