@@ -15,6 +15,7 @@ class ImageNet(BaseDataset):
     `ImageNet <http://www.image-net.org/>`_
     """
     def init_dataset(self):
+        self.root = os.path.join(self.root, "imagenet")
         if self.phase == "train":
             self.init_train_dataset()
         elif self.phase == "test":

@@ -10,6 +10,7 @@ class CUB200(BaseDataset):
     `CUB200 <http://www.vision.caltech.edu/visipedia/CUB-200.html>`_
     """
     def init_dataset(self):
+        self.root = os.path.join(self.root, "cub200")
         img_folder = os.path.join(self.root, self.phase)
         self.dataset = datasets.ImageFolder(img_folder)
         self.labels = np.array([b for (a,b) in self.dataset.imgs])

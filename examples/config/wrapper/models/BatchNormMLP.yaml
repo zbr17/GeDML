@@ -1,0 +1,4 @@
+input: [features]
+map:
+  default:
+    embeddings: 0

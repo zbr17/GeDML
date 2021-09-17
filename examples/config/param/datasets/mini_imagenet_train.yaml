@@ -1,6 +1,6 @@
 MiniImageNet:
   params:
-    root: <WORKSPACE>/datasets/mini_imagenet
+    root: <WORKSPACE>/datasets
     phase: train
     assert_num_classes: 80
     assert_num_samples: 48000

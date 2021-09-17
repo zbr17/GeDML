@@ -10,6 +10,7 @@ class OnlineProducts(BaseDataset):
     `Stanford Online Products <https://cvgl.stanford.edu/projects/lifted_struct/>`_
     """
     def init_dataset(self):
+        self.root = os.path.join(self.root, "online_products")
         info_folder = os.path.join(self.root, 'Info_Files')
         img_folder = os.path.join(self.root, 'images')
         self.img_paths, self.labels = [], []

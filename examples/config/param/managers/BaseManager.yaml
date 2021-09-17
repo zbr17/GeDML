@@ -13,7 +13,7 @@ BaseManager:
       - recorders
       - default
     objects_dict: 
-      - ~~_PASS_WITH_OBJECTS_DICT_
+      - ~~_PASS_WITH_NAMED_MEMBER_
       - null
       - objects_dict
     device: [0]

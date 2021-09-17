@@ -129,14 +129,14 @@ And there are two kinds of parameters:
 
 - **Hyperparameters**. These parameters can be defined before training started and the type of them may be **int, float, list, dict, etc**. 
 - **Instances**. These parameters are Python instance which must be created during training. For example, **schedulers** have "optimizer" parameter to be passed. Therefore, three types of "fetching" methods are defined:
-    - **~~_PASS_WITH_OBJECTS_DICT_**. Pass all instances (a dictionary).
+    - **~~_PASS_WITH_NAMED_MEMBER_**. Pass all instances (a dictionary).
     - **~~_SEARCH_WITH_SAME_NAME_**. Pass instances with the same name.
     - **~~_SEARCH_WITH_TARGET_NAME_**. Pass instances according to the specific target name.
 
 Here are the formats::
 
     param_name: 
-      - ~~_PASS_WITH_OBJECTS_DICT_
+      - ~~_PASS_WITH_NAMED_MEMBER_
       - (none)
       - (none)
 

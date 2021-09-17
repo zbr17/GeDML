@@ -10,6 +10,7 @@ class Cars196(BaseDataset):
     `Cars196 <https://ai.stanford.edu/~jkrause/cars/car_dataset.html>`_
     """
     def init_dataset(self):
+        self.root = os.path.join(self.root, "cars196")
         img_folder = os.path.join(self.root, self.phase)
         self.dataset = datasets.ImageFolder(img_folder)
         self.labels = np.array([b for (a, b) in self.dataset.imgs])

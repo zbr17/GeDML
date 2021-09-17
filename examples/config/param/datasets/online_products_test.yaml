@@ -1,6 +1,6 @@
 OnlineProducts:
   params:
-    root: <WORKSPACE>/datasets/online_products
+    root: <WORKSPACE>/datasets
     phase: test
     assert_num_classes: 11316
     assert_num_samples: 60502

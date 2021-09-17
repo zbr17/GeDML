@@ -28,7 +28,7 @@ class BaseInfoWriter:
         use_wandb=True,
         params_to_save=None,
         link_config=None,
-        pipeline_setting=None,
+        pipeline_to_save=None,
     ): 
         self.project_name = project_name
         self.root = root
@@ -39,7 +39,7 @@ class BaseInfoWriter:
         self.use_wandb = use_wandb
         self.params_to_save = params_to_save
         self.link_config = link_config
-        self.pipeline_setting = pipeline_setting
+        self.pipeline_to_save = pipeline_to_save
 
         self.csv_path, self.model_path, self.board_path, self.wandb_path = None, None, None, None
 
@@ -99,10 +99,18 @@ class BaseInfoWriter:
                         yaml.dump(sub_dict, f, allow_unicode=True)
     
     def save_pipeline(self):
-        if self.pipeline_setting is not None:
+        if self.pipeline_to_save is not None:
             try:
                 from graphviz import Digraph
-                raise NotImplementedError()
+                file_path = os.path.join(self.root, "pipeline")
+                gz = Digraph(
+                    name="pipeline",
+                    node_attr={"style": "rounded", "shape": "box"}
+                )
+                for start, end, note in self.pipeline_to_save:
+                    gz.edge(start, end, note)
+                gz.render(file_path)
+                logging.info("Pipeline flow chart is stored in {}".format(file_path))
             except:
                 logging.warn("GraphViz isn't installed! Pipeline flow chart generation FAILED!")
 

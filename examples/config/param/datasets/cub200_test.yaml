@@ -1,6 +1,6 @@
 CUB200:
   params:
-    root: <WORKSPACE>/datasets/cub200
+    root: <WORKSPACE>/datasets
     phase: test
     assert_num_classes: 100
     assert_num_samples: 5924

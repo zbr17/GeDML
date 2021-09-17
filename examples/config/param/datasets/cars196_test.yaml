@@ -1,6 +1,6 @@
 Cars196:
   params:
-    root: <WORKSPACE>/datasets/cars196
+    root: <WORKSPACE>/datasets
     phase: test
     assert_num_classes: 98
     assert_num_samples: 8131

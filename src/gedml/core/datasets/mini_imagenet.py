@@ -7,6 +7,7 @@ from .base_dataset import BaseDataset
 
 class MiniImageNet(BaseDataset):
     def init_dataset(self):
+        self.root = os.path.join(self.root, "mini_imagenet")
         img_folder = os.path.join(self.root, self.phase)
         self.dataset = datasets.ImageFolder(img_folder)
         self.labels = np.array([b for (a,b) in self.dataset.imgs])

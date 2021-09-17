@@ -1,6 +1,6 @@
 ImageNet:
   params:
-    root: <WORKSPACE>/datasets/imagenet
+    root: <WORKSPACE>/datasets
     phase: train
     assert_num_classes: 1000
     assert_num_samples: 1281167

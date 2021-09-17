@@ -252,8 +252,31 @@ class ConfigHandler:
         
         self.params_dict = {}
         self.wrapper_dict = {}
+        self.pipeline_to_save = []
         for k, v in link_config.items():
             self._get_params_dict_operation(v, k)
+        
+        # generate pipeline flow chart
+        for k, v in self.pipeline_setting.items():
+            src_module, src_inst, src_group = k.split("/")
+            dst_module, dst_inst, dst_tag = v.split("/")
+            # get input-list
+            input_list_str = "\n".join(self.wrapper_dict[src_module][src_inst]["input"])
+            # get output-list
+            output_list_str = "\n".join(list(self.wrapper_dict[src_module][src_inst]["map"][v].keys()))
+            # get next-input-list
+            if self.wrapper_dict.get(dst_module, False):
+                next_input_list_str = "\n".join(self.wrapper_dict[dst_module][dst_inst]["input"])
+            else:
+                next_input_list_str = "null"
+            # form the edge
+            self.pipeline_to_save.append(
+                (
+                    "INPUT\n{}\nNAME\n{}/{}".format(input_list_str, src_module, src_inst),
+                    "INPUT\n{}\nNAME\n{}/{}".format(next_input_list_str, dst_module, dst_inst),
+                    "GROUP-{}\nTAG-{}\n{}".format(src_group, dst_tag, output_list_str),
+                )
+            )
         
         return self.params_dict
     

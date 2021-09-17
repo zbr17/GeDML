@@ -43,9 +43,13 @@ pip install gedml
 
 Please set the environment variable `WORKSPACE` first to indicate where to manage your project and download [`config`](examples/config) which include `args.csv`, `assert.yaml`, `links`, `param`, `wrapper`.
 
+> **NOTE:** `WORKSPACE` shouldn't end with "/".
+
 (Demo of convenient and fast switching between DML and SSL)
 
 ## Setting launch.json in VS Code
+
+For DML setting:
 
 ```json
 "env": {
@@ -59,7 +63,28 @@ Please set the environment variable `WORKSPACE` first to indicate where to manag
     "--setting", "margin_loss",
     "--margin_alpha", "1",
     "--margin_beta", "0.5",
-    "--lr", "0.00003",
+    "--lr_trunk", "0.00003",
+    "--lr_embedder", "0.0003",
+    "--lr_loss", "0.01",
+    // "--use_wandb",
+]
+```
+
+For SSL setting:
+
+```json
+"env": {
+    "CUDA_VISIBLE_DEVICES": "0"
+},
+"args": [
+    "--device", "0",
+    "--delete_old",
+    "--batch_size", "180",
+    "--test_batch_size", "180",
+    "--setting", "simsiam",
+    "--lr_trunk", "0.00003",
+    "--lr_embedder", "0.0003",
+    "--lr_collector", "0.0003",
     // "--use_wandb",
 ]
 ```

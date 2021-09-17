@@ -58,7 +58,14 @@ config_handler = ConfigHandler(
 )
 
 # initiate params_dict
-params_dict = config_handler.get_params_dict()
+params_dict = config_handler.get_params_dict(
+    modify_link_dict={
+        "datasets": [
+            {"train": "{}_train.yaml".format(opt.dataset)},
+            {"test": "{}_test.yaml".format(opt.dataset)}
+        ]
+    }
+)
 
 # delete redundant options
 opt_dict = deepcopy(opt.__dict__)

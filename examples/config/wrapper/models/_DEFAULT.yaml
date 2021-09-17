@@ -1,4 +1,4 @@
-input: [data]
+input: [_]
 map:
   default:
-    features: 0
+    _: 0
