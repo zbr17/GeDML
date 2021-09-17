@@ -46,6 +46,7 @@ class BaseRecorder:
         use_wandb=True,
         params_to_save=None,
         link_config=None,
+        pipeline_setting=None,
         initiate_create=True,
     ):
         self.project_name = project_name
@@ -58,6 +59,7 @@ class BaseRecorder:
         self.use_wandb = use_wandb
         self.params_to_save = params_to_save
         self.link_config = link_config
+        self.pipeline_setting = pipeline_setting
 
         if initiate_create:
             self.create_exp_root()
@@ -83,7 +85,8 @@ class BaseRecorder:
             is_resume=self.is_resume,
             use_wandb=self.use_wandb,
             params_to_save=self.params_to_save,
-            link_config=self.link_config
+            link_config=self.link_config,
+            pipeline_setting=self.pipeline_setting
         )
     
     def delete_folders(self, group_name):

@@ -1,14 +1,14 @@
 input: [data, embeddings, features, labels]
 map: 
-  FINISH/default/loss_m:
+  loss_m:
     loss: 0
     weight: 1
-  FINISH/default/loss_reg:
+  loss_reg:
     loss: 2
     weight: 3
-  FINISH/default/loss_hard:
+  loss_hard:
     loss: 4
     weight: 5
-  FINISH/default/loss_adv:
+  loss_adv:
     loss: 6
     weight: 7

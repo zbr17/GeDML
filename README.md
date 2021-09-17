@@ -15,10 +15,14 @@
 </p>
 
 # News
-
-> - **[2021-9-13]**: **`v0.0.1` has been released  
->   - **New features:** `config.yaml` will be created to store the configuration in the experiment folder.**
-> - **[2021-9-6]**: `v0.0.0` has been released.
+> - **[2021-9-15]**: **`v0.1.0` has been released:
+>   - ***New features:*** 
+>     - **output_wrapper** and **pipeline setting** are decomposed for convenience.
+>     - Pipeline will be stored in the experiment folder using a directed graph.
+- **[2021-9-13]**: **`v0.0.1` has been released: 
+  - ***New features:*** 
+    - `config.yaml` will be created to store the configuration in the experiment folder.**
+- **[2021-9-6]**: `v0.0.0` has been released.
 
 # Introduction
 

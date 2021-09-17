@@ -11,6 +11,7 @@ SPLITER = "/"
 ATTRSYM = "-"
 
 LINK_GENERAL_KEY = "LINK_SETTING"
+PIPELINE_KEY = "PIPELINE_SETTING"
 
 def search_params_condition(params):
     if isinstance(params, list):

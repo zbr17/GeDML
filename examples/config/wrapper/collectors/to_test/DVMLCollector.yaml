@@ -1,22 +1,22 @@
 input: [data, embeddings, features, labels]
 map:
-  selectors/default/loss_invariant:
+  loss_invariant:
       metric_mat: 0
       row_labels: 1
       col_labels: 2
       is_same_source: 3
-  selectors/default/loss_syn: 
+  loss_syn: 
       metric_mat: 4
       row_labels: 1
       col_labels: 2
       is_same_source: 3
-  FINISH/default/loss_invariant: 
+  loss_invariant: 
       weight: 10
-  FINISH/default/loss_syn:
+  loss_syn:
       weight: 9
-  FINISH/default/loss_recon: 
+  loss_recon: 
       loss: 6
       weight: 8
-  FINISH/default/loss_kl: 
+  loss_kl: 
       loss: 5
       weight: 7

@@ -1,4 +1,4 @@
 input: [features]
 map:
-  collectors/default/:
+  default:
     embeddings: 0

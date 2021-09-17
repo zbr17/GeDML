@@ -15,7 +15,7 @@ BaseManager:
     objects_dict: 
       - ~~_PASS_WITH_OBJECTS_DICT_
       - null
-      - null
+      - objects_dict
     device: [0]
     is_resume: true
     is_distributed: false

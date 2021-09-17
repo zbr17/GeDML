@@ -34,13 +34,6 @@ class Storage:
 
     def add(self, item_name, value):
         setattr(self, item_name, value)
-    
-    # def add_list(self, item_name_list: list, value_list: list):
-    #     if len(item_name_list) == 1:
-    #         setattr(self, item_name_list[0], value_list)
-    #     else:
-    #         for item_name, value in zip(item_name_list, value_list):
-    #             setattr(self, item_name, value)
         
     def add_dict(self, item_dict: dict):
         for k in item_dict.keys():
@@ -68,15 +61,13 @@ class Storage:
                 getattr(self, k).to(device)
             )
     
-    def output_wrapper(self, sub_value_tuple, sub_k, sub_v, old_k):
+    def output_wrapper(self, sub_value_tuple, sub_k, sub_v):
         sub_item_output_dict = {
             wrapper_k: sub_value_tuple[wrapper_idx]
             for wrapper_k, wrapper_idx in sub_v.items()
         }
         module_type, name, group = sub_k.split('/')
-        if name == "":
-            name = old_k
-            sub_k = '/'.join([module_type, name, group])
+        sub_k = '/'.join([module_type, name, group])
         return sub_item_output_dict, sub_k
 
     def update(self, modules, cur_module=None):
@@ -115,14 +106,14 @@ class Storage:
                     if isinstance(sub_value_tuple, dict):
                         for tuple_k, tuple_v in sub_value_tuple.items():
                             for sub_k, sub_v in sub_wrapper_dict["map"].items():
-                                sub_item_output_dict, new_sub_k = self.output_wrapper(tuple_v, sub_k, sub_v, k)
+                                sub_item_output_dict, new_sub_k = self.output_wrapper(tuple_v, sub_k, sub_v)
                                 value_dict[new_sub_k+"{}".format(tuple_k)+group_key].update(sub_item_output_dict)
                     else:
                         if not isinstance(sub_value_tuple, tuple):
                             sub_value_tuple = (sub_value_tuple,)
                         # output wrapper
                         for sub_k, sub_v in sub_wrapper_dict["map"].items():
-                            sub_item_output_dict, new_sub_k = self.output_wrapper(sub_value_tuple, sub_k, sub_v, k)
+                            sub_item_output_dict, new_sub_k = self.output_wrapper(sub_value_tuple, sub_k, sub_v)
                             value_dict[new_sub_k+group_key].update(sub_item_output_dict)
 
         # add to storage

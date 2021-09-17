@@ -1,10 +1,10 @@
 input: [data, embeddings, labels]
 map: 
-  selectors/default/:
+  default:
     metric_mat: 0
     row_labels: 1
     col_labels: 2
     is_same_source: 3
-  FINISH/default/loss_reg:
+  loss_reg:
     loss: 4
     weight: 5

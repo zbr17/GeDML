@@ -61,3 +61,9 @@ managers:
 LINK_SETTING: 
   to_device_list: [models, losses]
 
+PIPELINE_SETTING:
+  - models/trunk/default -> models/embedder/
+  - models/embedder/default -> collectors/default/
+  - collectors/default/default -> selectors/default/
+  - selectors/default/default -> losses/default/
+  - losses/default/default -> FINISH/default/loss

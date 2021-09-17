@@ -1,6 +1,6 @@
 input: [data, embeddings, labels]
 map:
-  selectors/default/:
+  default:
     metric_mat: 0
     row_labels: 1
     col_labels: 2

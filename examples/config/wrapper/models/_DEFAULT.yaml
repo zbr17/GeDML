@@ -1,2 +1,4 @@
-input: null
-map: null
+input: [data]
+map:
+  default:
+    features: 0

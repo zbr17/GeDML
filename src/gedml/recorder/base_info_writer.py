@@ -28,6 +28,7 @@ class BaseInfoWriter:
         use_wandb=True,
         params_to_save=None,
         link_config=None,
+        pipeline_setting=None,
     ): 
         self.project_name = project_name
         self.root = root
@@ -38,6 +39,7 @@ class BaseInfoWriter:
         self.use_wandb = use_wandb
         self.params_to_save = params_to_save
         self.link_config = link_config
+        self.pipeline_setting = pipeline_setting
 
         self.csv_path, self.model_path, self.board_path, self.wandb_path = None, None, None, None
 
@@ -70,6 +72,8 @@ class BaseInfoWriter:
         self.root = utils.create_folder(self.root, is_resume=self.is_resume, hint_if_exist=self.hint_if_exist, delete_old_folders=self.delete_old_folder)
         # save config file
         self.save_params()
+        # save pipeline flow chart
+        self.save_pipeline()
         # create sub folders
         for item in self.folders_list:
             self._meta_path_factory(item)
@@ -93,6 +97,14 @@ class BaseInfoWriter:
                     # save
                     with open(sub_save_path, mode="w", encoding="utf-8") as f:
                         yaml.dump(sub_dict, f, allow_unicode=True)
+    
+    def save_pipeline(self):
+        if self.pipeline_setting is not None:
+            try:
+                from graphviz import Digraph
+                raise NotImplementedError()
+            except:
+                logging.warn("GraphViz isn't installed! Pipeline flow chart generation FAILED!")
 
     
     def init_update_handler(self):

@@ -18,6 +18,7 @@ from ...config.setting.launcher_setting import (
     INITATE_ORDER_LIST,
     WRAPPER_LIST,
     LINK_GENERAL_KEY,
+    PIPELINE_KEY,
 )
 
 class ConfigHandler:
@@ -72,6 +73,9 @@ class ConfigHandler:
         return WRAPPER_LIST
 
     def _get_params_dict_operation(self, data_info, module_type):
+        """
+        Parse params_dict and wrapper_dict recursively.
+        """
         assert isinstance(data_info, list)
         self.params_dict[module_type] = {}
         if module_type in self.output_wrapper_list:
@@ -100,15 +104,19 @@ class ConfigHandler:
                     item_wrapper_path = os.path.join(self.wrapper_path, module_type, "_DEFAULT.yaml")
                     item_wrapper_dict = utils.load_yaml(item_wrapper_path)
                     logging.info("Load default wrapper config: {}".format(item_wrapper_path))
+                # search pipeline
+                new_map = {}
+                for k, v in item_wrapper_dict["map"].items():
+                    query_key = "/".join([module_type, item_key, k])
+                    target_route = None
+                    for pipe_k, pipe_v in self.pipeline_setting.items():
+                        if query_key in pipe_k:
+                            target_route = pipe_v
+                    assert target_route is not None
+                    new_k = target_route
+                    new_map[new_k] = v
+                item_wrapper_dict["map"] = new_map
                 self.wrapper_dict[module_type][item_key] = item_wrapper_dict
-    
-    def _get_wrapper_dict_operation(self, data_info, module_type):
-        assert isinstance(data_info, list)
-        output = {}
-        for item in data_info:
-            item_key = utils.get_first_dict_key(item)
-            item_value = utils.get_first_dict_value(item)
-            item_params_path = os.path.join(self.wrapper_path, module_type, )
     
     """
     config setting
@@ -159,7 +167,11 @@ class ConfigHandler:
                     top_class = SEARCH_TOP_CLASS(v)
                     target_name = SEARCH_TAR_NAME(v)
                     search_func_name = search_func_name.replace(SEARCH_PARAMS_FLAG, "").lower()
-                    module_args[k] = getattr(self, search_func_name)(top_class, instance_name, target_name)
+                    module_args[k] = getattr(self, search_func_name)(
+                        top_class=top_class, 
+                        instance_name=instance_name, 
+                        target_name=target_name
+                    )
         return module_args
     
     def _search_with_same_name_(self, top_class, instance_name, target_name):
@@ -187,17 +199,10 @@ class ConfigHandler:
         )
         return getattr(instance_dict[module_name], attr_name)
     
-    def _pass_with_objects_dict_(self, *args, **kwargs):
-        return self.objects_dict
-    
-    def _pass_with_wrapper_dict_(self, *args, **kwargs):
-        return self.wrapper_dict
-    
-    def _pass_with_params_dict_(self, *args, **kwargs):
-        return self.params_dict
-    
-    def _pass_with_link_config_(self, *args, **kwargs):
-        return self.link_config
+    def _pass_with_named_member_(self, top_class, instance_name, target_name):
+        return getattr(
+            self, target_name
+        )
     
     """
     About construction of link config and params dict
@@ -272,7 +277,18 @@ class ConfigHandler:
     def load_link_config(self):
         self.link_config = utils.load_yaml(self.link_path)
         self.general_setting = self.link_config.pop(LINK_GENERAL_KEY, None)
-
+        self.pipeline_setting = self.link_config.pop(PIPELINE_KEY, None)
+        self._process_pipeline()
+    
+    def _process_pipeline(self):
+        self.pipeline_setting = [
+            [sub_item.strip() for sub_item in item.split("->")] 
+            for item in self.pipeline_setting
+        ]
+        self.pipeline_setting = {
+            item[0]: item[1]
+            for item in self.pipeline_setting
+        }
 
     def initiate_params(self):
         self.load_link_config()
@@ -284,7 +300,7 @@ class ConfigHandler:
         logging.info("Load link config")
         logging.info("#####################")
         for k, v in self.link_config.items():
-            if k != LINK_GENERAL_KEY:
+            if k != LINK_GENERAL_KEY and k != PIPELINE_KEY:
                 logging.info("... {}".format(k))
                 assert isinstance(v, list)
                 for item in v:

@@ -6,10 +6,14 @@ BaseRecorder:
     hint_if_exist: true
     is_resume: false
     params_to_save: 
-      - ~~_PASS_WITH_PARAMS_DICT_
+      - ~~_PASS_WITH_NAMED_MEMBER_
       - null
-      - null
+      - params_dict
     link_config:
-      - ~~_PASS_WITH_LINK_CONFIG_
+      - ~~_PASS_WITH_NAMED_MEMBER_
       - null
+      - link_config
+    pipeline_setting:
+      - ~~_PASS_WITH_NAMED_MEMBER_
       - null
+      - pipeline_setting
