@@ -47,7 +47,7 @@ class BaseManager:
         self.gradclipper = gradclipper
         self.samplers = samplers
         self.collatefns = collatefns
-        self.epochs = 0
+        self.epochs = -1
         self.is_resume = is_resume
         self.is_distributed = is_distributed
         self.device_wrapper_type = device_wrapper_type
@@ -258,10 +258,10 @@ class BaseManager:
         self.phase = phase
         self.assert_phase()
         self.prepare()
-        self.maybe_resume()
+        self.maybe_resume(is_save=is_save)
         if self.phase == "train":
             for i in range(start_epoch, total_epochs):
-                self.epochs = i
+                self.epochs += 1
                 if i < warm_up:
                     logging.info("Warm up with {}".format(warm_up_list))
                     self.trainer.set_activated_optims(warm_up_list)
@@ -300,13 +300,16 @@ class BaseManager:
             self.tester.prepare
         )
         
-    def maybe_resume(self):
+    def maybe_resume(self, is_save=True):
         if self.is_resume:
             logging.info("Resume objects...")
-            self.recorder.load_models(
+            self.epochs = self.recorder.load_models(
                 obj=self.trainer,
                 device=self.device
             )
+        else:
+            if is_save:
+                self.save_models(is_best=True)
     
     def meta_test(self):
         self.epochs = -1
@@ -337,8 +340,10 @@ class BaseManager:
             logging.info("{} Metrics ---".format(k.upper()))
             print(pd.DataFrame([v]))
         
-    def save_models(self):
-        self.recorder.save_models(self.trainer, step=self.epochs, best=self.is_best)
+    def save_models(self, is_best=None):
+        if is_best is None:
+            is_best = self.is_best
+        self.recorder.save_models(self.trainer, step=self.epochs, best=is_best)
     
     def train(self, epochs=None):
         self.trainer.train(epochs=epochs)

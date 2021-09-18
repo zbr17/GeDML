@@ -157,7 +157,7 @@ class BaseRecorder:
             device (device):
                 The computing device to load.
         """
-        self.writer.load_models(*args, **kwargs)
+        return self.writer.load_models(*args, **kwargs)
     
     def search_best_epoch(self, table_name, primary_key, maximum=True):
         """

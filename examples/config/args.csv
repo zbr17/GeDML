@@ -9,7 +9,7 @@ name,type,default,help,margin_loss,simsiam
 """--device_type""",str,"""DP""","""global setting""","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]"
 """--num_worders""",int,8,"""global setting""","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]"
 """--is_distributed""","""store_true""",False,"""global setting""","[""managers/default-is_distributed""]","[""managers/default-is_distributed""]"
-"""--is_resume""","""store_true""",False,"""global setting""","[""managers/default-is_resume""]","[""managers/default-is_resume""]"
+"""--is_resume""","""store_true""",False,"""global setting""","[""managers/default-is_resume"", ""recorders/default-is_resume""]","[""managers/default-is_resume"", ""recorders/default-is_resume""]"
 """--use_wandb""","""store_true""",False,"""global setting""","[""recorders/default-use_wandb""]","[""recorders/default-use_wandb""]"
 """--to_device_list""",str,"[""models""]","""global setting""","[""managers/default-to_device_list""]","[""managers/default-to_device_list""]"
 """--to_wrap_list""",str,[],"""global setting""","[""managers/default-to_wrap_list""]","[""managers/default-to_wrap_list""]"

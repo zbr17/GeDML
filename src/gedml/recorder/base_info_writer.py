@@ -231,11 +231,15 @@ class BaseModelHandler:
                     logging.info('{} is saved in {}'.format(best_model_name, best_model_path))
     
     def load_models(self, obj, step=None, device=None, model_path=None):
+        """
+        TODO: resume from the checkpoint with max number if "best" models doesn't exist.
+        """
         model_path = (
             self.model_path
             if model_path is None
             else model_path
         )
+        max_index_list = [-2]
         to_save_list = getattr(obj, TO_SAVE_LIST, {})
         device = getattr(obj, DEVICE, torch.device('cpu')) if device is None else device
         for to_save_name in to_save_list:
@@ -243,6 +247,14 @@ class BaseModelHandler:
             for k, v in to_save_item.items():
                 import glob
                 item_search = glob.glob(os.path.join(model_path, to_save_name + "_" + k+"*"))
+                try:
+                    index_list = [item.split(".")[0].split("_")[-1] for item in item_search]
+                    index_list = [int(item) if item!="best" else -2 for item in index_list]
+                    max_index = max(index_list)
+                except:
+                    logging.warn("Can't recognize the last training epoch!")
+                    max_index = -2
+                max_index_list.append(max_index)
                 if len(item_search) < 1:
                     logging.warn("{} does not exist!".format(model_path))
                 curr_model_name = (
@@ -265,6 +277,7 @@ class BaseModelHandler:
                     v.load_state_dict(new_state_dict)
                     v = v.to(device)
                 logging.info('{} is loaded from {}'.format(curr_model_name, curr_model_path))
+        return max(max_index_list)
 
 
 
