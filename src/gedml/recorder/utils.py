@@ -1,7 +1,7 @@
 import os
 import sys
 import shutil
-import logging
+from torchdistlog import logging
 import torch
 
 def get_first_key_of_dict(data: dict) -> str:

@@ -1,7 +1,7 @@
 import torch
 import math
 from copy import deepcopy
-import logging
+from torchdistlog import logging
 import torch.distributed as dist 
 from ..base_collector import BaseCollector
 from ...misc import utils

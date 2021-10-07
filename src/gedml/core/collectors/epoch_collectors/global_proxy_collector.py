@@ -1,5 +1,5 @@
 import torch
-import logging
+from torchdistlog import logging
 from tqdm import tqdm
 import torch.nn.functional as F 
 
@@ -69,7 +69,7 @@ class GlobalProxyCollector(ProxyCollector, _DefaultGlobalCollector):
 
             # raise error when get max_iter
             if index > self.max_iter:
-                logging.warn("Reach MAX_ITER!")
+                logging.warning("Reach MAX_ITER!")
                 raise RuntimeError()
 
             # termination condition

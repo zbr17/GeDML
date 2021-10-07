@@ -1,5 +1,5 @@
 import torch
-import logging
+from torchdistlog import logging
 from tqdm import tqdm
 import numpy as np 
 
@@ -126,7 +126,7 @@ class BaseTester:
         for trainable_name in self.trainable_object_list:
             trainable_object = getattr(self, trainable_name, None)
             if trainable_object  is None:
-                logging.warn(
+                logging.warning(
                     "{} is not a member of trainer".format(
                         trainable_name
                     )

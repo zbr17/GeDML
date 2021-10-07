@@ -1,6 +1,6 @@
 import torch
 import torch.distributed as dist
-import logging
+from torchdistlog import logging
 from tqdm import tqdm
 
 from ..misc import utils, Storage
@@ -205,7 +205,7 @@ class BaseTrainer:
         # extract the sampler
         if self.is_distributed:
             if self.samplers is not None:
-                logging.warn("class samplers can't be used in distribued training mode!")
+                logging.warning("class samplers can't be used in distribued training mode!")
             self.samplers = {}
             self.samplers["train"] = torch.utils.data.distributed.DistributedSampler(
                 dataset=self.datasets["train"],
@@ -233,7 +233,7 @@ class BaseTrainer:
         for trainable_name in self.trainable_object_list:
             trainable_object = getattr(self, trainable_name, None)
             if trainable_object is None:
-                logging.warn(
+                logging.warning(
                     "{} is not a member of trainer".format(
                         trainable_name
                     )

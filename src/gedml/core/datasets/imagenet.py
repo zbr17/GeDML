@@ -2,7 +2,7 @@ import torch
 import tarfile
 from tqdm import tqdm
 import numpy as np 
-import logging
+from torchdistlog import logging
 from pandas import read_csv
 import os
 import re

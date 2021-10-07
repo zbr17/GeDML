@@ -1,5 +1,5 @@
 import torch
-import logging
+from torchdistlog import logging
 from .base_creator import BaseCreator
 from ....core import models
 from ...misc import utils

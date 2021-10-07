@@ -1,7 +1,7 @@
 from .base_creator import BaseCreator
 from torch import optim
 import torch
-import logging
+from torchdistlog import logging
 
 class optimizersCreator(BaseCreator):
     def __init__(self, **kwargs):

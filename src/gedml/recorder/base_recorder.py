@@ -1,11 +1,11 @@
-import logging
+from torchdistlog import logging
 import shutil
 from sys import path
 import pandas as pd 
 import numpy as np 
 import os
 
-from gedml.launcher.misc import utils
+from ..launcher.misc import utils
 from . import utils as utils_recorder
 
 from .base_info_getter import BaseInfoGetter

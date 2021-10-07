@@ -1,8 +1,10 @@
-import logging
+from torchdistlog import logging
 import numpy as np 
 
 import torch.distributed as dist 
 import torch
+
+from torchdistlog import logging
 
 try: 
     import faiss

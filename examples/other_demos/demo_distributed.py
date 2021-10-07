@@ -3,7 +3,7 @@ Depreciated: last update 2021-3
 """
 
 import sys
-import logging
+from torchdistlog import logging
 import yaml
 import os
 logging.getLogger().setLevel(logging.INFO)

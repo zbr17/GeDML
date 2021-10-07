@@ -1,7 +1,7 @@
 import pretrainedmodels as ptm
 import torch
 import torch.nn as nn 
-import logging
+from torchdistlog import logging
 
 # Code from: Pytorch Metric BaseLine
 class resnet50(nn.Module):

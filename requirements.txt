@@ -12,3 +12,4 @@ tensorboard >= 2.4.0
 wandb >= 0.10.22
 timm == 0.3.2
 graphviz
+torchdistlog

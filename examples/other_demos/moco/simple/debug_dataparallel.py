@@ -5,7 +5,7 @@ workspace = os.environ["WORKSPACE"]
 sys.path.append(
     opj(workspace, 'code/GeDML/src')
 )
-import logging
+from torchdistlog import logging
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3,4,5,6,7"
 logging.getLogger().setLevel(logging.INFO)
 

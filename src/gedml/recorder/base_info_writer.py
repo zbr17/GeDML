@@ -1,5 +1,5 @@
 import os
-import logging
+from torchdistlog import logging
 import csv
 import yaml
 import wandb
@@ -112,7 +112,7 @@ class BaseInfoWriter:
                 gz.render(file_path)
                 logging.info("Pipeline flow chart is stored in {}".format(file_path))
             except:
-                logging.warn("GraphViz isn't installed! Pipeline flow chart generation FAILED!")
+                logging.warning("GraphViz isn't installed! Pipeline flow chart generation FAILED!")
 
     
     def init_update_handler(self):
@@ -252,11 +252,11 @@ class BaseModelHandler:
                     index_list = [int(item) if item!="best" else -2 for item in index_list]
                     max_index = max(index_list)
                 except:
-                    logging.warn("Can't recognize the last training epoch!")
+                    logging.warning("Can't recognize the last training epoch!")
                     max_index = -2
                 max_index_list.append(max_index)
                 if len(item_search) < 1:
-                    logging.warn("{} does not exist!".format(model_path))
+                    logging.warning("{} does not exist!".format(model_path))
                 curr_model_name = (
                     to_save_name + "_" + k + STEP_MODEL_SUFFIX.format(int(step)) 
                     if step is not None else 

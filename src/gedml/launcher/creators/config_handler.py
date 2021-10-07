@@ -1,5 +1,5 @@
 import os
-import logging
+from torchdistlog import logging
 from .creator_manager import CreatorManager
 from ..misc import utils
 from ...config.setting.launcher_setting import (
@@ -406,7 +406,7 @@ class ConfigHandler:
                 ).get(instance_name, None)
                 # change parameters
                 if instance_dict is None:
-                    logging.warn("{}/{} doesn't exist! modify failed!".format(
+                    logging.warning("{}/{} doesn't exist! modify failed!".format(
                         top_class, instance_name
                     ))
                     raise KeyError("Plase check key/value pairs!")

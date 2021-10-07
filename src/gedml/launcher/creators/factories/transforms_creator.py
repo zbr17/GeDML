@@ -1,5 +1,5 @@
 from .base_creator import BaseCreator
-import logging
+from torchdistlog import logging
 from ....core import transforms
 from ...misc import utils
 

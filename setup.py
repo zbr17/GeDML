@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="gedml",
-    version="0.1.1",
+    version="0.1.2",
     author="Borui Zhang",
     author_email="zhang-br21@mails.tsinghua.edu.cn",
     description="GeDML is an easy-to-use generalized deep metric learning library, \
@@ -26,10 +26,10 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.6",
     install_requires=[
-        "torch == 1.7.0",
+        "torch >= 1.7.0",
         "faiss-gpu == 1.5.3",
-        "torchvision == 0.8.0",
-        "pretrainedmodels == 0.7.4",
+        "torchvision >= 0.8.0",
+        "pretrainedmodels >= 0.7.4",
         "libtmux >= 0.8.5",
         "numpy >= 1.19.2",
         "tqdm >= 4.59.0",
@@ -38,5 +38,8 @@ setuptools.setup(
         "scikit-learn >= 0.24.1",
         "tensorboard >= 2.4.0",
         "wandb >= 0.10.22",
+        "timm == 0.3.2",
+        "graphviz",
+        "torchdistlog"
     ]
 )

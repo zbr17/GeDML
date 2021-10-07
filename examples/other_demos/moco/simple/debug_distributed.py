@@ -1,5 +1,5 @@
 import sys
-import logging
+from torchdistlog import logging
 import yaml
 import os
 from os.path import join as opj

@@ -1,5 +1,5 @@
 import torch.backends.cudnn as cudnn
-import logging
+from torchdistlog import logging
 import os, sys
 from os.path import join as opj
 workspace = os.environ["WORKSPACE"]

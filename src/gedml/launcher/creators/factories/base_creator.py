@@ -4,7 +4,7 @@ from ....config.setting.launcher_setting import (
     PARAMS_KEY,
     INITIATE_KEY,
 )
-import logging
+from torchdistlog import logging
 import torch
 
 class BaseCreator(metaclass=ABCMeta):

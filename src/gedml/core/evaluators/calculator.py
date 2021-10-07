@@ -1,5 +1,5 @@
 # from .metrics import *
-import logging
+from torchdistlog import logging
 from . import metrics
 from sklearn.metrics import normalized_mutual_info_score, adjusted_mutual_info_score
 import numpy as np 

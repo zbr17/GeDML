@@ -1,7 +1,7 @@
 import sys
 import os 
 import argparse
-import logging
+from torchdistlog import logging
 logging.getLogger().setLevel(logging.INFO)
 
 import torch.distributed as dist 

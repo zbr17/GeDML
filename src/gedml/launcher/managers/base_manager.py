@@ -1,7 +1,7 @@
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist 
-import logging
+from torchdistlog import logging
 import pandas as pd 
 import traceback
 

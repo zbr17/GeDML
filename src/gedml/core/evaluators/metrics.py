@@ -1,6 +1,6 @@
 import numpy as np 
 import torch
-import logging
+from torchdistlog import logging
 from scipy.special import comb
 # sklearn
 from sklearn.cluster import KMeans

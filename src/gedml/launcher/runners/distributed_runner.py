@@ -1,4 +1,4 @@
-import logging
+from torchdistlog import logging
 import os
 
 os.environ["MASTER_ADDR"] = "localhost"
@@ -12,7 +12,7 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 from ..creators import ConfigHandler
 from ..misc import utils
 
-# TODO: to be perfected
+# TODO: to be perfected: depreciated
 
 class DistributedRunner:
     def __init__(

@@ -1,5 +1,5 @@
 # from .metrics import *
-import logging
+from torchdistlog import logging
 from . import metrics
 import numpy as np 
 
