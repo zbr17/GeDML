@@ -15,10 +15,14 @@
 </p>
 
 # News
-> - **[2021-9-15]**: **`v0.1.0` has been released:
->   - ***New features:*** 
->     - **output_wrapper** and **pipeline setting** are decomposed for convenience.
->     - Pipeline will be stored in the experiment folder using a directed graph.
+- **[2021-10-7]**: **`v0.1.1` has been released:
+  - ***New features:***
+    - Change the Cars196 loading [method](http://ai.stanford.edu/~jkrause/cars/car_dataset.html).
+  ---
+- **[2021-9-15]**: **`v0.1.0` has been released:
+  - ***New features:*** 
+    - **output_wrapper** and **pipeline setting** are decomposed for convenience.
+    - Pipeline will be stored in the experiment folder using a directed graph.
 - **[2021-9-13]**: **`v0.0.1` has been released: 
   - ***New features:*** 
     - `config.yaml` will be created to store the configuration in the experiment folder.**
@@ -276,4 +280,3 @@ We will continually update the optimal parameters of different configs in [Tsing
 - [ ] write `DML` to `SSL` Demos.
 - [ ] write complete config (easily run).
 - [ ] add moco-v2 demo!!!
-- [ ] change dataset class `cars196`.
