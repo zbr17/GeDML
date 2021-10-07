@@ -1,7 +1,7 @@
-torch == 1.7.0
+torch >= 1.7.0
 faiss-gpu == 1.5.3
-torchvision == 0.8.0
-pretrainedmodels == 0.7.4
+torchvision >= 0.8.0
+pretrainedmodels >= 0.7.4
 libtmux >= 0.8.5
 numpy >= 1.19.2
 tqdm >= 4.59.0

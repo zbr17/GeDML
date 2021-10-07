@@ -275,3 +275,5 @@ We will continually update the optimal parameters of different configs in [Tsing
 # Important TODO
 - [ ] write `DML` to `SSL` Demos.
 - [ ] write complete config (easily run).
+- [ ] add moco-v2 demo!!!
+- [ ] change dataset class `cars196`.

@@ -110,9 +110,11 @@ class ConfigHandler:
                     query_key = "/".join([module_type, item_key, k])
                     target_route = None
                     for pipe_k, pipe_v in self.pipeline_setting.items():
+                        # TODO: for multi output 
+                        # for single output
                         if query_key in pipe_k:
                             target_route = pipe_v
-                    assert target_route is not None
+                    assert target_route is not None, "NO target-route matched with {}".format(query_key)
                     new_k = target_route
                     new_map[new_k] = v
                 item_wrapper_dict["map"] = new_map
@@ -407,6 +409,7 @@ class ConfigHandler:
                     logging.warn("{}/{} doesn't exist! modify failed!".format(
                         top_class, instance_name
                     ))
+                    raise KeyError("Plase check key/value pairs!")
                 else:
                     instance_dict[PARAMS_KEY][attr_name] = v
                     logging.info("{}/{}/{} is changed to {}".format(

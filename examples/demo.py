@@ -31,7 +31,8 @@ start_epoch = 0
 phase = "train"
 is_test = True
 is_save = True
-
+warm_up = opt.warm_up
+warm_up_list = opt.warm_up_list
 
 cudnn.deterministic = True
 cudnn.benchmark = True
@@ -88,7 +89,9 @@ manager.run(
     phase=phase,
     start_epoch=start_epoch,
     is_test=is_test,
-    is_save=is_save
+    is_save=is_save,
+    warm_up=warm_up,
+    warm_up_list=warm_up_list
 )
 
 
