@@ -4,6 +4,7 @@ name,type,default,help,margin,proxy_anchor,simsiam
 """--link_path""",str,None,"""global setting""",,,
 """--warm_up""",int,0,"""global setting""",,,
 """--warm_up_list""",str,"[""embedder""]","""global setting""",,,
+"""--seed""",int,None,"""global setting""",,,
 """--device""",int,[0],"""managers""","[""managers/default-device""]","[""managers/default-device""]","[""managers/default-device""]"
 """--device_type""",str,"""DP""","""managers""","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]"
 """--is_distributed""","""store_true""",False,"""managers""","[""managers/default-is_distributed""]","[""managers/default-is_distributed""]","[""managers/default-is_distributed""]"

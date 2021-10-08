@@ -280,3 +280,4 @@ We will continually update the optimal parameters of different configs in [Tsing
 - [ ] write `DML` to `SSL` Demos.
 - [ ] write complete config (easily run).
 - [ ] add moco-v2 demo!!!
+- [ ] distributed tester for matrix-form input.

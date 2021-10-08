@@ -1,20 +1,20 @@
-import torch.backends.cudnn as cudnn
-from torchdistlog import logging
-import os, sys
+import os
+import sys
+import random
 from os.path import join as opj
+from copy import deepcopy
+import torch
+import torch.backends.cudnn as cudnn
 workspace = os.environ["WORKSPACE"]
 sys.path.append(
     opj(workspace, 'code/GeDML/src')
 )
 
-import yaml
-import argparse
-from copy import deepcopy
-logging.getLogger().setLevel(logging.INFO)
-
 from gedml.launcher.misc import ParserWithConvert
 from gedml.launcher.creators import ConfigHandler
 from gedml.launcher.misc import utils
+from torchdistlog import logging
+logging.getLogger().setLevel(logging.INFO)
 
 # argparser
 csv_path = os.path.abspath(opj(__file__, "../config/args.csv"))
@@ -33,7 +33,13 @@ is_test = True
 is_save = True
 warm_up = opt.warm_up
 warm_up_list = opt.warm_up_list
+is_distributed = opt.is_distributed
+seed = opt.seed
 
+logging.set_dist(is_dist=is_distributed)
+if seed is not None:
+    random.seed(seed)
+    torch.manual_seed(seed)
 cudnn.deterministic = True
 cudnn.benchmark = True
 
