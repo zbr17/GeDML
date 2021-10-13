@@ -1,4 +1,5 @@
 import os
+from copy import deepcopy
 from torchdistlog import logging
 from .creator_manager import CreatorManager
 from ..misc import utils
@@ -339,7 +340,8 @@ class ConfigHandler:
 
     def create_all(self, change_dict={}):
         """
-        Initialize all modules according to params dictionary.
+        Initialize all modules according to params dictionary. 
+        Redundant options will be popped from the input change_dict.
 
         Args:
             change_dict (dict):
@@ -348,6 +350,14 @@ class ConfigHandler:
         Returns:
             dict: initialized objects dictionary.
         """
+        # Pop redundant options
+        change_dict = deepcopy(change_dict)
+        convert_opt_list = list(self.convert_dict.keys())
+        for k in list(change_dict.keys()):
+            if k not in convert_opt_list:
+                logging.info("'{}' has been popped from 'change-dict' by config-handler".format(k))
+                change_dict.pop(k)
+
         logging.info("#####################")
         logging.info("Create objects")
         logging.info("#####################")

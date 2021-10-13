@@ -14,7 +14,7 @@ case $setting in
     case $dataset in
     1)
         # cub200
-        CUDA_VISIBLE_DEVICES=0 python demo.py \
+        CUDA_VISIBLE_DEVICES=1 python demo.py \
         --device 0 --batch_size 180 --test_batch_size 180 \
         --setting margin --embeddings_dim 512 \
         --margin_alpha 1 --margin_beta 0.5 --num_classes 100 \

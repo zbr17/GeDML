@@ -1,10 +1,18 @@
 name,type,default,help,margin,proxy_anchor,simsiam
 """--dataset""",str,"""cub200""","""global setting""",,,
 """--save_name""",str,"""TEST""","""global setting""",,,
-"""--link_path""",str,None,"""global setting""",,,
 """--warm_up""",int,0,"""global setting""",,,
 """--warm_up_list""",str,"[""embedder""]","""global setting""",,,
 """--seed""",int,None,"""global setting""",,,
+"""--is_deterministic""","""store_false""",True,"""global setting""",,,
+"""--is_benchmark""","""store_false""",True,"""global setting""",,,
+"""--phase""",str,"""train""","""global setting""",,,
+"""--is_test""","""store_false""",True,"""global setting""",,,
+"""--is_save""","""store_false""",True,"""global setting""",,,
+"""--machine_size""",int,1,"""global setting""",,,
+"""--machine_rank""",int,0,"""global setting""",,,
+"""--dist_backend""",str,"""nccl""","""global setting""",,,
+"""--dist_url""",str,"""tcp://localhost:23456""","""global setting""",,,
 """--device""",int,[0],"""managers""","[""managers/default-device""]","[""managers/default-device""]","[""managers/default-device""]"
 """--device_type""",str,"""DP""","""managers""","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]"
 """--is_distributed""","""store_true""",False,"""managers""","[""managers/default-is_distributed""]","[""managers/default-is_distributed""]","[""managers/default-is_distributed""]"
@@ -15,8 +23,9 @@ name,type,default,help,margin,proxy_anchor,simsiam
 """--delete_old""","""store_true""",False,"""recorders""","[""recorders/default-delete_old_folder""]","[""recorders/default-delete_old_folder""]","[""recorders/default-delete_old_folder""]"
 """--save_path""",str,"os.path.join(os.environ[""WORKSPACE""], ""experiments/GeDML/"")","""recorders""","[""recorders/default-root""]","[""recorders/default-root""]","[""recorders/default-root""]"
 """--use_wandb""","""store_true""",False,"""recorders""","[""recorders/default-use_wandb""]","[""recorders/default-use_wandb""]","[""recorders/default-use_wandb""]"
-"""--num_worders""",int,8,"""trainers, testers""","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]"
+"""--num_workers""",int,8,"""trainers, testers""","[""trainers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers""]"
 """--batch_size""",int,32,"""trainers""","[""trainers/default-batch_size""]","[""trainers/default-batch_size""]","[""trainers/default-batch_size""]"
+"""--test_num_workers""",int,8,"""testers""","[""testers/default-dataset_num_workers""]","[""testers/default-dataset_num_workers""]","[""testers/default-dataset_num_workers""]"
 """--test_batch_size""",int,32,"""testers""","[""testers/default-batch_size""]","[""testers/default-batch_size""]","[""testers/default-batch_size""]"
 """--splits_to_eval""",str,"[""test"", ""train""]","""testers""","[""testers/default-splits_to_eval""]","[""testers/default-splits_to_eval""]","[""testers/default-splits_to_eval""]"
 """--lr_trunk""",float,0.00001,"""optimizers""","[""optimizers/trunk-lr""]","[""optimizers/trunk-lr""]","[""optimizers/trunk-lr""]"

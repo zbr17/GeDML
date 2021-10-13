@@ -28,32 +28,25 @@ if opt.is_resume:
 
 # hyper-parameters
 start_epoch = 0
-phase = "train"
-is_test = True
-is_save = True
+phase = opt.phase
+is_test = opt.is_test
+is_save = opt.is_save
 warm_up = opt.warm_up
 warm_up_list = opt.warm_up_list
-is_distributed = opt.is_distributed
-seed = opt.seed
 
-logging.set_dist(is_dist=is_distributed)
-if seed is not None:
-    random.seed(seed)
-    torch.manual_seed(seed)
-cudnn.deterministic = True
-cudnn.benchmark = True
+logging.set_dist(is_dist=opt.is_distributed)
+if opt.seed is not None:
+    random.seed(opt.seed)
+    torch.manual_seed(opt.seed)
+cudnn.deterministic = opt.is_deterministic
+cudnn.benchmark = opt.is_benchmark
 
 # get confighandler
 config_root = os.path.abspath(opj(__file__, "../config/"))
-if opt.link_path is None:
-    link_root = os.path.join(config_root, "links")
-    if opt.setting is None:
-        opt.link_path = opj(link_root, "link.yaml")
-    else:
-        opt.link_path = os.path.join(link_root, "link_" + opt.setting + ".yaml")
-opt.assert_path = os.path.join(config_root, "assert.yaml")
-opt.param_path = os.path.join(config_root, "param")
-opt.wrapper_path = os.path.join(config_root, "wrapper")
+opt.link_path = opj(config_root, "links", "link_{}.yaml".format(opt.setting))
+opt.assert_path = opj(config_root, "assert.yaml")
+opt.param_path = opj(config_root, "param")
+opt.wrapper_path = opj(config_root, "wrapper")
 
 config_handler = ConfigHandler(
     convert_dict=convert_dict,
