@@ -57,41 +57,30 @@ class ParserWithConvert:
 
     def get_parser(self):
         parser = argparse.ArgumentParser(self.name)
-        for idx, values in self.info_dict.items():
+        for values in self.info_dict.values():
             if values["name"] == "--setting":
                 raise KeyError("<--setting> is duplicated in the command line arguments!")
             
             # for action args
             if isinstance(values["type"], str) and "store" in values["type"]:
-                parser.add_argument(
-                    values["name"],
-                    action=values["type"],
-                    default=values["default"],
-                    help=values["help"]
-                )
+                if "required" == values["default"]:
+                    parser.add_argument(values["name"], action=values["type"], required=True, help=values["help"])
+                else:
+                    parser.add_argument(values["name"], action=values["type"], default=values["default"], help=values["help"])
             # for list args
             elif isinstance(values["default"], list):
-                parser.add_argument(
-                    values["name"],
-                    type=values["type"],
-                    default=values["default"],
-                    help=values["help"],
-                    nargs="+",
-                )
+                if "required" == values["default"]:
+                    parser.add_argument(values["name"], action=values["type"], required=True, help=values["help"], nargs="+")
+                else:
+                    parser.add_argument(values["name"], type=values["type"], default=values["default"], help=values["help"], nargs="+")
             # for other args
             else:
-                parser.add_argument(
-                    values["name"],
-                    type=values["type"],
-                    default=values["default"],
-                    help=values["help"]
-                )
+                if "required" == values["default"]:
+                    parser.add_argument(values["name"], type=values["type"], required=True, help=values["help"])
+                else:
+                    parser.add_argument(values["name"], type=values["type"], default=values["default"], help=values["help"])
         # add <setting> argument
-        parser.add_argument(
-            "--setting",
-            type=str,
-            default="default"
-        )
+        parser.add_argument("--setting", type=str, help="Please input the setting")
         # get the args
         opt = parser.parse_args()
         self.setting = opt.setting
@@ -103,14 +92,3 @@ class ParserWithConvert:
             if values[self.prefix + self.setting]:
                 convert[values["name"].strip('-')] = values[self.prefix + self.setting]
         return convert
-
-if __name__ == "__main__":
-    import os
-    workspace = os.environ["WORKSPACE"]
-    path = os.path.join(
-        workspace,
-        "code/GeDML/test.csv"
-    )
-    testParser = ParserWithConvert(csv_path=path)
-    opt, convert = testParser.render()
-    pass

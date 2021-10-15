@@ -5,8 +5,8 @@ import pandas as pd
 import numpy as np 
 import os
 
-from ..launcher.misc import utils
-from . import utils as utils_recorder
+from . import utils
+from ..config.setting.recorder_setting import TO_RECORD_LIST
 
 from .base_info_getter import BaseInfoGetter
 from .base_info_writer import BaseInfoWriter
@@ -65,8 +65,10 @@ class BaseRecorder:
             self.create_exp_root()
             self.create_group_folders(group_name)
 
+    ### Create folders
+
     def create_exp_root(self):
-        self.root = utils_recorder.create_folder(
+        self.root = utils.create_folder(
             path=self.root,
             is_resume=self.is_resume,
             hint_if_exist=self.hint_if_exist,
@@ -95,7 +97,8 @@ class BaseRecorder:
             shutil.rmtree(sub_root_name)
             logging.info("Delete group folder: {}".format(sub_root_name))
 
-    
+    ### Save recorders
+
     def log_config(self, config_dict):
         self.writer.log_config(config_dict)
     
@@ -129,6 +132,8 @@ class BaseRecorder:
         """
         self.writer.update(*args, **kwargs)
     
+    ### Save and load models
+
     def save_models(self, *args, **kwargs):
         """
         Save models.

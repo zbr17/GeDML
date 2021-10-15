@@ -22,7 +22,7 @@ class BaseInfoGetter:
             self.get_description(name): output
         }
 
-    def get_data(self, data: (dict or ...), name=None) -> (dict, int):
+    def get_data(self, data: (dict or ...), name=None):
         """
         This is the main API for BaseInfoGetter class.
 
