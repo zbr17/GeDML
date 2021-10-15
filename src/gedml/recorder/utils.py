@@ -8,7 +8,12 @@ def get_first_key_of_dict(data: dict) -> str:
     first_key = list(data.keys())[0]
     return first_key
 
-def create_folder(path, is_resume=False, hint_if_exist=True, delete_old_folders=True):
+def create_folder(
+    path, 
+    is_resume=False, 
+    hint_if_exist=True, 
+    delete_old_folders=True
+):
     """
     Create folder.
 
