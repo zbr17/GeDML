@@ -64,9 +64,6 @@ class BaseTester:
     def set_batch_size(self, batch_size):
         self.batch_size = batch_size
     
-    def set_distributed(self, flag=True):
-        self.is_distributed = flag
-    
     """
     test
     """

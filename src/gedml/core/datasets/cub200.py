@@ -9,7 +9,17 @@ class CUB200(BaseDataset):
     """
     `CUB200 <http://www.vision.caltech.edu/visipedia/CUB-200.html>`_
     """
+    def _set_dataset_info(self):
+        if self.assert_num_classes is None:
+            self.assert_num_classes = 100
+        if self.assert_num_samples is None:
+            if self.phase == "train":
+                self.assert_num_samples = 5864
+            else:
+                self.assert_num_samples = 5924
+
     def init_dataset(self):
+        self._set_dataset_info()
         self.root = os.path.join(self.root, "cub200")
         img_folder = os.path.join(self.root, self.phase)
         self.dataset = datasets.ImageFolder(img_folder)

@@ -30,7 +30,7 @@ class BaseManager:
         is_resume=False,
         is_distributed=False,
         device_wrapper_type="DP",
-        dist_port=23456,
+        dist_url="tcp://localhost:23456",
         world_size=None,
         phase="train",
         primary_metric=["test", "recall_at_1"],
@@ -51,7 +51,7 @@ class BaseManager:
         self.is_resume = is_resume
         self.is_distributed = is_distributed
         self.device_wrapper_type = device_wrapper_type
-        self.dist_port = dist_port
+        self.dist_url = dist_url
         self.world_size = world_size
         self.phase = phase
         self.primary_metric = primary_metric
@@ -116,10 +116,6 @@ class BaseManager:
         self.initiate_selectors()
         self.initiate_losses()
         self.initiate_schedulers()
-        # for distributed training
-        if self.is_distributed:
-            self.initiate_distributed_trainers()
-            self.initiate_distributed_testers()
         self.initiate_addition_items()
     
     def initiate_addition_items(self):
@@ -129,7 +125,7 @@ class BaseManager:
         if self.device_wrapper_type == "DDP" and not self.is_distributed:
             torch.distributed.init_process_group(
                 backend='nccl',
-                init_method='tcp://localhost:{}'.format(self.dist_port),
+                init_method=self.dist_url,
                 rank=0,
                 world_size=1
             )
@@ -194,16 +190,6 @@ class BaseManager:
         is_to_wrap = "losses" in self.to_wrap_list
         if is_to_device:
             self._members_to_device("losses", to_warp=is_to_wrap)
-    
-    def initiate_distributed_trainers(self):
-        total_batch_size = self.trainer.batch_size
-        assert (total_batch_size % self.world_size) == 0
-        sub_batch_size = int(total_batch_size // self.world_size)
-        self.trainer.set_distributed(True)
-        self.trainer.set_batch_size(sub_batch_size)
-    
-    def initiate_distributed_testers(self):
-        self.tester.set_distributed(True)
     
     def initiate_schedulers(self):
         if self.schedulers is None:

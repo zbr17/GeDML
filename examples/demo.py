@@ -6,9 +6,10 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 import torch.multiprocessing as mp
-workspace = os.environ["WORKSPACE"]
 sys.path.append(
-    opj(workspace, 'code/GeDML/src')
+    os.path.abspath(
+        opj(__file__, "../../src")
+    )
 )
 from gedml.launcher.misc import ParserWithConvert
 from gedml.launcher.creators import ConfigHandler

@@ -70,7 +70,7 @@ class Storage:
         sub_k = '/'.join([module_type, name, group])
         return sub_item_output_dict, sub_k
 
-    def update(self, modules, cur_module=None):
+    def update(self, modules, cur_module=None, is_distributed=False):
         """
         For tuple input: wrapper will convert tuple into dict
         For dict input: wrapper will convert dict into dict recursively
@@ -103,18 +103,21 @@ class Storage:
                         )
                     )
                     # check the type of output tuple and wrap the output
-                    if isinstance(sub_value_tuple, dict):
-                        for tuple_k, tuple_v in sub_value_tuple.items():
-                            for sub_k, sub_v in sub_wrapper_dict["map"].items():
-                                sub_item_output_dict, new_sub_k = self.output_wrapper(tuple_v, sub_k, sub_v)
-                                value_dict[new_sub_k+"{}".format(tuple_k)+group_key].update(sub_item_output_dict)
-                    else:
-                        if not isinstance(sub_value_tuple, tuple):
-                            sub_value_tuple = (sub_value_tuple,)
-                        # output wrapper
-                        for sub_k, sub_v in sub_wrapper_dict["map"].items():
-                            sub_item_output_dict, new_sub_k = self.output_wrapper(sub_value_tuple, sub_k, sub_v)
-                            value_dict[new_sub_k+group_key].update(sub_item_output_dict)
+                    # if isinstance(sub_value_tuple, dict):
+                    #     for tuple_k, tuple_v in sub_value_tuple.items():
+                    #         for sub_k, sub_v in sub_wrapper_dict["map"].items():
+                    #             sub_item_output_dict, new_sub_k = self.output_wrapper(tuple_v, sub_k, sub_v)
+                    #             value_dict[new_sub_k+"{}".format(tuple_k)+group_key].update(sub_item_output_dict)
+                    # else:
+                    if not isinstance(sub_value_tuple, tuple):
+                        sub_value_tuple = (sub_value_tuple,)
+                    # distributed gather
+                    if is_distributed:
+                        sub_value_tuple = utils.distributed_gather_objects(sub_value_tuple)
+                    # output wrapper
+                    for sub_k, sub_v in sub_wrapper_dict["map"].items():
+                        sub_item_output_dict, new_sub_k = self.output_wrapper(sub_value_tuple, sub_k, sub_v)
+                        value_dict[new_sub_k+group_key].update(sub_item_output_dict)
 
         # add to storage
         self.add_dict(

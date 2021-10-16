@@ -66,7 +66,7 @@ class MoCoCollector(BaseCollector):
     def _dequeue_and_enqueue(self, keys: torch.Tensor):
         # gather keys before updating queue
         if dist.is_initialized():
-            keys, = utils.distributed_gather_objects(keys)
+            keys = utils.distributed_gather_objects(keys)
         batch_size = keys.shape[0]
 
         # get pointer
@@ -89,7 +89,7 @@ class MoCoCollector(BaseCollector):
         # gather from all gpus
         device = x.device
         batch_size_this = x.shape[0]
-        x_gather, = utils.distributed_gather_objects(x)
+        x_gather = utils.distributed_gather_objects(x)
         batch_size_all = x_gather.shape[0]
         num_gpus = batch_size_all // batch_size_this
 
@@ -118,7 +118,7 @@ class MoCoCollector(BaseCollector):
         """
         # gather from all gpus
         batch_size_this = x.shape[0]
-        x_gather, = utils.distributed_gather_objects(x)
+        x_gather = utils.distributed_gather_objects(x)
         batch_size_all = x_gather.shape[0]
         num_gpus = batch_size_all // batch_size_this
 

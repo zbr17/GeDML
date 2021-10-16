@@ -14,7 +14,20 @@ class ImageNet(BaseDataset):
     """
     `ImageNet <http://www.image-net.org/>`_
     """
+    def _set_dataset_info(self):
+        if self.assert_num_classes is None:
+            if self.phase == "train":
+                self.assert_num_classes = 1000
+            else:
+                self.assert_num_classes = 1000
+        if self.assert_num_samples is None:
+            if self.phase == "train":
+                self.assert_num_samples = 1281167
+            else:
+                self.assert_num_samples = 50000
+
     def init_dataset(self):
+        self._set_dataset_info()
         self.root = os.path.join(self.root, "imagenet")
         if self.phase == "train":
             self.init_train_dataset()

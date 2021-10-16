@@ -2,8 +2,6 @@ OnlineProducts:
   params:
     root: <WORKSPACE>/datasets
     phase: train
-    assert_num_classes: 11318
-    assert_num_samples: 59551
     transform:
       - ~~_SEARCH_WITH_SAME_NAME_
       - transforms

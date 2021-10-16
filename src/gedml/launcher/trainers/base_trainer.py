@@ -71,12 +71,6 @@ class BaseTrainer:
     """
     Set and Get
     """
-
-    def set_batch_size(self, batch_size):
-        self.batch_size = batch_size
-
-    def set_distributed(self, flag=True):
-        self.is_distributed = flag
     
     def set_activated_optims(self, optim_list=None):
         self.optim_list = (
@@ -298,17 +292,17 @@ class BaseTrainer:
         # forward backbone (trunk model)
         features = self.models["trunk"](data)
 
-        # if distributed
-        if self.is_distributed:
-            features, labels = utils.distributed_gather_objects(
-                features, labels
-            )
+        # # if distributed
+        # if self.is_distributed:
+        #     features, labels = utils.distributed_gather_objects(
+        #         features, labels
+        #     )
 
         self.storage.features = features
         self.storage.labels = labels
         self.storage.indices_dict["models"] = {"embedder": {"": {}}}
 
-        self.storage.update(self.models["embedder"], cur_module="models")
+        self.storage.update(self.models["embedder"], cur_module="models", is_distributed=True)
 
     def forward_collectors(self):
         # update collector
@@ -333,8 +327,6 @@ class BaseTrainer:
         self.loss_handler.update_losses(self.storage.return_loss_dict())
 
     def backward_and_update(self):
-        self._backward_and_update_preprocess()
-
         self.loss_handler.backward()
         # clip gradients
         if self.gradclipper is not None:
@@ -343,15 +335,6 @@ class BaseTrainer:
         # step optimizers
         for k in self.optim_list:
             self.optimizers[k].step()
-    
-    def _backward_and_update_preprocess(self):
-        # for distributed
-        if self.is_distributed:
-            # dist.barrier()
-            dist.all_reduce(
-                tensor=self.loss_values["total_loss"],
-                op=dist.ReduceOp.SUM
-            )
 
     def step_schedulers(self, **kwargs):
         """

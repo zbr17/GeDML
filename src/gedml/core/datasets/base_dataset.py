@@ -17,7 +17,7 @@ class BaseDataset(Dataset, metaclass=ABCMeta):
         transform (transform module):
             Image transform (augmentation). Default: None.
     """
-    def __init__(self, root, phase, assert_num_classes, assert_num_samples, transform=None):
+    def __init__(self, root, phase, assert_num_classes=None, assert_num_samples=None, transform=None):
         self.root = root
         self.phase = phase
         self.assert_num_classes = assert_num_classes

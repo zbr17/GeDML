@@ -146,6 +146,9 @@ def distributed_gather_objects(*objects_list, rank=None, world_size=None):
         else rank
     )
     for objects_item in list(objects_list):
+        if objects_item.dim() < 1:
+            objects_item = objects_item.unsqueeze(0)
+
         curr_gather_list = [
             torch.zeros_like(objects_item)
             for _ in range(world_size)
@@ -157,4 +160,7 @@ def distributed_gather_objects(*objects_list, rank=None, world_size=None):
         curr_gather_list[rank] = objects_item
         curr_gather = torch.cat(curr_gather_list)
         gathered_objects_list.append(curr_gather)
-    return tuple(gathered_objects_list)
+    if len(gathered_objects_list) > 1:
+        return tuple(gathered_objects_list)
+    else:
+        return gathered_objects_list[0]

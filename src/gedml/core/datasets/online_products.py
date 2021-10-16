@@ -9,7 +9,20 @@ class OnlineProducts(BaseDataset):
     """
     `Stanford Online Products <https://cvgl.stanford.edu/projects/lifted_struct/>`_
     """
+    def _set_dataset_info(self):
+        if self.assert_num_classes is None:
+            if self.phase == "train":
+                self.assert_num_classes = 11318
+            else:
+                self.assert_num_classes = 11316
+        if self.assert_num_samples is None:
+            if self.phase == "train":
+                self.assert_num_samples = 59551
+            else:
+                self.assert_num_samples = 60502
+
     def init_dataset(self):
+        self._set_dataset_info()
         self.root = os.path.join(self.root, "online_products")
         info_folder = os.path.join(self.root, 'Info_Files')
         img_folder = os.path.join(self.root, 'images')

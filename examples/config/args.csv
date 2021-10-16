@@ -12,19 +12,19 @@ name,type,default,help,margin,proxy_anchor,simsiam
 """--machine_size""",int,1,"""global setting""",,,
 """--machine_rank""",int,0,"""global setting""",,,
 """--dist_backend""",str,"""nccl""","""global setting""",,,
-"""--dist_url""",str,"""tcp://localhost:23456""","""global setting""",,,
+"""--dist_url""",str,"""tcp://localhost:23456""","""managers""","[""managers/default-dist_url""]","[""managers/default-dist_url""]","[""managers/default-dist_url""]"
 """--device""",int,[0],"""managers""","[""managers/default-device""]","[""managers/default-device""]","[""managers/default-device""]"
-"""--device_type""",str,"""DP""","""managers""","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]"
-"""--is_distributed""","""store_true""",False,"""managers""","[""managers/default-is_distributed""]","[""managers/default-is_distributed""]","[""managers/default-is_distributed""]"
+"""--device_type""",str,"""DDP""","""managers""","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]","[""managers/default-device_wrapper_type""]"
 """--is_resume""","""store_true""",False,"""managers""","[""managers/default-is_resume"", ""recorders/default-is_resume""]","[""managers/default-is_resume"", ""recorders/default-is_resume""]","[""managers/default-is_resume"", ""recorders/default-is_resume""]"
 """--to_device_list""",str,"[""models""]","""managers""","[""managers/default-to_device_list""]","[""managers/default-to_device_list""]","[""managers/default-to_device_list""]"
 """--to_wrap_list""",str,[],"""managers""","[""managers/default-to_wrap_list""]","[""managers/default-to_wrap_list""]","[""managers/default-to_wrap_list""]"
-"""--data_path""",str,"""required""","""datasets""","[""datasets/train-root"", ""datasets/test-root""]","[""datasets/train-root"", ""datasets/test-root""]","[""datasets/train-root"", ""datasets/test-root""]"
+"""--is_distributed""","""store_true""",False,"""managers, recorders, trainers""","[""managers/default-is_distributed"", ""recorders/default-is_distributed"", ""trainers/default-is_distributed"", ""testers/default-is_distributed""]","[""managers/default-is_distributed"", ""recorders/default-is_distributed"", ""trainers/default-is_distributed"", ""testers/default-is_distributed""]","[""managers/default-is_distributed"", ""recorders/default-is_distributed"", ""trainers/default-is_distributed"", ""testers/default-is_distributed""]"
 """--delete_old""","""store_true""",False,"""recorders""","[""recorders/default-delete_old_folder""]","[""recorders/default-delete_old_folder""]","[""recorders/default-delete_old_folder""]"
 """--save_path""",str,"""required""","""recorders""","[""recorders/default-root""]","[""recorders/default-root""]","[""recorders/default-root""]"
 """--use_wandb""","""store_true""",False,"""recorders""","[""recorders/default-use_wandb""]","[""recorders/default-use_wandb""]","[""recorders/default-use_wandb""]"
+"""--data_path""",str,"""required""","""datasets""","[""datasets/train-root"", ""datasets/test-root""]","[""datasets/train-root"", ""datasets/test-root""]","[""datasets/train-root"", ""datasets/test-root""]"
 """--num_workers""",int,8,"""trainers, testers""","[""trainers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers""]"
-"""--batch_size""",int,32,"""trainers""","[""trainers/default-batch_size""]","[""trainers/default-batch_size""]","[""trainers/default-batch_size""]"
+"""--batch_size""",int,32,"""trainers, samplers""","[""trainers/default-batch_size"", ""samplers/default-batch_size""]","[""trainers/default-batch_size""]","[""trainers/default-batch_size""]"
 """--test_num_workers""",int,8,"""testers""","[""testers/default-dataset_num_workers""]","[""testers/default-dataset_num_workers""]","[""testers/default-dataset_num_workers""]"
 """--test_batch_size""",int,32,"""testers""","[""testers/default-batch_size""]","[""testers/default-batch_size""]","[""testers/default-batch_size""]"
 """--splits_to_eval""",str,"[""test"", ""train""]","""testers""","[""testers/default-splits_to_eval""]","[""testers/default-splits_to_eval""]","[""testers/default-splits_to_eval""]"

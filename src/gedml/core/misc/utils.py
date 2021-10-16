@@ -11,6 +11,8 @@ try:
 except ModuleNotFoundError:
     logging.warning("Faiss Package Not Found!")
 
+from ...launcher.misc.utils import distributed_gather_objects
+
 """
 (Faiss) to multi gpu devices
 """
@@ -43,32 +45,3 @@ def multi_center_generator(sample_num_per_class, class_num, dim=2, scale=0.1):
     label = np.arange(class_num).reshape(-1, 1)
     label = np.tile(label, (1, sample_num_per_class)).reshape(-1).astype('float32')
     return data, label
-
-"""
-Distributed utilities
-"""
-def distributed_gather_objects(*objects_list, rank=None, world_size=None):
-    gathered_objects_list = []
-    world_size = (
-        dist.get_world_size()
-        if world_size is None
-        else world_size
-    )
-    rank = (
-        dist.get_rank()
-        if rank is None
-        else rank
-    )
-    for objects_item in list(objects_list):
-        curr_gather_list = [
-            torch.zeros_like(objects_item)
-            for _ in range(world_size)
-        ]
-        dist.all_gather(
-            tensor_list=curr_gather_list,
-            tensor=objects_item.contiguous()
-        )
-        curr_gather_list[rank] = objects_item
-        curr_gather = torch.cat(curr_gather_list)
-        gathered_objects_list.append(curr_gather)
-    return tuple(gathered_objects_list)

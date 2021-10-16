@@ -1,8 +1,7 @@
 import os
 import sys
-workspace = os.environ["WORKSPACE"]
-path_name = os.path.join(
-    workspace, "code/GeDML/src"
+path_name = os.path.abspath(
+    os.path.join(__file__, "../../src")
 )
 print("path_name: ", path_name)
 sys.path.insert(0, path_name)
@@ -55,7 +54,14 @@ def get_output(module):
             pass
     return output_dict
 
-def write_rst(module, module_description, sub_dict, path=os.path.join(workspace, "code/GeDML/.docsrc/source/")):
+def write_rst(
+    module, 
+    module_description, 
+    sub_dict, 
+    path=os.path.abspath(os.path.join(
+        __file__, "../source/"
+    ))
+):
     h1 = "##################################"
     h2 = "**********************************"
     h3 = "++++++++++++++++++++++++++++++++++"

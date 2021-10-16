@@ -13,7 +13,18 @@ class Cars196(BaseDataset):
 
     Use "cars_annos.mat" to load the images.
     """
+    def _set_dataset_info(self):
+        if self.assert_num_classes is None:
+            self.assert_num_classes = 98
+        if self.assert_num_samples is None:
+            if self.phase == "train":
+                self.assert_num_samples = 8054
+            else:
+                self.assert_num_samples = 8131
+
     def init_dataset(self):
+        self._set_dataset_info()
+
         self.root = os.path.join(self.root, "cars196")
         self.annos_file = os.path.join(self.root, "cars_annos.mat")
         annos_file = sio.loadmat(self.annos_file)
