@@ -40,7 +40,6 @@ INITATE_ORDER_LIST = [
     "transforms",
     "datasets",
     "samplers",
-    "collatefns",
     "trainers",
     "testers",
     "managers",

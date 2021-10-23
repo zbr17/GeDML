@@ -26,7 +26,6 @@ class BaseManager:
         schedulers=None,
         gradclipper=None,
         samplers=None,
-        collatefns=None,
         is_resume=False,
         is_distributed=False,
         device_wrapper_type="DP",
@@ -46,7 +45,6 @@ class BaseManager:
         self.schedulers = schedulers
         self.gradclipper = gradclipper
         self.samplers = samplers
-        self.collatefns = collatefns
         self.epochs = -1
         self.is_resume = is_resume
         self.is_distributed = is_distributed

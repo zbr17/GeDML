@@ -113,7 +113,7 @@ class Storage:
                         sub_value_tuple = (sub_value_tuple,)
                     # distributed gather
                     if is_distributed:
-                        sub_value_tuple = utils.distributed_gather_objects(sub_value_tuple)
+                        sub_value_tuple = utils.distributed_gather_objects(*sub_value_tuple)
                     # output wrapper
                     for sub_k, sub_v in sub_wrapper_dict["map"].items():
                         sub_item_output_dict, new_sub_k = self.output_wrapper(sub_value_tuple, sub_k, sub_v)

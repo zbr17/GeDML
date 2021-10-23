@@ -95,7 +95,6 @@ class BaseTrainer:
         schedulers=None,
         gradclipper=None,
         samplers=None,
-        collatefns=None,
         device=None,
         recorders=None
     ):
@@ -112,7 +111,6 @@ class BaseTrainer:
         self.schedulers = schedulers
         self.gradclipper = gradclipper
         self.samplers = samplers
-        self.collatefns = collatefns
         self.device = device
         self.loss_handler = LossHandler()
         self.recorders = utils.get_default(recorders, "recorders")
@@ -216,12 +214,9 @@ class BaseTrainer:
                 else None
             )
         
-        # extract the collate_fn
-        self.collate_fn = (
-            self.collatefns["train"]
-            if self.collatefns is not None
-            else None
-        )
+        # extract the collate_fn from datasets
+        self.collate_fn = getattr(self.datasets["train"].transform, "collate_fn", None) # TODO: debug
+        pass
 
     def set_to_train(self):
         for trainable_name in self.trainable_object_list:
@@ -302,7 +297,7 @@ class BaseTrainer:
         self.storage.labels = labels
         self.storage.indices_dict["models"] = {"embedder": {"": {}}}
 
-        self.storage.update(self.models["embedder"], cur_module="models", is_distributed=True)
+        self.storage.update(self.models["embedder"], cur_module="models", is_distributed=self.is_distributed)
 
     def forward_collectors(self):
         # update collector

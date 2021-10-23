@@ -14,7 +14,6 @@ from .factories.recorders_creator import recordersCreator
 from .factories.managers_creator import managersCreator
 from .factories.trainers_creator import trainersCreator
 from .factories.testers_creator import testersCreator
-from .factories.collatefns_creator import collatefnsCreator
 
 class CreatorManager:
     def __init__(self):
@@ -34,8 +33,7 @@ class CreatorManager:
             "recordersCreator",
             "managersCreator",
             "trainersCreator",
-            "testersCreator",
-            "collatefnsCreator"
+            "testersCreator"
         ]
         self.creators_dict = {
             name: eval(name)()

@@ -208,9 +208,6 @@ Example::
       - train: cub200_train.yaml
       - test: cub200_test.yaml
 
-    collatefns:
-      - train: default.yaml
-
     recorders:
       - default: base_recorder.yaml
 

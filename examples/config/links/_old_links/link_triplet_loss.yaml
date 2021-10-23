@@ -40,9 +40,6 @@ datasets:
 # samplers:
 #   - train: MPerClassSampler.yaml
 
-collatefns:
-  - train: default.yaml
-
 recorders:
   - default: base_recorder.yaml
 

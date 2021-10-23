@@ -20,4 +20,3 @@ BaseManager:
     is_resume: true
     is_distributed: false
     device_wrapper_type: DP
-    dist_port: 23456
