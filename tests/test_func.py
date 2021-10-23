@@ -39,4 +39,10 @@ g.manual_seed(0)
 indices = torch.randperm(10).tolist()
 
 print(indices)
+
+from gedml.core.models import DeiT_S
+model = DeiT_S()
+data = torch.randn(1, 3, 224, 224)
+output = model(data)
+
 pass
