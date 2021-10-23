@@ -272,7 +272,6 @@ We will continually update the optimal parameters of different configs in [Tsing
 
 # TODO:
 - [ ] assert parameters.
-- [ ] distributed methods and Non-distributed methods!!!
 - [ ] write github action to automate unit-test, package publish and docs building.
 - [ ] add cross-validation splits protocol.
 
@@ -281,4 +280,3 @@ We will continually update the optimal parameters of different configs in [Tsing
 - [ ] write complete config (easily run).
 - [ ] add moco-v2 demo!!!
 - [ ] distributed tester for matrix-form input.
-- [ ] combine `transforms` and `collate_fn`

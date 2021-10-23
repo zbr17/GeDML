@@ -1,18 +1,18 @@
 metrics:
-  - default: TODO:
+  - default: <>
 
 collectors:
-  - default: TODO:
+  - default: <>
 
 selectors:
-  - default: TODO:
+  - default: <>
 
 losses:
-  - default: TODO:
+  - default: <>
 
 models:
-  - trunk: TODO:
-  - embedder: TODO:
+  - trunk: <>
+  - embedder: <>
 
 evaluators:
   - default: Calculator.yaml

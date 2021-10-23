@@ -1,3 +1,4 @@
+from logging import warning
 import os
 import sys
 import random
@@ -65,8 +66,10 @@ def main_worker(device, convert_dict, opt):
     
     if opt.is_distributed:
         ## split in each process
-        assert (opt.batch_size % opt.world_size) == 0, "batch-size must be an integer multiple of world-size"
-        assert (opt.num_workers % opt.world_size) == 0, "num-workers must be an integer multiple of world-size"
+        assert (opt.batch_size % opt.world_size) == 0, \
+            "batch-size must be an integer multiple of world-size"
+        assert (opt.num_workers % opt.world_size) == 0, \
+            "num-workers must be an integer multiple of world-size"
         opt.batch_size = int(opt.batch_size / opt.world_size) # only for trainer
         opt.num_workers = int(opt.num_workers / opt.world_size) # only for trainer
 

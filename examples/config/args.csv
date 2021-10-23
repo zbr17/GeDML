@@ -23,7 +23,7 @@ name,type,default,help,margin,proxy_anchor,simsiam
 """--save_path""",str,"""required""","""recorders""","[""recorders/default-root""]","[""recorders/default-root""]","[""recorders/default-root""]"
 """--use_wandb""","""store_true""",False,"""recorders""","[""recorders/default-use_wandb""]","[""recorders/default-use_wandb""]","[""recorders/default-use_wandb""]"
 """--data_path""",str,"""required""","""datasets""","[""datasets/train-root"", ""datasets/test-root""]","[""datasets/train-root"", ""datasets/test-root""]","[""datasets/train-root"", ""datasets/test-root""]"
-"""--num_workers""",int,8,"""trainers, testers""","[""trainers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers""]"
+"""--num_workers""",int,8,"""trainers, testers""","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]","[""trainers/default-dataset_num_workers"", ""testers/default-dataset_num_workers""]"
 """--batch_size""",int,32,"""trainers, samplers""","[""trainers/default-batch_size"", ""samplers/train-batch_size""]","[""trainers/default-batch_size""]","[""trainers/default-batch_size""]"
 """--test_num_workers""",int,8,"""testers""","[""testers/default-dataset_num_workers""]","[""testers/default-dataset_num_workers""]","[""testers/default-dataset_num_workers""]"
 """--test_batch_size""",int,32,"""testers""","[""testers/default-batch_size""]","[""testers/default-batch_size""]","[""testers/default-batch_size""]"

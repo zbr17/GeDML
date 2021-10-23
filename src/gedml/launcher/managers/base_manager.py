@@ -212,7 +212,7 @@ class BaseManager:
                                 members[k] = DDP(
                                     v,
                                     device_ids=self.device_ids,
-                                    find_unused_parameters=True
+                                    find_unused_parameters=False
                                 )
                             except:
                                 trace = traceback.format_exc()
@@ -228,7 +228,7 @@ class BaseManager:
                     members[k] = DDP(
                         members[k], 
                         device_ids=self.device_ids,
-                        find_unused_parameters=True
+                        find_unused_parameters=False
                     )
                 except:
                     trace = traceback.format_exc()
@@ -244,29 +244,38 @@ class BaseManager:
         self.prepare()
         self.maybe_resume(is_save=is_save)
         if self.phase == "train":
-            for i in range(start_epoch, total_epochs):
+            for _ in range(start_epoch, total_epochs):
+                # train phase
                 self.epochs += 1
-                if i < warm_up:
+                if self.epochs < warm_up:
                     logging.info("Warm up with {}".format(warm_up_list))
                     self.trainer.set_activated_optims(warm_up_list)
                 else:
                     self.trainer.set_activated_optims()
-                self.train(epochs=self.epochs)
+                self.trainer.train(epochs=self.epochs)
                 self.release_memory()
+
+                # test phase
+                # to_test = True
+                # if self.is_distributed:
+                #     if dist.get_rank() != 0:
+                #         to_test = False
+                # if to_test:
                 if is_test:
-                    if (i % interval) == 0:
-                        self.test()
+                    if (self.epochs % interval) == 0:
+                        self.metrics = self.tester.test()
                         self.display_metrics()
                         self.save_metrics()
                         self.release_memory()
                 if is_save:
                     self.save_models()
+                
                 # early stop
                 if self.patience_counts >= self.patience:
                     logging.info("Training terminated!")
                     break
         elif self.phase == "evaluate":
-            self.test()
+            self.metrics = self.tester.test()
             self.display_metrics()
     
     def prepare(self):
@@ -322,18 +331,16 @@ class BaseManager:
         # display
         for k, v in self.metrics.items():
             logging.info("{} Metrics ---".format(k.upper()))
-            print(pd.DataFrame([v]))
+            if self.is_distributed:
+                if dist.get_rank() == 0:
+                    print(pd.DataFrame([v]))
+            else:
+                print(pd.DataFrame([v]))
         
     def save_models(self, is_best=None):
         if is_best is None:
             is_best = self.is_best
         self.recorder.save_models(self.trainer, step=self.epochs, best=is_best)
-    
-    def train(self, epochs=None):
-        self.trainer.train(epochs=epochs)
-    
-    def test(self):
-        self.metrics = self.tester.test()
     
     def release_memory(self):
         torch.cuda.empty_cache()

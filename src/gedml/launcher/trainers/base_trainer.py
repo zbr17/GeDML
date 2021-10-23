@@ -1,7 +1,7 @@
 import torch
 import torch.distributed as dist
 from torchdistlog import logging
-from tqdm import tqdm
+from torchdistlog.tqdm import tqdm
 
 from ..misc import utils, Storage
 from .loss_handler import LossHandler
@@ -196,13 +196,6 @@ class BaseTrainer:
     def _initiate_dataloader_sampler_collatefn(self):
         # extract the sampler
         if self.is_distributed:
-            if self.samplers is not None:
-                logging.warning("class samplers can't be used in distribued training mode!")
-            self.samplers = {}
-            self.samplers["train"] = torch.utils.data.distributed.DistributedSampler(
-                dataset=self.datasets["train"],
-                shuffle=True,
-            )
             self.sampler = self.samplers["train"]
             logging.info("Get distributed sampler {}".format(
                 self.sampler.__class__.__name__,
@@ -280,24 +273,23 @@ class BaseTrainer:
         self.storage.tensors_to_device(self.info_dict_to_device, self.device)
 
     def forward_models(self):
-        # get data and labels
+        ### get data and labels
         data = self.storage.get("data")
         labels = self.storage.get("labels")
 
-        # forward backbone (trunk model)
+        ### forward backbone (trunk model)
         features = self.models["trunk"](data)
 
-        # # if distributed
-        # if self.is_distributed:
-        #     features, labels = utils.distributed_gather_objects(
-        #         features, labels
-        #     )
-
+        ### forward embedder
+        # prepare input data
         self.storage.features = features
-        self.storage.labels = labels
         self.storage.indices_dict["models"] = {"embedder": {"": {}}}
-
+        # passing input data: Distributed gathering point
         self.storage.update(self.models["embedder"], cur_module="models", is_distributed=self.is_distributed)
+        
+        if self.is_distributed:
+            labels, = utils.distributed_gather_objects(labels)
+        self.storage.labels = labels
 
     def forward_collectors(self):
         # update collector

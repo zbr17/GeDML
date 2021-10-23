@@ -92,6 +92,7 @@ class BaseRecorder:
         if not self.is_distributed:
             self.if_record = True
         else:
+            self.hint_if_exist = False # is hard to "input a Y" when distributed
             self.curr_rank = dist.get_rank()
             if self.curr_rank == self.output_rank:
                 self.if_record = True
@@ -163,9 +164,9 @@ class BaseRecorder:
             )
 
     def create_group_folders(self, group_name):
-        if self.if_record:
-            self.root = os.path.join(self.meta_root, group_name)
-            self.exp_name = "{}_{}".format(self.exp_name, group_name)
+        self.root = os.path.join(self.meta_root, group_name)
+        self.exp_name = "{}_{}".format(self.exp_name, group_name)
+        if self.if_record:    
             # create root folder
             self.root = utils.create_folder(
                 self.root,
@@ -188,6 +189,9 @@ class BaseRecorder:
                 prefix=self.init_function_prefix,
                 description_str="Initiate update handler by {}"
             )
+        else:
+            self._meta_path_factory("model")
+            self._init_model()
     
     def _init_board(self):
         self.board_handler = SummaryWriter(log_dir=self.board_path)
@@ -215,10 +219,8 @@ class BaseRecorder:
 
     def assert_obj(self, obj):
         to_record_list = getattr(obj, TO_RECORD_LIST, None)
-        assert (
-            to_record_list is not None, 
+        assert to_record_list is not None, \
             'obj must have attribute: {}!'.format(TO_RECORD_LIST)
-        )
         return to_record_list
     
     def get_description(self, name, spliter="-"):
@@ -271,10 +273,8 @@ class BaseRecorder:
                 self.convert_obj_to_dict(data, name)
                 if not isinstance(data, dict) else data
             )
-            assert (
-                len(list(output.keys())) < 2, 
+            assert len(list(output.keys())) < 2, \
                 'first-level keys must be less than 2 in output dict'
-            )
             # increase counts
             primary_key = utils.get_first_key_of_dict(output)
             self.increase_counts(primary_key)
@@ -454,10 +454,8 @@ class BaseModelHandler:
             for k, v in to_save_item.items():
                 import glob
                 item_search = glob.glob(os.path.join(model_path, to_save_name + "_" + k+"*"))
-                assert (
-                    len(item_search) > 0,
+                assert len(item_search) > 0, \
                     "{} does not exist!".format(model_path)
-                )
                 
                 index_list = [item.split(".")[0].split("_")[-1] for item in item_search]
                 index_list = [int(item) if item!="best" else -2 for item in index_list]

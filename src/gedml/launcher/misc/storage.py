@@ -96,19 +96,11 @@ class Storage:
                 sub_wrapper_dict = cur_wrapper_dict[k]
                 for group_key, params in v.items():
                     # get output tuple
-                    sub_value_tuple = module( 
-                        **self.filter_dict(
-                            sub_wrapper_dict["input"],
-                            total_dict=params
-                        )
+                    input_kwargs = self.filter_dict(
+                        sub_wrapper_dict["input"],
+                        total_dict=params
                     )
-                    # check the type of output tuple and wrap the output
-                    # if isinstance(sub_value_tuple, dict):
-                    #     for tuple_k, tuple_v in sub_value_tuple.items():
-                    #         for sub_k, sub_v in sub_wrapper_dict["map"].items():
-                    #             sub_item_output_dict, new_sub_k = self.output_wrapper(tuple_v, sub_k, sub_v)
-                    #             value_dict[new_sub_k+"{}".format(tuple_k)+group_key].update(sub_item_output_dict)
-                    # else:
+                    sub_value_tuple = module(**input_kwargs)
                     if not isinstance(sub_value_tuple, tuple):
                         sub_value_tuple = (sub_value_tuple,)
                     # distributed gather

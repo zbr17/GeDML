@@ -1,6 +1,6 @@
 import torch
 from torchdistlog import logging
-from tqdm import tqdm
+from torchdistlog.tqdm import tqdm
 import torch.nn.functional as F 
 
 from .. import ProxyCollector

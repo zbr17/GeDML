@@ -1,6 +1,6 @@
 import torch
 import tarfile
-from tqdm import tqdm
+from torchdistlog.tqdm import tqdm
 import numpy as np 
 from torchdistlog import logging
 from pandas import read_csv

@@ -133,7 +133,7 @@ def dict_to_command(input_dict, ):
 """
 Distributed utilities
 """
-def distributed_gather_objects(*objects_list, rank=None, world_size=None):
+def distributed_gather_objects(*objects_list, rank=None, world_size=None) -> tuple:
     gathered_objects_list = []
     world_size = (
         dist.get_world_size()
@@ -160,7 +160,4 @@ def distributed_gather_objects(*objects_list, rank=None, world_size=None):
         curr_gather_list[rank] = objects_item
         curr_gather = torch.cat(curr_gather_list)
         gathered_objects_list.append(curr_gather)
-    if len(gathered_objects_list) > 1:
-        return tuple(gathered_objects_list)
-    else:
-        return gathered_objects_list[0]
+    return tuple(gathered_objects_list)

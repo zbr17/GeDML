@@ -1,5 +1,5 @@
 import torch
-from tqdm import tqdm
+from torchdistlog.tqdm import tqdm
 
 class _DefaultGlobalCollector:
     def __init__(
