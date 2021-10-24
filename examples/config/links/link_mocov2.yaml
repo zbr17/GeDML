@@ -1,31 +1,31 @@
 metrics:
-  - default: cosine.yaml
+  - default: cosine.yaml # todo
 
 collectors:
-  - default: SimSiamCollector.yaml
+  - default: MoCoCollector.yaml # to confirm
 
 selectors:
-  - default: DensePairSelector.yaml
+  - default: DefaultSelector.yaml
 
 losses:
-  - default: PosPairLoss.yaml
+  - default: PosPairLoss.yaml # todo 
 
 models:
   - trunk: resnet50_scratch.yaml
-  - embedder: simsiam_projector.yaml
+  - embedder: mocov2_embedder.yaml
 
 evaluators:
   - default: Calculator.yaml
 
 optimizers:
-  - trunk: AdamW_models.yaml
-  - embedder: AdamW_models.yaml
-  - default: AdamW_collectors.yaml
+  - trunk: SGD_models.yaml # todo
+  - embedder: SGD_models.yaml # todo
+  - default: SGD_collectors.yaml # todo
 
 schedulers:
-  - trunk: step_lr.yaml
-  - embedder: step_lr.yaml
-  - default: step_lr.yaml
+  - trunk: step_lr.yaml # todo
+  - embedder: step_lr.yaml # todo 
+  - default: step_lr.yaml # todo
 
 gradclipper:
   - trunk: gradclipper_models.yaml
@@ -39,9 +39,6 @@ transforms:
 datasets:
   - train: imagenet_train.yaml
   - test: imagenet_test.yaml
-
-# samplers:
-#   - train: MPerClassSampler.yaml
 
 recorders:
   - default: base_recorder.yaml
@@ -57,7 +54,7 @@ managers:
 
 LINK_SETTING: 
   to_device_list: [models, collectors]
-  to_wrap_list: [models]
+  to_wrap_list: [models, collectors]
 
 PIPELINE_SETTING:
   - models/trunk/default -> models/embedder/

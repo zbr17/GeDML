@@ -196,7 +196,12 @@ class BaseTrainer:
     def _initiate_dataloader_sampler_collatefn(self):
         # extract the sampler
         if self.is_distributed:
-            self.sampler = self.samplers["train"]
+            if self.samplers is None:
+                self.sampler = torch.utils.data.distributed.DistributedSampler(
+                    self.datasets["train"],
+                )
+            else:
+                self.sampler = self.samplers["train"]
             logging.info("Get distributed sampler {}".format(
                 self.sampler.__class__.__name__,
             ))

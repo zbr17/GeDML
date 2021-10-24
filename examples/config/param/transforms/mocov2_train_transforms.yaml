@@ -8,13 +8,17 @@ train_transforms:
       - RandomResizedCrop:
           scale: [0.2, 1.0]
           size: 224
-      - RandomGrayscale:
-          p: 0.2
-      - ColorJitter:
+      - RandomColorJitter:
           brightness: 0.4
           contrast: 0.4
           saturation: 0.4
           hue: 0.4
+          p: 0.8
+      - RandomGrayscale:
+          p: 0.2
+      - RandomGaussianBlur:
+          sigma: [0.1, 2.0]
+          p: 0.5
       - RandomHorizontalFlip: 
           p: 0.5
     wrapper: TwoCropsTransformWrapper

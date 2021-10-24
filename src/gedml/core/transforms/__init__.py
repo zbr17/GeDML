@@ -7,7 +7,9 @@ There are two kinds of ``transforms``:
 
 from .img_transforms import (
     ConvertToBGR,
-    Multiplier
+    Multiplier,
+    RandomGaussianBlur,
+    RandomColorJitter
 )
 from .wrapper_transforms import (
     TwoCropsTransformWrapper,

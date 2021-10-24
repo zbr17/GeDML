@@ -1,6 +1,7 @@
-import torchvision.transforms.functional as F
 from PIL import Image
-
+import random
+from PIL import ImageFilter
+import torchvision.transforms as transforms
 
 class ConvertToBGR(object):
     """
@@ -33,3 +34,43 @@ class Multiplier(object):
 
     def __repr__(self):
         return "{}(multiple={})".format(self.__class__.__name__, self.multiple)
+
+
+class GaussianBlur(object):
+    """
+    Gaussian blur augmentation in SimCLR https://arxiv.org/abs/2002.05709
+    """
+    def __init__(self, sigma=[0.1, 2.0]):
+        self.sigma = sigma
+    
+    def __call__(self, img: Image):
+        sigma = random.uniform(self.sigma[0], self.sigma[1])
+        img = img.filter(ImageFilter.GaussianBlur(radius=sigma))
+        return img
+
+    def __repr__(self):
+        return "{}(sigma={})".format(self.__class__.__name__, self.sigma)
+
+def RandomGaussianBlur(sigma=[0.1, 2.0], p=0.8):
+    """
+    Random Gaussian Blur.
+    """
+    return transforms.RandomApply(
+        transforms=[GaussianBlur(sigma=sigma)],
+        p=p
+    )
+
+def RandomColorJitter(brightness, contrast, saturation, hue, p=0.5):
+    """
+    Random Color Jitter.
+    """
+    return transforms.RandomApply(
+        transforms=[transforms.ColorJitter(
+            brightness=brightness,
+            contrast=contrast,
+            saturation=saturation,
+            hue=hue
+        )],
+        p=p
+    )
+    

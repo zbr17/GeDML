@@ -13,7 +13,7 @@ import torch.distributed as dist
 from torchdistlog import logging
 
 from . import utils
-from ..config.setting.recorder_setting import TO_RECORD_LIST, TO_SAVE_LIST, DEVICE, STEP_MODEL_SUFFIX, BEST_MODEL_SUFFIX, LOAD_EXCEPT_FUNC, CSV_FOLDER, MODEL_FOLDER, BOARD_FOLDER, WANDB_FOLDER
+from ..config.setting.recorder_setting import TO_RECORD_LIST, TO_SAVE_LIST, DEVICE, STEP_MODEL_SUFFIX, BEST_MODEL_SUFFIX, LOAD_EXCEPT_FUNC
 
 class BaseRecorder:
     """
@@ -77,15 +77,13 @@ class BaseRecorder:
         self.root = None
         self.model_handler = None
 
-        self.folders_list = ['csv', 'model', 'board'] # can be modified
+        
         self.update_ordered_list = ['csv', 'board'] # can be modified
         self.update_function_prefix = '_update_'
-        self.init_ordered_list = ['board', 'model']
-        self.init_function_prefix = '_init_'
+
         if self.use_wandb:
             self.folders_list += ['wandb']
             self.update_ordered_list += ['wandb']
-            self.init_ordered_list += ['wandb']
 
         self.if_record = False
         # check if distributed
@@ -142,18 +140,6 @@ class BaseRecorder:
             except:
                 logging.warning("GraphViz isn't installed! Pipeline flow chart generation FAILED!")
 
-    def _meta_path_factory(self, item):
-        path = os.path.join(
-            self.root, 
-            globals()["{}_FOLDER".format(item.upper())]
-        )
-        setattr(self, "{}_path".format(item), path)
-        utils.create_folder(
-            path, 
-            is_resume=self.is_resume, 
-            delete_old_folders=self.delete_old_folder
-        )
-
     def create_meta_root_folder(self):
         if self.if_record:
             self.meta_root = utils.create_folder(
@@ -166,32 +152,35 @@ class BaseRecorder:
     def create_group_folders(self, group_name):
         self.root = os.path.join(self.meta_root, group_name)
         self.exp_name = "{}_{}".format(self.exp_name, group_name)
-        if self.if_record:    
-            # create root folder
-            self.root = utils.create_folder(
-                self.root,
-                is_resume=self.is_resume,
-                hint_if_exist=self.hint_if_exist,
-                delete_old_folders=self.delete_old_folder
-            )
+        self.csv_path = os.path.join(self.root, "csv")
+        self.board_path = os.path.join(self.root, "board")
+        self.model_path = os.path.join(self.root, "model")
+        self.wandb_path = os.path.join(self.root, "wandb")
+        self._init_model()
+
+        if self.if_record:
+            def create_folder(path):
+                path = utils.create_folder(
+                    path=path,
+                    is_resume=self.is_resume,
+                    hint_if_exist=self.hint_if_exist,
+                    delete_old_folders=self.delete_old_folder
+                ) 
+                return path
+            # create folders and initiate update handler
+            create_folder(self.root)
+            create_folder(self.csv_path)
+            create_folder(self.model_path)
+            create_folder(self.board_path)
+            self._init_board()
+            if self.use_wandb:
+                create_folder(self.wandb_path)
+                self._init_wandb()
+
             # save config file
             self.save_params()
             # save pipeline flow chart
             self.save_pipeline()
-            # create sub folders
-            for item in self.folders_list:
-                self._meta_path_factory(item)
-            
-            # initiate update handler
-            utils.meta_call_factory(
-                obj=self,
-                ordered_list=self.init_ordered_list,
-                prefix=self.init_function_prefix,
-                description_str="Initiate update handler by {}"
-            )
-        else:
-            self._meta_path_factory("model")
-            self._init_model()
     
     def _init_board(self):
         self.board_handler = SummaryWriter(log_dir=self.board_path)

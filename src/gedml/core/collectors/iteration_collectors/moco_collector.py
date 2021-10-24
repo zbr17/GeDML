@@ -3,6 +3,7 @@ import math
 from copy import deepcopy
 from torchdistlog import logging
 import torch.distributed as dist 
+import torch.nn.functional as F
 from ..base_collector import BaseCollector
 from ...misc import utils
 
@@ -13,12 +14,18 @@ class MoCoCollector(BaseCollector):
     Use Momentum Contrast (MoCo) for unsupervised visual representation learning. This code is modified from: https://github.com/facebookresearch/moco. In this paper, a dynamic dictionary with a queue and a moving-averaged encoder are built.
 
     Args:
-        query_trunk (torch.nn.Module): default: ResNet50
-        query_embedder (torch.nn.Module): multi-layer perceptron
-        embeddings_dim (int): dimension of embeddings. default: 128
-        bank_size (int): size of the memory bank. default: 65536
-        m (float): weight of moving-average. default: 0.999
-        T (float): coefficient of softmax
+        query_trunk (torch.nn.Module): 
+            default: ResNet50
+        query_embedder (torch.nn.Module): 
+            multi-layer perceptron
+        embeddings_dim (int): 
+            dimension of embeddings. default: 128
+        bank_size (int): 
+            size of the memory bank. default: 65536
+        m (float): 
+            weight of moving-average. default: 0.999
+        T (float): 
+            coefficient of softmax
     """
     def __init__(
         self,
@@ -50,6 +57,7 @@ class MoCoCollector(BaseCollector):
             param_ke.requires_grad = False # not update by gradient
 
         self.register_buffer("queue", torch.randn(self.bank_size, self.embeddings_dim))
+        self.queue = F.normalize(self.queue, dim=0)
         self.register_buffer("queue_ptr", torch.zeros(1, dtype=torch.long))
     
     @torch.no_grad()
@@ -75,7 +83,7 @@ class MoCoCollector(BaseCollector):
 
         # replace the keys at ptr (dequeue and enqueue)
         self.queue[ptr:(ptr+batch_size), :] = keys
-        ptr = (ptr + batch_size) % self.bank_size
+        ptr = (ptr + batch_size) % self.bank_size # move pointer
         self.queue_ptr[0] = ptr
     
     @torch.no_grad()

@@ -15,10 +15,13 @@
 </p>
 
 # News
+- **[2021-10-24]**: **`v0.1.2` has been released:
+  - ***New features:***
+    - Add distributed (DDP) support.
+---
 - **[2021-10-7]**: **`v0.1.1` has been released:
   - ***New features:***
     - Change the Cars196 loading [method](http://ai.stanford.edu/~jkrause/cars/car_dataset.html).
-  ---
 - **[2021-9-15]**: **`v0.1.0` has been released:
   - ***New features:*** 
     - **output_wrapper** and **pipeline setting** are decomposed for convenience.
@@ -45,54 +48,10 @@ pip install gedml
 
 # Quickstart
 
-Please set the environment variable `WORKSPACE` first to indicate where to manage your project and download [`config`](examples/config) which include `args.csv`, `assert.yaml`, `links`, `param`, `wrapper`.
-
-> **NOTE:** `WORKSPACE` shouldn't end with "/".
-
 (Demo of convenient and fast switching between DML and SSL)
 
-## Setting launch.json in VS Code
-
-For DML setting:
-
-```json
-"env": {
-    "CUDA_VISIBLE_DEVICES": "0"
-},
-"args": [
-    "--device", "0",
-    "--delete_old",
-    "--batch_size", "180",
-    "--test_batch_size", "180",
-    "--setting", "margin_loss",
-    "--margin_alpha", "1",
-    "--margin_beta", "0.5",
-    "--lr_trunk", "0.00003",
-    "--lr_embedder", "0.0003",
-    "--lr_loss", "0.01",
-    // "--use_wandb",
-]
-```
-
-For SSL setting:
-
-```json
-"env": {
-    "CUDA_VISIBLE_DEVICES": "0,1",
-},
-"args": [
-    "--device", "0", "1", 
-    "--delete_old",
-    "--batch_size", "180",
-    "--test_batch_size", "180",
-    "--setting", "simsiam",
-    "--lr_trunk", "0.00003",
-    "--lr_embedder", "0.0003",
-    "--lr_collector", "0.0003",
-    "--dataset", "imagenet",
-    // "--use_wandb",
-]
-```
+- If you use the command line, you can run [`sample_run.sh`](examples/sample_run.sh) to try this project.
+- If you debug with VS Code, you can refer to [`launch.json`](examples/launch.json) to set `.vscode`.
 
 ## Initialization
 
