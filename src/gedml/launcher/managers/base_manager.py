@@ -120,13 +120,14 @@ class BaseManager:
         pass
 
     def initiate_device(self):
-        if self.device_wrapper_type == "DDP" and not self.is_distributed:
-            torch.distributed.init_process_group(
-                backend='nccl',
-                init_method=self.dist_url,
-                rank=0,
-                world_size=1
-            )
+        if isinstance(self.device, list):
+            if len(self.device) > 1 and self.device_wrapper_type == "DDP" and not self.is_distributed:
+                torch.distributed.init_process_group(
+                    backend='nccl',
+                    init_method=self.dist_url,
+                    rank=0,
+                    world_size=1
+                )
         
         if self.is_distributed:
             self.world_size = (

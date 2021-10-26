@@ -82,7 +82,6 @@ class BaseRecorder:
         self.update_function_prefix = '_update_'
 
         if self.use_wandb:
-            self.folders_list += ['wandb']
             self.update_ordered_list += ['wandb']
 
         self.if_record = False
