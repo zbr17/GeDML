@@ -3,3 +3,6 @@ BatchNormMLP:
     layer_size_list: [2048, 2048, 2048]
     relu_list: [true, false]
     bn_list: [false, false]
+    WRAPPER: TwoStreamEMA
+    WRAPPER_m: 0.999
+    WRAPPER_batch_shuffle: false

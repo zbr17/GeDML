@@ -1,4 +1,0 @@
-resnet50:
-  params:
-    pretrained: false
-  INITIATE: delete_last_linear

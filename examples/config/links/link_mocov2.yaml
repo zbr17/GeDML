@@ -1,40 +1,37 @@
 metrics:
-  - default: cosine.yaml # todo
+  - default: moco.yaml
 
 collectors:
-  - default: MoCoCollector.yaml # to confirm
+  - collector: MoCoCollector.yaml
 
 selectors:
-  - default: DefaultSelector.yaml
+  - selector: DefaultSelector.yaml
 
 losses:
-  - default: PosPairLoss.yaml # todo 
+  - loss: CrossEntropyLoss.yaml
 
 models:
-  - trunk: resnet50_scratch.yaml
+  - trunk: mocov2_resnet50.yaml
   - embedder: mocov2_embedder.yaml
 
 evaluators:
   - default: Calculator.yaml
 
 optimizers:
-  - trunk: SGD_models.yaml # todo
-  - embedder: SGD_models.yaml # todo
-  - default: SGD_collectors.yaml # todo
+  - trunk: SGD_models.yaml
+  - embedder: SGD_models.yaml
 
 schedulers:
-  - trunk: step_lr.yaml # todo
-  - embedder: step_lr.yaml # todo 
-  - default: step_lr.yaml # todo
+  - trunk: cosine_annealing_lr.yaml
+  - embedder: cosine_annealing_lr.yaml
 
 gradclipper:
   - trunk: gradclipper_models.yaml
   - embedder: gradclipper_models.yaml
-  - default: gradclipper_collectors.yaml
 
 transforms:
-  - train: moco_train_transforms.yaml
-  - test: moco_eval_transforms.yaml
+  - train: mocov2_train_transforms.yaml
+  - test: mocov2_eval_transforms.yaml
 
 datasets:
   - train: imagenet_train.yaml
@@ -54,11 +51,11 @@ managers:
 
 LINK_SETTING: 
   to_device_list: [models, collectors]
-  to_wrap_list: [models, collectors]
+  to_wrap_list: [models]
 
 PIPELINE_SETTING:
   - models/trunk/default -> models/embedder/
-  - models/embedder/default -> collectors/default/
-  - collectors/default/default -> selectors/default/
-  - selectors/default/default -> losses/default/
-  - losses/default/default -> FINISH/default/loss
+  - models/embedder/default -> collectors/collector/
+  - collectors/collector/default -> selectors/selector/
+  - selectors/selector/default -> losses/loss/
+  - losses/loss/default -> FINISH/default/cross_entropy_loss

@@ -2,7 +2,7 @@ from PIL import Image
 import torch
 import numpy as np 
 
-def base_collate_fn(info_dict: list, modify_info_dict=None):
+def base_collate_fn(info_dict: list):
     assert isinstance(info_dict, list)
     elem = info_dict[0]
     assert isinstance(elem, dict)
@@ -12,8 +12,6 @@ def base_collate_fn(info_dict: list, modify_info_dict=None):
         )
         for key in elem
     }
-    if modify_info_dict is None:
-        info_dict.pop("id")
     return info_dict
 
 def _concatenate_tensor(batch: torch.Tensor):
@@ -66,7 +64,9 @@ class TwoCropsTransformWrapper(object):
     
     @staticmethod
     def collate_fn(info_dict: dict):
-        base_collate_fn(info_dict, modify_info_dict=TwoCropsTransformWrapper.modify_info_dict)
+        info_dict = base_collate_fn(info_dict)
+        info_dict = TwoCropsTransformWrapper.modify_info_dict(info_dict)
+        return info_dict
 
 class DefaultTransformWrapper(object):
     """

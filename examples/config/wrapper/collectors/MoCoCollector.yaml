@@ -1,4 +1,4 @@
-input: [data, embeddings]
+input: [embeddings]
 map:
   default:
     metric_mat: 0

@@ -1,5 +1,4 @@
 import torch
-import functools
 
 from ...config.setting.recorder_setting import TO_RECORD_LIST
 
@@ -10,6 +9,12 @@ class WithRecorder(torch.nn.Module):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         setattr(self, TO_RECORD_LIST, [])
+    
+    def preprocess_hook(self, trainer):
+        pass
+
+    def callback_hook(self, trainer):
+        pass
     
     def add_recordable_attr(self, name: str):
         """

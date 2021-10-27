@@ -1,12 +1,14 @@
 echo "Optional setting:"
 echo "1) margin loss"
 echo "2) proxy anchor loss"
+echo "3) moco v2"
 read -p "Please choose the setting (input the number): " setting
 
 echo "Optional dataset:"
 echo "1) cub200"
 echo "2) cars196"
 echo "3) online_products"
+echo "4) imagenet"
 read -p "Please choose the dataset (input the number): " dataset
 
 case $setting in
@@ -91,6 +93,24 @@ case $setting in
         --lr_trunk 0.0001 --lr_embedder 0.0001 --lr_collector 0.01 \
         --dataset online_products --delete_old \
         --warm_up 1 --warm_up_list embedder collector
+        ;;
+    *)
+        echo No matched dataset!
+    esac
+    ;;
+# proxy anchor loss
+3)
+    case $dataset in 
+    4)
+        # imagenet
+        CUDA_VISIBLE_DEVICES=0,1 python demo.py \
+        --data_path $WORKSPACE/datasets \
+        --save_path $WORKSPACE/exp/GeDML \
+        --save_name MoCov2 --splits_to_eval test --eval_exclude f1_score NMI AMI \
+        --device 0 1 --batch_size 256 --test_batch_size 500 \
+        --setting mocov2 --embeddings_dim 128 --moco_t 0.02 \
+        --lr_trunk 0.015 --lr_embedder 0.015 --T_max 200 \
+        --dataset imagenet --delete_old --is_distributed \
         ;;
     *)
         echo No matched dataset!

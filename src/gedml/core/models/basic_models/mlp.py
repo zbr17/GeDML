@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn 
 
-from ..modules import WithRecorder
+from ...modules import WithRecorder
 
 """
 Normal multi-layer perceptron
@@ -22,9 +22,10 @@ class MLP(WithRecorder):
     Example:
         >>> model = MLP(layer_size_list=[512, 100], first_relu=False)
     '''
-    def __init__(self, layer_size_list, first_relu=True, last_relu=False, output_dim=None):
+    def __init__(self, layer_size_list, first_relu=True, last_relu=False, input_dim=None, output_dim=None):
         super(MLP, self).__init__()
-        # check data type
+        if input_dim is not None:
+            layer_size_list[0] = int(input_dim)
         if output_dim is not None:
             layer_size_list[-1] = int(output_dim)
         self.layer_size_list = [int(item) for item in layer_size_list]
@@ -42,8 +43,8 @@ class MLP(WithRecorder):
         self.net = nn.Sequential(*layer_list)
         self.last_linear = self.net[-1]
     
-    def forward(self, features):
-        return self.net(features)
+    def forward(self, data):
+        return self.net(data)
 
 """
 multi-layer perceptron with batch normalization
@@ -89,8 +90,12 @@ class BatchNormMLP(WithRecorder):
             first_bn=False
         )
     """
-    def __init__(self, layer_size_list, relu_list, bn_list, first_bn=False, **kwargs):
+    def __init__(self, layer_size_list, relu_list, bn_list, first_bn=False, input_dim=None, output_dim=None, **kwargs):
         super(BatchNormMLP, self).__init__(**kwargs)
+        if input_dim is not None:
+            layer_size_list[0] = int(input_dim)
+        if output_dim is not None:
+            layer_size_list[-1] = int(output_dim)
         layer_size_list = [int(item) for item in layer_size_list]
         self.layer_size_list = layer_size_list
         self.relu_list = relu_list
@@ -115,8 +120,8 @@ class BatchNormMLP(WithRecorder):
             )
         self.net = nn.Sequential(*layers_list)
     
-    def forward(self, features):
-        return self.net(features)
+    def forward(self, data):
+        return self.net(data)
 
 # if __name__ == "__main__":
 #     model = BatchNormMLP(

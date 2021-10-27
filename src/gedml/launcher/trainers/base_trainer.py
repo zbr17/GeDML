@@ -136,8 +136,8 @@ class BaseTrainer:
         # self.release_memory()
     
     def pipeline(self):
-        # use global collector 
-        self.use_global_collector()
+        # preprocess hooks
+        self._meta_call_hooks(func_name="preprocess_hook")
         self.set_to_train()
         self.show_lr()
 
@@ -145,7 +145,10 @@ class BaseTrainer:
         self.pbar = tqdm(range(self.iterations_per_epoch))
         for self.iteration in self.pbar:
             self.prepare_forward()
-            self.forward_pipeline()
+            self.forward_models()
+            self.forward_collectors()
+            self.forward_selectors()
+            self.forward_losses()
             self.backward_and_update()
             self.update_record(self.recorders)
             self.pbar.set_description(
@@ -155,18 +158,28 @@ class BaseTrainer:
             )
         self.loss_handler.average_losses()
         self.step_schedulers(metrics=self.loss_handler.get_total())
+        # callback hooks
+        self._meta_call_hooks(func_name="callback_hook")
+    
+    def _meta_call_hooks(self, func_name="preprocess_hook"):
+        def _call_hook_from_dict(module_dict):
+            for item in module_dict.values():
+                func = getattr(item, func_name, None)
+                if func is not None:
+                    logging.info("Call {} from {}".format(
+                        func_name, item.__class__.__name__)
+                    )
+                    func(self)
+        _call_hook_from_dict(self.models)
+        _call_hook_from_dict(self.collectors)
+        _call_hook_from_dict(self.selectors)
+        _call_hook_from_dict(self.losses)
     
     def show_lr(self):
         default_idx = 0
         for k, v in self.optimizers.items():
             lr = v.param_groups[default_idx]["lr"]
-            logging.info("{} optimizer's lr: {}".format(k, lr))
-    
-    def forward_pipeline(self):
-        self.forward_models()
-        self.forward_collectors()
-        self.forward_selectors()
-        self.forward_losses()
+            logging.info("{} optimizer's lr: {}".format(k, lr))        
     
     def initiate_dataloader(self):
         logging.info(
@@ -186,7 +199,7 @@ class BaseTrainer:
             sampler=self.sampler,
             drop_last=True,
             pin_memory=False,
-            shuffle=self.samplers is None,
+            shuffle=self.sampler is None,
             num_workers=self.dataset_num_workers,
             collate_fn=self.collate_fn
         )
@@ -213,8 +226,7 @@ class BaseTrainer:
             )
         
         # extract the collate_fn from datasets
-        self.collate_fn = getattr(self.datasets["train"].transform, "collate_fn", None) # TODO: debug
-        pass
+        self.collate_fn = getattr(self.datasets["train"].transform, "collate_fn", None)
 
     def set_to_train(self):
         for trainable_name in self.trainable_object_list:
@@ -236,13 +248,6 @@ class BaseTrainer:
             self.models["trunk"].apply(
                 utils.set_layers_to_eval("BatchNorm")
             )
-        
-    def use_global_collector(self):
-        for collector in self.collectors.values():
-            if collector.is_global_collector:
-                logging.info("Global collector updating...")
-                collector.global_update(self)
-                self.release_memory()
     
     def prepare_forward(self):
         # set sampler
@@ -264,33 +269,26 @@ class BaseTrainer:
         if self.is_distributed:
             self.sampler.set_epoch(self.epochs)
     
-    @property
-    def info_dict_to_device(self):
-        return [
-            "data", 
-            "labels"
-        ]
-    
     def _prepare_forward_get_batch(self):
         info_dict = next(self.dataloader_iter)
         for key in info_dict.keys():
             setattr(self.storage, key, info_dict[key])
-        self.storage.tensors_to_device(self.info_dict_to_device, self.device)
+        self.storage.tensors_to_device(["data", "labels"], self.device)
 
     def forward_models(self):
         ### get data and labels
-        data = self.storage.get("data")
+        raw_data = self.storage.get("data")
         labels = self.storage.get("labels")
 
         ### forward backbone (trunk model)
-        features = self.models["trunk"](data)
+        data = self.models["trunk"](raw_data)
 
         ### forward embedder
         # prepare input data
-        self.storage.features = features
+        self.storage.data = data
         self.storage.indices_dict["models"] = {"embedder": {"": {}}}
         # passing input data: Distributed gathering point
-        self.storage.update(self.models["embedder"], cur_module="models", is_distributed=self.is_distributed)
+        probe = self.storage.update(self.models["embedder"], cur_module="models", is_distributed=self.is_distributed)
         
         if self.is_distributed:
             labels, = utils.distributed_gather_objects(labels)
@@ -300,7 +298,7 @@ class BaseTrainer:
         # update collector
         self.update_collectors()
         # forward collector
-        self.storage.update(self.collectors, cur_module="collectors")
+        probe = self.storage.update(self.collectors, cur_module="collectors")
     
     def update_collectors(self):
         for collector in self.collectors.values():
@@ -310,10 +308,10 @@ class BaseTrainer:
                 collector.update(self)
     
     def forward_selectors(self):
-        self.storage.update(self.selectors, cur_module="selectors")
+        probe = self.storage.update(self.selectors, cur_module="selectors")
 
     def forward_losses(self):
-        value_dict = self.storage.update(self.losses, cur_module="losses")
+        probe = self.storage.update(self.losses, cur_module="losses")
 
         # update loss_values
         self.loss_handler.update_losses(self.storage.return_loss_dict())

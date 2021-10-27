@@ -213,7 +213,7 @@ class BaseManager:
                                 members[k] = DDP(
                                     v,
                                     device_ids=self.device_ids,
-                                    find_unused_parameters=False
+                                    find_unused_parameters=True
                                 )
                             except:
                                 trace = traceback.format_exc()
@@ -229,7 +229,7 @@ class BaseManager:
                     members[k] = DDP(
                         members[k], 
                         device_ids=self.device_ids,
-                        find_unused_parameters=False
+                        find_unused_parameters=True
                     )
                 except:
                     trace = traceback.format_exc()

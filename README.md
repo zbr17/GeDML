@@ -15,10 +15,13 @@
 </p>
 
 # News
+- **[2021-10-27]**: **`v0.1.4` has been released:
+  - ***New features:***
+    - Add contrastive representation learning methods (MoCo-V2).
+---
 - **[2021-10-24]**: **`v0.1.2` has been released:
   - ***New features:***
     - Add distributed (DDP) support.
----
 - **[2021-10-7]**: **`v0.1.1` has been released:
   - ***New features:***
     - Change the Cars196 loading [method](http://ai.stanford.edu/~jkrause/cars/car_dataset.html).

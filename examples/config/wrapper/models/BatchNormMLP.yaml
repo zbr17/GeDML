@@ -1,4 +1,4 @@
-input: [features]
+input: [data]
 map:
   default:
     embeddings: 0

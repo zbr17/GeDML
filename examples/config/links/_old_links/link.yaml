@@ -12,7 +12,7 @@ losses:
 
 models:
   - trunk: resnet50.yaml
-  - embedder: MLP_resnet50.yaml
+  - embedder: resnet50_mlp.yaml
 
 evaluators:
   - default: Calculator.yaml

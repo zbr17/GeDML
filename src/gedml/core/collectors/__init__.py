@@ -40,6 +40,7 @@ from .iteration_collectors import (
     DAMLCollector,
     DVMLCollector
 )
+
 from .epoch_collectors import (
     GlobalProxyCollector,
     _DefaultGlobalCollector

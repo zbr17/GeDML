@@ -1,0 +1,7 @@
+resnet50:
+  params:
+    pretrained: false
+    WRAPPER: TwoStreamEMA
+    WRAPPER_m: 0.999
+    WRAPPER_batch_shuffle: true
+  INITIATE: delete_last_linear

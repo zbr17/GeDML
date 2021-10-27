@@ -11,6 +11,15 @@ class modelsCreator(BaseCreator):
     def prepare_packages(self):
         self.package = [models]
     
+    def maybe_modify_args(self, module_args):
+        # if wrapping
+        self.wrapper_name = module_args.pop("WRAPPER", None)
+        self.wrapper_params = {}
+        for key in list(module_args.keys()):
+            if "WRAPPER_" in key:
+                self.wrapper_params[key.replace("WRAPPER_", "")] = module_args.pop(key)
+        return module_args
+    
     def maybe_modify_object(self, module_object: torch.nn.Module):
         if self.creator_mode is None:
             pass
@@ -35,4 +44,15 @@ class modelsCreator(BaseCreator):
             raise KeyError("Invalid creator_type: {}, in {}".format(
                 self.creator_mode, self.__class__.__name__
             ))
+        
+        # whether to wrap
+        if self.wrapper_name is not None:
+            wrapper = getattr(
+                models,
+                self.wrapper_name
+            )
+            module_object = wrapper(
+                module_object,
+                **self.wrapper_params
+            )
         return module_object

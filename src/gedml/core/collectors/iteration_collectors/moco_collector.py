@@ -14,10 +14,6 @@ class MoCoCollector(BaseCollector):
     Use Momentum Contrast (MoCo) for unsupervised visual representation learning. This code is modified from: https://github.com/facebookresearch/moco. In this paper, a dynamic dictionary with a queue and a moving-averaged encoder are built.
 
     Args:
-        query_trunk (torch.nn.Module): 
-            default: ResNet50
-        query_embedder (torch.nn.Module): 
-            multi-layer perceptron
         embeddings_dim (int): 
             dimension of embeddings. default: 128
         bank_size (int): 
@@ -29,11 +25,8 @@ class MoCoCollector(BaseCollector):
     """
     def __init__(
         self,
-        query_trunk,
-        query_embedder,
         embeddings_dim=128,
         bank_size=65536,
-        m=0.999,
         T=0.07,
         *args,
         **kwargs
@@ -41,34 +34,16 @@ class MoCoCollector(BaseCollector):
         super().__init__(*args, **kwargs) 
         self.embeddings_dim = embeddings_dim
         self.bank_size = bank_size
-        self.m = m
         self.T = T
-        self.key_trunk = deepcopy(query_trunk)
-        self.key_embedder = deepcopy(query_embedder)
         self.initiate_params()
     
     def initiate_params(self):
         """
-        Cancel the gradient of key_trunk and key_embedder
+        Initiate memory bank.
         """
-        for param_k in self.key_trunk.parameters():
-            param_k.requires_grad = False # not update by gradient
-        for param_ke in self.key_embedder.parameters():
-            param_ke.requires_grad = False # not update by gradient
-
         self.register_buffer("queue", torch.randn(self.bank_size, self.embeddings_dim))
         self.queue = F.normalize(self.queue, dim=0)
         self.register_buffer("queue_ptr", torch.zeros(1, dtype=torch.long))
-    
-    @torch.no_grad()
-    def _momentum_update_key_encoder(self, models_dict: dict):
-        """
-        Momentum update of the key model (encoder)
-        """
-        for param_q, param_k in zip(models_dict["trunk"].parameters(), self.key_trunk.parameters()):
-            param_k.data = param_k.data * self.m + param_q.data * (1. - self.m)
-        for param_qe, param_ke in zip(models_dict["embedder"].parameters(), self.key_embedder.parameters()):
-            param_ke.data = param_ke.data * self.m + param_qe.data * (1. - self.m)
     
     @torch.no_grad()
     def _dequeue_and_enqueue(self, keys: torch.Tensor):
@@ -86,69 +61,9 @@ class MoCoCollector(BaseCollector):
         ptr = (ptr + batch_size) % self.bank_size # move pointer
         self.queue_ptr[0] = ptr
     
-    @torch.no_grad()
-    def _batch_shuffle_ddp(self, x: torch.Tensor):
+    def forward(self, embeddings) -> tuple:
         """
-        Batch shuffle, for making use of BatchNorm.
-
-        Note:
-            Only support DistributedDataParallel (DDP) model.
-        """
-        # gather from all gpus
-        device = x.device
-        batch_size_this = x.shape[0]
-        x_gather, = utils.distributed_gather_objects(x)
-        batch_size_all = x_gather.shape[0]
-        num_gpus = batch_size_all // batch_size_this
-
-        # random shuffle index
-        idx_shuffle = torch.randperm(batch_size_all).to(device)
-
-        # broadcast to all gpus
-        dist.broadcast(idx_shuffle, src=0)
-
-        # index for restoring
-        idx_unshuffle = torch.argsort(idx_shuffle)
-
-        # shuffled index for this gpu
-        gpu_idx = dist.get_rank()
-        idx_this = idx_shuffle.view(num_gpus, -1)[gpu_idx]
-
-        return x_gather[idx_this], idx_unshuffle
-    
-    @torch.no_grad()
-    def _batch_unshuffle_ddp(self, x: torch.Tensor, idx_unshuffle: torch.Tensor):
-        """
-        Undo batch shuffle.
-
-        Note:
-            Only support DistributedDataParallel (DDP) model.
-        """
-        # gather from all gpus
-        batch_size_this = x.shape[0]
-        x_gather, = utils.distributed_gather_objects(x)
-        batch_size_all = x_gather.shape[0]
-        num_gpus = batch_size_all // batch_size_this
-
-        # restored index for this gpu
-        gpu_idx = dist.get_rank()
-        idx_this = idx_unshuffle.view(num_gpus, -1)[gpu_idx]
-
-        return x_gather[idx_this]
-    
-    @torch.no_grad()
-    def update(self, trainer):
-        """
-        Update key encoder using moving-average.
-        """
-        with torch.no_grad():
-            self._momentum_update_key_encoder(
-                trainer.models
-            )
-    
-    def forward(self, data, embeddings) -> tuple:
-        """
-        Maintain a large memory bank to boost unsupervised learning performance.
+        Maintain a large memory bank to boost learning performance.
 
         Args:
             data (torch.Tensor):
@@ -158,33 +73,23 @@ class MoCoCollector(BaseCollector):
         """
         # compute key features
         device = embeddings.device
-        batch_size = embeddings.shape[0]
+        batch_size_all = embeddings.shape[0]
         if dist.is_initialized():
             world_size = dist.get_world_size()
-            batch_size = batch_size // world_size
-            sub_embeddings = embeddings.view(dist.get_world_size(), batch_size, -1)[dist.get_rank()]
+            batch_size = batch_size_all // world_size // 2
+            sub_embeddings = embeddings.view(dist.get_world_size(), 2 * batch_size, -1)[dist.get_rank()]
         else:
+            batch_size = batch_size_all // 2
             sub_embeddings = embeddings
-        
-        with torch.no_grad(): # no gradient to keys
-            # shuffle for making use of BN
-            if dist.is_initialized():
-                data, idx_unshuffle = self._batch_shuffle_ddp(data)
-            
-            # get key embeddings
-            keys = self.get_key_embeddings(data) # keys: N x C
-
-            # undo shuffle
-            if dist.is_initialized():
-                keys = self._batch_unshuffle_ddp(keys, idx_unshuffle)
+        embedding_q = sub_embeddings[:batch_size]
+        embedding_k = sub_embeddings[batch_size:]
         
         # compute matrix
         metric_mat = self.metric(
-            sub_embeddings,
-            keys.clone().detach(),
+            embedding_q,
+            embedding_k.clone().detach(),
             self.queue.clone().detach()
         )
-
         # apply temperature
         metric_mat /= self.T 
 
@@ -200,7 +105,7 @@ class MoCoCollector(BaseCollector):
         )
 
         # dequeue and enqueue
-        self._dequeue_and_enqueue(keys)
+        self._dequeue_and_enqueue(embedding_k)
 
         is_same_source = False
         return (
@@ -209,8 +114,3 @@ class MoCoCollector(BaseCollector):
             col_labels,
             is_same_source
         )
-    
-    def get_key_embeddings(self, data):
-        trunk_output = self.key_trunk(data)
-        embeddings = self.key_embedder(trunk_output)
-        return embeddings
