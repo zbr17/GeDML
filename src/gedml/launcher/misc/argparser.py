@@ -19,12 +19,13 @@ class ParserWithConvert:
         self,
         csv_path,
         name="",
+        setting=None,
     ):
         self.csv_path = csv_path
         self.name = name
         self.prefix = "config_"
 
-        self.setting = None
+        self.setting = setting
     
     def render(self):
         """
@@ -83,7 +84,7 @@ class ParserWithConvert:
         parser.add_argument("--setting", type=str, help="Please input the setting")
         # get the args
         opt = parser.parse_args()
-        self.setting = opt.setting
+        self.setting = opt.setting if self.setting is None else self.setting
         return opt
 
     def get_convert(self):

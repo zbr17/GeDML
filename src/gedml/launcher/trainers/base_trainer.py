@@ -2,6 +2,7 @@ import torch
 import torch.distributed as dist
 from torchdistlog import logging
 from torchdistlog.tqdm import tqdm
+from torch.utils.data import DataLoader
 
 from ..misc import utils, Storage
 from .loss_handler import LossHandler
@@ -193,7 +194,7 @@ class BaseTrainer:
         self._initiate_dataloader_sampler_collatefn()
 
         # get dataloader
-        self.dataloader = torch.utils.data.DataLoader(
+        self.dataloader = DataLoader(
             dataset=self.datasets["train"],
             batch_size=int(self.batch_size),
             sampler=self.sampler,

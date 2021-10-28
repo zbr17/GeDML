@@ -296,11 +296,16 @@ class BaseManager:
         
     def maybe_resume(self, is_save=True):
         if self.is_resume:
-            logging.info("Resume objects...")
-            self.epochs = self.recorder.load_models(
-                obj=self.trainer,
-                device=self.device
-            )
+            try:
+                logging.info("Resume objects...")
+                self.epochs = self.recorder.load_models(
+                    obj=self.trainer,
+                    device=self.device
+                )
+            except:
+                logging.warning("Resume failed! Restart...")
+                if is_save:
+                    self.save_models(is_best=True)
         else:
             if is_save:
                 self.save_models(is_best=True)

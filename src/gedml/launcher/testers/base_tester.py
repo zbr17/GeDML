@@ -2,6 +2,7 @@ import torch
 from torchdistlog import logging
 from torchdistlog.tqdm import tqdm
 import numpy as np 
+from torch.utils.data import DataLoader
 
 from ..misc import utils
 
@@ -140,7 +141,7 @@ class BaseTester:
         )
         sampler = None
         # get dataloader
-        self.dataloader = torch.utils.data.DataLoader(
+        self.dataloader = DataLoader(
             dataset=dataset,
             batch_size=int(self.batch_size),
             sampler=sampler,
