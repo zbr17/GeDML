@@ -150,9 +150,8 @@ Or directly use `trainer` and `tester`.
 ```
 
 # Document 
-For more information, please refer to: 
 
-:book: :point_right: [**Docs**](https://zbr17.github.io/GeDML/)
+For more information, please refer to: :point_right: [**Docs** :book:](https://zbr17.github.io/GeDML/)
 
 Some specific guidances:
 
