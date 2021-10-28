@@ -1,5 +1,6 @@
 import numpy as np 
 import torch
+import torch.nn.functional as F
 from torchdistlog import logging
 from scipy.special import comb
 # sklearn
@@ -12,16 +13,31 @@ try:
 except ModuleNotFoundError:
     logging.warning("Faiss Package Not Found! (metrics package)")
 
+_USE_FAISS_ = False
+_NORMALIZE_ = True
+
 from ..misc import utils
 
 # cluster algorithm
 def get_knn(ref_embeds, embeds, k, embeds_same_source=False, device_ids=None):
     d = ref_embeds.shape[1]
     if device_ids is not None:
-        index = faiss.IndexFlatL2(d)
-        index = utils.index_cpu_to_gpu_multiple(index, gpu_ids=device_ids)
-        index.add(ref_embeds)
-        distances, indices = index.search(embeds, k+1)
+        if _USE_FAISS_:
+            index = faiss.IndexFlatL2(d)
+            index = utils.index_cpu_to_gpu_multiple(index, gpu_ids=device_ids)
+            index.add(ref_embeds)
+            distances, indices = index.search(embeds, k+1)
+        else:
+            # TODO: distributed calculation
+            device = torch.device("cuda:{}".format(device_ids[0]))
+            ref_embeds = torch.tensor(ref_embeds).to(device)
+            embeds = torch.tensor(embeds).to(device)
+            if _NORMALIZE_:
+                ref_embeds = F.normalize(ref_embeds, dim=-1)
+                embeds = F.normalize(embeds, dim=-1)
+            dist_mat = torch.cdist(embeds, ref_embeds, p=2)
+            topk_search = dist_mat.topk(k=k+1, dim=-1, largest=False)
+            distances, indices = topk_search.values.cpu().numpy(), topk_search.indices.cpu().numpy()
         if embeds_same_source:
             return indices[:, 1:], distances[:, 1:]
         else:

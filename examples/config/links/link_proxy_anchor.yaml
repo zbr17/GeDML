@@ -40,9 +40,6 @@ datasets:
   - train: cub200_train.yaml
   - test: cub200_test.yaml
 
-# samplers:
-#   - train: MPerClassSampler.yaml
-
 recorders:
   - default: base_recorder.yaml
 

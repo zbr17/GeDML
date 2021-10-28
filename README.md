@@ -51,10 +51,40 @@ pip install gedml
 
 # Quickstart
 
-(Demo of convenient and fast switching between DML and SSL)
+
+
+## Demo 1: **deep metric learning** 
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python demo.py \
+--data_path <path_to_data> \
+--save_path <path_to_save> \
+--eval_exclude f1_score NMI AMI \
+--device 0 --batch_size 128 --test_batch_size 128 \
+--setting proxy_anchor --splits_to_eval test --embeddings_dim 128 \
+--lr_trunk 0.0001 --lr_embedder 0.0001 --lr_collector 0.01 \
+--dataset cub200 --delete_old \
+```
+
+## Demo 2: **contrastive representation learning**
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python demo.py \
+--data_path <path_to_data> \
+--save_path <path_to_save> \
+--eval_exclude f1_score NMI AMI \
+--device 0 --batch_size 128 --test_batch_size 128 \
+--setting mocov2 --splits_to_eval test --embeddings_dim 128 \
+--lr_trunk 0.015 --lr_embedder 0.015 \
+--dataset imagenet --delete_old \
+```
+
+If you want to use our code to conduct **DML** or **CRL** experiments, please refer to the **up-to-date** and **most detailed** [configurations](examples) below: :point_down:
 
 - If you use the command line, you can run [`sample_run.sh`](examples/sample_run.sh) to try this project.
 - If you debug with VS Code, you can refer to [`launch.json`](examples/launch.json) to set `.vscode`.
+
+# API
 
 ## Initialization
 
@@ -118,6 +148,21 @@ Or directly use `trainer` and `tester`.
     tester.__call__
 )
 ```
+
+# Document 
+For more information, please refer to: 
+
+:book: :point_right: [**Docs**](https://zbr17.github.io/GeDML/)
+
+Some specific guidances:
+
+- [How to write config](https://zbr17.github.io/GeDML/config.html#)
+- [How to define custom module](https://zbr17.github.io/GeDML/collectors.html)
+- ...
+
+## Configs
+
+We will continually update the optimal parameters of different configs in [TsinghuaCloud](https://cloud.tsinghua.edu.cn/d/b753b4559de545b59ddc/)
 
 # Framework
 
@@ -201,21 +246,6 @@ This project is modular in design. The pipeline diagram is as follows:
 | DenseTripletSelector | Select all triples |
 | DensePairSelector | Select all pairs |
 
-# Document 
-For more information, please refer to: 
-
-:book: :point_right: [**Docs**](https://zbr17.github.io/GeDML/)
-
-Some specific guidances:
-
-- [How to write config](https://zbr17.github.io/GeDML/config.html#)
-- [How to define custom module](https://zbr17.github.io/GeDML/collectors.html)
-- ...
-
-## Configs
-
-We will continually update the optimal parameters of different configs in [TsinghuaCloud](https://cloud.tsinghua.edu.cn/d/b753b4559de545b59ddc/)
-
 # Code Reference
 
 - [KevinMusgrave / pytorch-metric-learning](https://github.com/KevinMusgrave/pytorch-metric-learning)
@@ -236,9 +266,5 @@ We will continually update the optimal parameters of different configs in [Tsing
 - [ ] assert parameters.
 - [ ] write github action to automate unit-test, package publish and docs building.
 - [ ] add cross-validation splits protocol.
-
-# Important TODO
-- [ ] write `DML` to `SSL` Demos.
-- [ ] write complete config (easily run).
-- [ ] add moco-v2 demo!!!
 - [ ] distributed tester for matrix-form input.
+- [ ] add metrics module.
