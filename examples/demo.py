@@ -94,6 +94,10 @@ def main_worker(device, convert_dict, opt):
             "datasets": [
                 {"train": "{}_train.yaml".format(opt.dataset)},
                 {"test": "{}_test.yaml".format(opt.dataset)}
+            ],
+            "models": [
+                {"trunk": "{}.yaml".format(opt.model)},
+                {"embedder": "{}_mlp.yaml".format(opt.model)}
             ]
         }
     )
