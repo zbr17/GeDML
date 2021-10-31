@@ -24,10 +24,6 @@ class BaseCollector(WithRecorder, metaclass=ABCMeta):
         super().__init__(**kwargs)
         self.metric = metric
     
-    @property
-    def is_global_collector(self):
-        return False
-    
     def update(self, *args, **kwargs):
         """
         Define the interface that collector can update itself by giving specific information (default do nothing)

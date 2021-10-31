@@ -15,10 +15,6 @@ class _DefaultGlobalCollector:
     ):
         self.dataloader_param = dataloader_param
     
-    @property
-    def is_global_collector(self):
-        return True
-    
     def global_update(self, trainer):
         raise NotImplementedError()
 
