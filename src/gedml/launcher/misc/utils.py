@@ -45,10 +45,10 @@ def load_yaml(yaml_path):
         Loader=yaml.FullLoader
     )
 
-def get_first_dict_key(data_dict):
+def get_first_key(data_dict):
     return list(data_dict.keys())[0]
 
-def get_first_dict_value(data_dict):
+def get_first_value(data_dict):
     return list(data_dict.values())[0]
 
 def get_last_linear(model):

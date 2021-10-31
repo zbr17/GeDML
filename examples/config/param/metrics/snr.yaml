@@ -1,4 +1,3 @@
 MetricFactory:
-  params:
-    is_normalize: false
-    metric_name: SNRMetric
+  is_normalize: false
+  metric_name: SNRMetric

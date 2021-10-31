@@ -1,4 +1,3 @@
 LargeMarginSoftmaxLoss: 
-  params:
-    margin: 4
-    scale: 1
+  margin: 4
+  scale: 1

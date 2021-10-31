@@ -64,3 +64,10 @@ PIPELINE_SETTING:
   - collectors/collector/default -> selectors/selector/
   - selectors/selector/default -> losses/loss/
   - losses/loss/default -> FINISH/default/margin_loss
+
+  # models:
+  # collectors:
+  # selectors:
+  # losses:
+
+

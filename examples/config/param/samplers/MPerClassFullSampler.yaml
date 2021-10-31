@@ -1,8 +1,7 @@
 MPerClassFullSampler:
-  params:
-    labels:
-      - ~~_SEARCH_WITH_SAME_NAME_
-      - datasets
-      - null
-    m: 4
-    batch_size: 32
+  labels:
+    - ~~_SEARCH_WITH_SAME_NAME_
+    - datasets
+    - null
+  m: 4
+  batch_size: 32

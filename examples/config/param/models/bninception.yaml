@@ -1,5 +1,4 @@
 bninception:
-  params:
-    pretrained: imagenet
-    bn_freeze: true
+  pretrained: imagenet
+  bn_freeze: true
   INITIATE: delete_last_linear

@@ -1,4 +1,3 @@
 MLP:
-  params:
-    layer_size_list: [1024, 100]
-    first_relu: false
+  layer_size_list: [1024, 100]
+  first_relu: false

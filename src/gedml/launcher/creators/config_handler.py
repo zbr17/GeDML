@@ -16,8 +16,6 @@ from ...config.setting.launcher_setting import (
     WILDCARD,
     SPLITER,
     ATTRSYM,
-    INITATE_ORDER_LIST,
-    WRAPPER_LIST,
     LINK_GENERAL_KEY,
     PIPELINE_KEY,
 )
@@ -52,14 +50,12 @@ class ConfigHandler:
         link_path=None,
         assert_path=None,
         params_path=None,
-        wrapper_path=None,
         is_confirm_first=True,
     ):
         self.convert_dict = convert_dict
         self.link_path = link_path
         self.assert_path = assert_path
         self.params_path = params_path
-        self.wrapper_path = wrapper_path
         self.is_confirm_first = is_confirm_first
 
         self.creator_manager = CreatorManager()
@@ -67,59 +63,74 @@ class ConfigHandler:
     
     @property
     def core_modules_order_to_create(self):
-        return INITATE_ORDER_LIST
+        """
+        NOTE: Do NOT arbitrarily change the intiatlization order.
+        """
+        return [
+            "recorders",
+            "metrics",
+            "models",
+            "collectors",
+            "selectors",
+            "losses",
+            "evaluators",
+            "optimizers",
+            "schedulers",
+            "gradclipper",
+            "transforms",
+            "datasets",
+            "samplers",
+            "trainers",
+            "testers",
+            "managers",
+        ]
     
     @property
     def output_wrapper_list(self):
-        return WRAPPER_LIST
+        return [
+            "models",
+            "collectors",
+            "selectors",
+            "losses"
+        ]
 
-    def _get_params_dict_operation(self, data_info, module_type):
-        """
-        Parse params_dict and wrapper_dict recursively.
-        """
-        assert isinstance(data_info, list)
-        self.params_dict[module_type] = {}
-        if module_type in self.output_wrapper_list:
-            self.wrapper_dict[module_type] = {}
-        for item in data_info:
-            # parameters
-            item_key = utils.get_first_dict_key(item)
-            item_value = utils.get_first_dict_value(item)
-            item_params_path = os.path.join(self.params_path, module_type, item_value)
-            item_params_dict = utils.load_yaml(item_params_path)
-            class_value = utils.get_first_dict_key(item_params_dict)
-            params_value = item_params_dict[class_value][PARAMS_KEY]
-            initiate_value = item_params_dict[class_value].get(INITIATE_KEY, None)
-            self.params_dict[module_type][item_key] = {
-                CLASS_KEY: class_value,
-                PARAMS_KEY: params_value,
-                INITIATE_KEY: initiate_value
-            }
-            # wrapper
-            if module_type in self.output_wrapper_list:
-                item_wrapper_path = os.path.join(self.wrapper_path, module_type, class_value + ".yaml")
-                try:
-                    item_wrapper_dict = utils.load_yaml(item_wrapper_path)
-                    logging.info("Load specific wrapper config: {}".format(item_wrapper_path))
-                except:
-                    item_wrapper_path = os.path.join(self.wrapper_path, module_type, "_DEFAULT.yaml")
-                    item_wrapper_dict = utils.load_yaml(item_wrapper_path)
-                    logging.info("Load default wrapper config: {}".format(item_wrapper_path))
-                # search pipeline
-                new_map = {}
-                for k, v in item_wrapper_dict["map"].items():
-                    query_key = "/".join([module_type, item_key, k])
-                    target_route = None
-                    for pipe_k, pipe_v in self.pipeline_setting.items():
-                        # TODO: for multi output 
-                        # for single output
-                        if query_key in pipe_k:
-                            target_route = pipe_v
-                    assert target_route is not None, "NO target-route matched with {}".format(query_key)
-                    new_k = target_route
-                    new_map[new_k] = v
-                item_wrapper_dict["map"] = new_map
-                self.wrapper_dict[module_type][item_key] = item_wrapper_dict
+    def _process_pipeline(self): # TODO:
+        self.pipeline_setting = [
+            [sub_item.strip() for sub_item in item.split("->")] 
+            for item in self.pipeline_setting
+        ]
+        self.pipeline_setting = {
+            item[0]: item[1]
+            for item in self.pipeline_setting
+        }
+    
+    def load_link_config(self):
+        self.link_config = utils.load_yaml(self.link_path)
+        self.general_setting = self.link_config.pop(LINK_GENERAL_KEY, None)
+        self.pipeline_setting = self.link_config.pop(PIPELINE_KEY, None)
+        self._process_pipeline()
+    
+    def show_link(self):
+        logging.info("#####################")
+        logging.info("Load link config")
+        logging.info("#####################")
+        for k, v in self.link_config.items():
+            if k != LINK_GENERAL_KEY and k != PIPELINE_KEY:
+                logging.info("... {}".format(k))
+                assert isinstance(v, list)
+                for item in v:
+                    logging.info("... ... {}: {}".format(
+                            utils.get_first_key(item),
+                            utils.get_first_value(item)
+                        )
+                    )
+        if self.is_confirm_first:
+            _ = input("Confirm: ...")
+
+    def initiate_params(self):
+        self.load_link_config()
+        self.assert_dict = utils.load_yaml(self.assert_path)
+        self.show_link()
     
     """
     config setting
@@ -137,30 +148,137 @@ class ConfigHandler:
         self.creator_manager.register_packages(module_name, extra_package)
     
     """
-    About construction of objects dict
+    About construction of link config
     """
 
-    def _get_objects_dict_operation(self, params_info, module_type):
-        assert isinstance(params_info, dict) 
-        output = {}
-        for k, v in params_info.items():
-            self._maybe_search_params(
-                module_params=v,
-                instance_name=k
-            )
-            output[k] = self.creator_manager.create(
-                module_type=module_type,
-                module_params=v,
-            )
-            logging.info(
-                "... {}: {} created, id={}".format(
-                    k,
-                    v[CLASS_KEY],
-                    id(output[k])
-                )
-            )
-        return output
+    def _maybe_modify_link_dict(self, modify_link_dict=None):
+        if modify_link_dict is not None:
+            for k, v in modify_link_dict.items():
+                assert isinstance(v, list)
+                for item in v:
+                    key = utils.get_first_key(item)
+                    value = utils.get_first_value(item)
+                    index = -1
+                    target_list = self.link_config.get(k, [])
+                    for idx, t_item in enumerate(target_list):
+                        if utils.get_first_key(t_item) == key:
+                            index = idx
+                    if index == -1:
+                        self.link_config[k] = target_list
+                        self.link_config[k].append(
+                            {key: value}
+                        )
+                        logging.info("Add {} to {}".format(key, value))
+                    else:
+                        self.link_config[k][index] = {key: value}
+                        logging.info("Modify {} to {}".format(key, value))
+            logging.info("Link-config has been modified!")
+        return self.link_config
+
+    def _generate_pipeline_flow_chart(self): # TODO:
+        # for k, v in self.pipeline_setting.items():
+        #     src_module, src_inst, src_group = k.split("/")
+        #     dst_module, dst_inst, dst_tag = v.split("/")
+        #     # get input-list
+        #     input_list_str = "\n".join(self.wrapper_dict[src_module][src_inst]["input"])
+        #     # get output-list
+        #     output_list_str = "\n".join(list(self.wrapper_dict[src_module][src_inst]["map"][v].keys()))
+        #     # get next-input-list
+        #     if self.wrapper_dict.get(dst_module, False):
+        #         next_input_list_str = "\n".join(self.wrapper_dict[dst_module][dst_inst]["input"])
+        #     else:
+        #         next_input_list_str = "null"
+        #     # form the edge
+        #     self.pipeline_to_save.append(
+        #         (
+        #             "INPUT\n{}\nNAME\n{}/{}".format(input_list_str, src_module, src_inst),
+        #             "INPUT\n{}\nNAME\n{}/{}".format(next_input_list_str, dst_module, dst_inst),
+        #             "GROUP-{}\nTAG-{}\n{}".format(src_group, dst_tag, output_list_str),
+        #         )
+        #     )
+        return self.pipeline_to_save
+
+    """
+    About loading and generating params_dict
+    """
     
+    def _get_params_dict_operation(self):
+        """
+        Parse params_dict and wrapper_dict recursively.
+        """
+        for module_type, data_info in self.link_config.items():
+            assert isinstance(data_info, list)
+            self.params_dict[module_type] = {}
+            if module_type in self.output_wrapper_list:
+                self.wrapper_dict[module_type] = {}
+            for item in data_info:
+                # parameters
+                item_key = utils.get_first_key(item)
+                item_value = utils.get_first_value(item)
+                item_params_path = os.path.join(self.params_path, module_type, item_value)
+                self.params_dict[module_type][item_key] = utils.load_yaml(item_params_path)
+                ## wrapper # TODO:
+                # if module_type in self.output_wrapper_list:
+                #     item_wrapper_path = os.path.join(self.wrapper_path, module_type, class_value + ".yaml")
+                #     try:
+                #         item_wrapper_dict = utils.load_yaml(item_wrapper_path)
+                #         logging.info("Load specific wrapper config: {}".format(item_wrapper_path))
+                #     except:
+                #         item_wrapper_path = os.path.join(self.wrapper_path, module_type, "_DEFAULT.yaml")
+                #         item_wrapper_dict = utils.load_yaml(item_wrapper_path)
+                #         logging.info("Load default wrapper config: {}".format(item_wrapper_path))
+                #     # search pipeline
+                #     new_map = {}
+                #     for k, v in item_wrapper_dict["map"].items():
+                #         query_key = "/".join([module_type, item_key, k])
+                #         target_route = None
+                #         for pipe_k, pipe_v in self.pipeline_setting.items():
+                #             # TODO: for multi output 
+                #             # for single output
+                #             if query_key in pipe_k:
+                #                 target_route = pipe_v
+                #         assert target_route is not None, "NO target-route matched with {}".format(query_key)
+                #         new_k = target_route
+                #         new_map[new_k] = v
+                #     item_wrapper_dict["map"] = new_map
+                #     self.wrapper_dict[module_type][item_key] = item_wrapper_dict
+        return self.params_dict, self.wrapper_dict
+
+    def get_params_dict(self, link_config=None, modify_link_dict=None):
+        """
+        Read and combine config parameters.
+
+        Args:
+            link_config (dict):
+                Link dictionary.
+            modify_link_dict (dict):
+                Modify link config. (Default = None)
+
+        Returns:
+            dict: params' dictionary.
+        """
+        self.link_config = (
+            self.link_config
+            if link_config is None
+            else link_config
+        )
+        self.params_dict = {}
+        self.wrapper_dict = {}
+        self.pipeline_to_save = []
+
+        # maybe modify link dict
+        self.link_config = self._maybe_modify_link_dict(modify_link_dict)
+        # generate params_dict
+        self.params_dict, self.wrapper_dict = self._get_params_dict_operation()
+        # generate pipeline flow chart 
+        self.pipeline_to_save = self._generate_pipeline_flow_chart()
+        
+        return self.params_dict
+    
+    """
+    About initialization of objects
+    """
+
     def _maybe_search_params(self, module_params, instance_name):
         module_args = module_params[PARAMS_KEY]
         if isinstance(module_args, dict):
@@ -177,7 +295,7 @@ class ConfigHandler:
                     )
         return module_args
     
-    def _search_with_same_name_(self, top_class, instance_name, target_name):
+    def _search_with_same_name_(self, top_class, instance_name, **kwargs):
         instance_dict = utils.operate_dict_recursively(
             src_dict=self.objects_dict[top_class],
             condition=lambda k, v: v==instance_name,
@@ -185,7 +303,7 @@ class ConfigHandler:
         )
         return instance_dict[instance_name]
     
-    def _search_with_target_name_(self, top_class, instance_name, target_name):
+    def _search_with_target_name_(self, top_class, target_name, **kwargs):
         instance_dict = utils.operate_dict_recursively(
             src_dict=self.objects_dict[top_class],
             condition=lambda k, v: v==target_name,
@@ -193,7 +311,7 @@ class ConfigHandler:
         )
         return instance_dict[target_name]
     
-    def _search_with_target_attr_(self, top_class, instance_name, target_name):
+    def _search_with_target_attr_(self, top_class, target_name, **kwargs):
         module_name, attr_name = target_name.split("/")
         instance_dict = utils.operate_dict_recursively(
             src_dict=self.objects_dict[top_class],
@@ -202,142 +320,65 @@ class ConfigHandler:
         )
         return getattr(instance_dict[module_name], attr_name)
     
-    def _pass_with_named_member_(self, top_class, instance_name, target_name):
+    def _pass_with_named_member_(self, target_name, **kwargs):
         return getattr(
             self, target_name
         )
-    
-    """
-    About construction of link config and params dict
-    """
-    
-    def get_params_dict(self, link_config=None, modify_link_dict=None):
-        """
-        Read and combine config parameters.
 
-        Args:
-            link_config (dict):
-                Link dictionary.
-            modify_link_dict (dict):
-                Modify link config. (Default = None)
-
-        Returns:
-            dict: params' dictionary.
-        """
-        link_config = (
-            self.link_config
-            if link_config is None
-            else link_config
-        )
-
-        # maybe modify link dict
-        if modify_link_dict is not None:
-            for k, v in modify_link_dict.items():
-                assert isinstance(v, list)
-                for item in v:
-                    key = utils.get_first_dict_key(item)
-                    value = utils.get_first_dict_value(item)
-                    index = -1
-                    target_list = link_config.get(k, [])
-                    for idx, t_item in enumerate(target_list):
-                        if utils.get_first_dict_key(t_item) == key:
-                            index = idx
-                    if index == -1:
-                        link_config[k] = target_list
-                        link_config[k].append(
-                            {key: value}
-                        )
-                        logging.info("Add {} to {}".format(key, value))
-                    else:
-                        link_config[k][index] = {key: value}
-                        logging.info("Modify {} to {}".format(key, value))
-            logging.info("Link-config has been modified!")
-        
-        self.params_dict = {}
-        self.wrapper_dict = {}
-        self.pipeline_to_save = []
-        for k, v in link_config.items():
-            self._get_params_dict_operation(v, k)
-        
-        # generate pipeline flow chart
-        for k, v in self.pipeline_setting.items():
-            src_module, src_inst, src_group = k.split("/")
-            dst_module, dst_inst, dst_tag = v.split("/")
-            # get input-list
-            input_list_str = "\n".join(self.wrapper_dict[src_module][src_inst]["input"])
-            # get output-list
-            output_list_str = "\n".join(list(self.wrapper_dict[src_module][src_inst]["map"][v].keys()))
-            # get next-input-list
-            if self.wrapper_dict.get(dst_module, False):
-                next_input_list_str = "\n".join(self.wrapper_dict[dst_module][dst_inst]["input"])
-            else:
-                next_input_list_str = "null"
-            # form the edge
-            self.pipeline_to_save.append(
-                (
-                    "INPUT\n{}\nNAME\n{}/{}".format(input_list_str, src_module, src_inst),
-                    "INPUT\n{}\nNAME\n{}/{}".format(next_input_list_str, dst_module, dst_inst),
-                    "GROUP-{}\nTAG-{}\n{}".format(src_group, dst_tag, output_list_str),
-                )
-            )
-        
-        return self.params_dict
-    
-    def get_objects_dict(self, params_dict, link_config):
+    def get_objects_dict(self, params_dict=None):
         self.objects_dict = {}
-        condition = lambda k, v: isinstance(v, dict)
+        params_dict = self.params_dict if params_dict is None else params_dict
         for k in self.core_modules_order_to_create:
-            if link_config.get(k, False):
-                if condition(k, link_config[k]):
-                    self.objects_dict[k] = utils.operate_dict_recursively(
-                        src_dict=params_dict[k],
-                        condition=condition,
-                        operation=self._get_objects_dict_operation,
-                        flag_dict=link_config[k],
-                        addtion_params=k
+            v = params_dict.get(k, False)
+            if v:
+                assert isinstance(v, dict) 
+                output = {}
+                for sub_k, sub_v in v.items():
+                    self._maybe_search_params(
+                        module_params=sub_v,
+                        instance_name=sub_k
                     )
-                else:
-                    self.objects_dict[k] = self._get_objects_dict_operation(params_dict[k], k)
-        return self.objects_dict
-    
-    def load_link_config(self):
-        self.link_config = utils.load_yaml(self.link_path)
-        self.general_setting = self.link_config.pop(LINK_GENERAL_KEY, None)
-        self.pipeline_setting = self.link_config.pop(PIPELINE_KEY, None)
-        self._process_pipeline()
-    
-    def _process_pipeline(self):
-        self.pipeline_setting = [
-            [sub_item.strip() for sub_item in item.split("->")] 
-            for item in self.pipeline_setting
-        ]
-        self.pipeline_setting = {
-            item[0]: item[1]
-            for item in self.pipeline_setting
-        }
-
-    def initiate_params(self):
-        self.load_link_config()
-        self.assert_dict = utils.load_yaml(self.assert_path)
-        self.show_link()
-    
-    def show_link(self):
-        logging.info("#####################")
-        logging.info("Load link config")
-        logging.info("#####################")
-        for k, v in self.link_config.items():
-            if k != LINK_GENERAL_KEY and k != PIPELINE_KEY:
-                logging.info("... {}".format(k))
-                assert isinstance(v, list)
-                for item in v:
-                    logging.info("... ... {}: {}".format(
-                            utils.get_first_dict_key(item),
-                            utils.get_first_dict_value(item)
+                    output[sub_k] = self.creator_manager.create(
+                        module_type=k,
+                        module_params=sub_v,
+                    )
+                    logging.info(
+                        "... {}: {} created, id={}".format(
+                            sub_k,
+                            sub_v[CLASS_KEY],
+                            id(output[sub_k])
                         )
                     )
-        if self.is_confirm_first:
-            _ = input("Confirm: ...")
+                self.objects_dict[k] = output
+        return self.objects_dict
 
+    def maybe_modify_params_dict(self, params_dict, change_dict={}):
+        assert isinstance(change_dict, dict)
+        for k, v in change_dict.items():
+            modify_list = self.convert_dict[k]
+            for modify_path in modify_list:
+                top_class, remain_str = modify_path.split(SPLITER)
+                instance_name, attr_name = remain_str.split(ATTRSYM)
+                # search the instance
+                instance_dict = utils.operate_dict_recursively(
+                    src_dict=params_dict[top_class],
+                    condition=lambda k, v: v==instance_name,
+                    operation=lambda x, params: x
+                ).get(instance_name, None)
+                # change parameters
+                if instance_dict is None:
+                    logging.warning("{}/{} doesn't exist! modify failed!".format(
+                        top_class, instance_name
+                    ))
+                    raise KeyError("Plase check key/value pairs!")
+                else:
+                    instance_dict[PARAMS_KEY][attr_name] = v
+                    logging.info("{}/{}/{} is changed to {}".format(
+                        top_class, instance_name, attr_name, v
+                    ))
+
+        return params_dict
+    
     def create_all(self, change_dict={}):
         """
         Initialize all modules according to params dictionary. 
@@ -372,10 +413,17 @@ class ConfigHandler:
             )
 
         self.maybe_assert_params_dict(self.params_dict)
-        self.objects_dict = self.get_objects_dict(self.params_dict, self.link_config)        
+        self.objects_dict = self.get_objects_dict()        
         return self.objects_dict
-    
-    def get_certain_params_dict(self, change_list, params_dict=None):
+
+    def maybe_assert_params_dict(self, params_dict):
+        logging.warning("'maybe_assert_params_dict' is not implemented!")
+
+    """
+    Other functions
+    """
+
+    def get_certain_params_dict(self, change_list, params_dict=None): # TODO: 
         params_dict = (
             self.params_dict
             if params_dict is None
@@ -399,34 +447,3 @@ class ConfigHandler:
                 curr_dict[modify_path] = instance_dict[PARAMS_KEY][attr_name]
             output_dict[k] = curr_dict
         return output_dict
-
-    
-    def maybe_modify_params_dict(self, params_dict, change_dict={}):
-        assert isinstance(change_dict, dict)
-        for k, v in change_dict.items():
-            modify_list = self.convert_dict[k]
-            for modify_path in modify_list:
-                top_class, remain_str = modify_path.split(SPLITER)
-                instance_name, attr_name = remain_str.split(ATTRSYM)
-                # search the instance
-                instance_dict = utils.operate_dict_recursively(
-                    src_dict=params_dict[top_class],
-                    condition=lambda k, v: v==instance_name,
-                    operation=lambda x, params: x
-                ).get(instance_name, None)
-                # change parameters
-                if instance_dict is None:
-                    logging.warning("{}/{} doesn't exist! modify failed!".format(
-                        top_class, instance_name
-                    ))
-                    raise KeyError("Plase check key/value pairs!")
-                else:
-                    instance_dict[PARAMS_KEY][attr_name] = v
-                    logging.info("{}/{}/{} is changed to {}".format(
-                        top_class, instance_name, attr_name, v
-                    ))
-
-        return params_dict
-
-    def maybe_assert_params_dict(self, params_dict):
-        logging.warning("'maybe_assert_params_dict' is not implemented!")

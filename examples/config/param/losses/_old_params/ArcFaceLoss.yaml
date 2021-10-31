@@ -1,4 +1,3 @@
 ArcFaceLoss:
-  params:
-    margin: 28.6
-    scale: 64
+  margin: 28.6
+  scale: 64

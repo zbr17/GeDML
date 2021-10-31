@@ -88,7 +88,7 @@ class Storage:
                     assert dict_len == 1 # if not dict, dict_len must be ONE!
                 else:
                     if len(modules) == 1:
-                        module = utils.get_first_dict_value(modules)
+                        module = utils.get_first_value(modules)
                     else:
                         module = modules[k]
                 

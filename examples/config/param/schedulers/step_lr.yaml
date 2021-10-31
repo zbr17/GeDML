@@ -1,8 +1,4 @@
 StepLR:
-  params:
-    optimizer:
-      - ~~_SEARCH_WITH_SAME_NAME_
-      - optimizers
-      - null
-    step_size: 10
-    gamma: 0.5
+  optimizer: [~~_SEARCH_WITH_SAME_NAME_, optimizers, null]
+  step_size: 10
+  gamma: 0.5

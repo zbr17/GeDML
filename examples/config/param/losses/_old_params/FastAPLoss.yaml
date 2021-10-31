@@ -1,3 +1,2 @@
 FastAPLoss:
-  params:
-    num_bins: 10
+  num_bins: 10

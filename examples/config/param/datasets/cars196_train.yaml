@@ -1,8 +1,4 @@
 Cars196:
-  params:
-    root: <WORKSPACE>/datasets
-    phase: train
-    transform:
-      - ~~_SEARCH_WITH_SAME_NAME_
-      - transforms
-      - null
+  root: <WORKSPACE>/datasets
+  phase: train
+  transform: [~~_SEARCH_WITH_SAME_NAME_, transforms, null]

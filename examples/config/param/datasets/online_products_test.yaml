@@ -1,8 +1,4 @@
 OnlineProducts:
-  params:
-    root: <WORKSPACE>/datasets
-    phase: test
-    transform:
-      - ~~_SEARCH_WITH_SAME_NAME_
-      - transforms
-      - null
+  root: <WORKSPACE>/datasets
+  phase: test
+  transform: [~~_SEARCH_WITH_SAME_NAME_, transforms, null]

@@ -1,7 +1,3 @@
 ReduceLROnPlateau:
-  params:
-    optimizer:
-      - ~~_SEARCH_WITH_SAME_NAME_
-      - optimizers
-      - null
-    factor: 0.3
+  optimizer: [~~_SEARCH_WITH_SAME_NAME_, optimizers, null]
+  factor: 0.3

@@ -1,4 +1,3 @@
 CircleLoss:
-  params:
-    m: 0.4
-    gamma: 80
+  m: 0.4
+  gamma: 80

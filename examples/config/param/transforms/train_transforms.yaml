@@ -1,9 +1,5 @@
 train_transforms:
-  params:
-    model_properties:
-      - ~~_SEARCH_WITH_TARGET_NAME_
-      - models
-      - trunk
+    model_properties: [~~_SEARCH_WITH_TARGET_NAME_, models, trunk]
     compose_list:
       - Resize:
           size: 256

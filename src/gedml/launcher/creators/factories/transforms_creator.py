@@ -66,9 +66,9 @@ class transformsCreator(BaseCreator):
         compose_list = [
             getattr(
                 transforms,
-                utils.get_first_dict_key(item),
+                utils.get_first_key(item),
                 None
-            )(**utils.get_first_dict_value(item))
+            )(**utils.get_first_value(item))
             for item in params
         ]
         module_object = transforms.Compose(compose_list)

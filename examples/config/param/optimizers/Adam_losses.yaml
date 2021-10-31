@@ -1,7 +1,3 @@
 Adam:
-  params:
-    params: 
-      - ~~_SEARCH_WITH_SAME_NAME_
-      - models
-      - null
-    lr: 0.001
+  params: [~~_SEARCH_WITH_SAME_NAME_, losses, null]
+  lr: 0.001

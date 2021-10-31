@@ -1,19 +1,9 @@
 BaseRecorder:
-  params:
-    project_name: GeDML
-    root: <WORKSPACE>/exp/GeDML/test
-    delete_old_folder: true
-    hint_if_exist: true
-    is_resume: false
-    params_to_save: 
-      - ~~_PASS_WITH_NAMED_MEMBER_
-      - null
-      - params_dict
-    link_config:
-      - ~~_PASS_WITH_NAMED_MEMBER_
-      - null
-      - link_config
-    pipeline_to_save:
-      - ~~_PASS_WITH_NAMED_MEMBER_
-      - null
-      - pipeline_to_save
+  project_name: GeDML
+  root: <WORKSPACE>/exp/GeDML/test
+  delete_old_folder: true
+  hint_if_exist: true
+  is_resume: false
+  params_to_save: [~~_PASS_WITH_NAMED_MEMBER_, null, params_dict]
+  link_config: [~~_PASS_WITH_NAMED_MEMBER_, null, link_config]
+  pipeline_to_save: [~~_PASS_WITH_NAMED_MEMBER_, null, pipeline_to_save]

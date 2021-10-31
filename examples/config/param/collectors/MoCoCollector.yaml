@@ -1,9 +1,5 @@
 MoCoCollector:
-  params:
-    metric: 
-      - ~~_SEARCH_WITH_TARGET_NAME_
-      - metrics
-      - default
-    bank_size: 65536
-    embeddings_dim: 128
-    T: 0.07
+  metric: [~~_SEARCH_WITH_TARGET_NAME_, metrics, default]
+  bank_size: 65536
+  embeddings_dim: 128
+  T: 0.07

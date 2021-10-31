@@ -1,4 +1,3 @@
 MetricFactory:
-  params:
-    is_normalize: true
-    metric_name: MoCoMetric
+  is_normalize: true
+  metric_name: MoCoMetric

@@ -1,4 +1,3 @@
 MetricFactory:
-  params:
-    is_normalize: true
-    metric_name: CosineMetric
+  is_normalize: true
+  metric_name: CosineMetric

@@ -77,14 +77,12 @@ def main_worker(device, convert_dict, opt):
     opt.link_path = opj(config_root, "links", "link_{}.yaml".format(opt.setting))
     opt.assert_path = opj(config_root, "assert.yaml")
     opt.param_path = opj(config_root, "param")
-    opt.wrapper_path = opj(config_root, "wrapper")
 
     config_handler = ConfigHandler(
         convert_dict=convert_dict,
         link_path=opt.link_path,
         assert_path=opt.assert_path,
         params_path=opt.param_path,
-        wrapper_path=opt.wrapper_path,
         is_confirm_first=False
     )
 
