@@ -165,7 +165,13 @@ class BaseTrainer:
     def _meta_call_hooks(self, func_name="preprocess_hook"):
         def _call_hook_from_dict(module_dict):
             for item in module_dict.values():
-                func = getattr(item, func_name, None)
+                if isinstance(
+                    item,
+                    (torch.nn.DataParallel, torch.nn.parallel.DistributedDataParallel)
+                ):
+                    func = getattr(item, func_name.module, None)
+                else:
+                    func = getattr(item, func_name, None)
                 if func is not None:
                     logging.info("Call {} from {}".format(
                         func_name, item.__class__.__name__)
@@ -277,43 +283,30 @@ class BaseTrainer:
         self.storage.tensors_to_device(["data", "labels"], self.device)
 
     def forward_models(self):
-        ### get data and labels
-        raw_data = self.storage.get("data")
+        ### get labels
         labels = self.storage.get("labels")
+        self.storage.indices_dict["models"] = {"trunk": {"": {}}}
 
         ### forward backbone (trunk model)
-        data = self.models["trunk"](raw_data)
+        probe = self.storage.update({"trunk": self.models["trunk"]}, cur_module="models")
 
         ### forward embedder
-        # prepare input data
-        self.storage.data = data
-        self.storage.indices_dict["models"] = {"embedder": {"": {}}}
         # passing input data: Distributed gathering point
-        probe = self.storage.update(self.models["embedder"], cur_module="models", is_distributed=self.is_distributed)
+        probe = self.storage.update({"embedder": self.models["embedder"]}, cur_module="models", is_distributed=self.is_distributed)
         
         if self.is_distributed:
             labels, = utils.distributed_gather_objects(labels)
-        self.storage.labels = labels
+            self.storage.labels = labels
 
     def forward_collectors(self):
-        # update collector
-        self.update_collectors()
         # forward collector
         probe = self.storage.update(self.collectors, cur_module="collectors")
-    
-    def update_collectors(self):
-        for collector in self.collectors.values():
-            if isinstance(collector, (torch.nn.DataParallel, torch.nn.parallel.DistributedDataParallel)):
-                collector.module.update(self)
-            else:
-                collector.update(self)
     
     def forward_selectors(self):
         probe = self.storage.update(self.selectors, cur_module="selectors")
 
     def forward_losses(self):
         probe = self.storage.update(self.losses, cur_module="losses")
-
         # update loss_values
         self.loss_handler.update_losses(self.storage.return_loss_dict())
 

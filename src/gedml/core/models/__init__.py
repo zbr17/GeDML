@@ -11,5 +11,6 @@ from torchvision.models import googlenet
 
 ### Wrapper models
 from .wrapper_models import (
+    OneStream,
     TwoStreamEMA
 )

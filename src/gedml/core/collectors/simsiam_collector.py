@@ -5,9 +5,9 @@ from copy import deepcopy
 from torchdistlog import logging
 import torch.distributed as dist 
 
-from ..base_collector import BaseCollector
-from ...misc import utils
-from ...models import BatchNormMLP
+from .base_collector import BaseCollector
+from ..misc import utils
+from ..models import BatchNormMLP
 
 class SimSiamCollector(BaseCollector):
     """
@@ -33,7 +33,7 @@ class SimSiamCollector(BaseCollector):
             bn_list=[True, False]
         )
     
-    def forward(self, data, embeddings, labels) -> tuple:
+    def forward(self, embeddings, labels) -> tuple:
         """
         For simplicity, two data streams will be combined together and be passed through ``embeddings`` parameter. In function ``collect``, two data streams will be split (first half for first stream; second half for second stream).
 

@@ -4,11 +4,6 @@ from torchdistlog import logging
 from .creator_manager import CreatorManager
 from ..misc import utils
 from ...config.setting.launcher_setting import (
-    CLASS_KEY,
-    PARAMS_KEY,
-    INITIATE_KEY,
-    WRAPPER_KEY,
-    OBJECTS_KEY,
     SEARCH_PARAMS_CONDITION,
     SEARCH_PARAMS_FLAG,
     SEARCH_TOP_CLASS,
@@ -94,21 +89,10 @@ class ConfigHandler:
             "losses"
         ]
 
-    def _process_pipeline(self): # TODO:
-        self.pipeline_setting = [
-            [sub_item.strip() for sub_item in item.split("->")] 
-            for item in self.pipeline_setting
-        ]
-        self.pipeline_setting = {
-            item[0]: item[1]
-            for item in self.pipeline_setting
-        }
-    
     def load_link_config(self):
         self.link_config = utils.load_yaml(self.link_path)
         self.general_setting = self.link_config.pop(LINK_GENERAL_KEY, None)
         self.pipeline_setting = self.link_config.pop(PIPELINE_KEY, None)
-        self._process_pipeline()
     
     def show_link(self):
         logging.info("#####################")
@@ -175,27 +159,29 @@ class ConfigHandler:
             logging.info("Link-config has been modified!")
         return self.link_config
 
-    def _generate_pipeline_flow_chart(self): # TODO:
-        # for k, v in self.pipeline_setting.items():
-        #     src_module, src_inst, src_group = k.split("/")
-        #     dst_module, dst_inst, dst_tag = v.split("/")
-        #     # get input-list
-        #     input_list_str = "\n".join(self.wrapper_dict[src_module][src_inst]["input"])
-        #     # get output-list
-        #     output_list_str = "\n".join(list(self.wrapper_dict[src_module][src_inst]["map"][v].keys()))
-        #     # get next-input-list
-        #     if self.wrapper_dict.get(dst_module, False):
-        #         next_input_list_str = "\n".join(self.wrapper_dict[dst_module][dst_inst]["input"])
-        #     else:
-        #         next_input_list_str = "null"
-        #     # form the edge
-        #     self.pipeline_to_save.append(
-        #         (
-        #             "INPUT\n{}\nNAME\n{}/{}".format(input_list_str, src_module, src_inst),
-        #             "INPUT\n{}\nNAME\n{}/{}".format(next_input_list_str, dst_module, dst_inst),
-        #             "GROUP-{}\nTAG-{}\n{}".format(src_group, dst_tag, output_list_str),
-        #         )
-        #     )
+    def _generate_pipeline_flow_chart(self):
+        for src_module, info in self.wrapper_dict.items():
+            for src_inst, sub_info in info.items():
+                for src_group, (sub_k, _) in enumerate(sub_info["map"].items()):
+                    sub_k = sub_k.replace("->", "/")
+                    dst_module, dst_inst, dst_tag = sub_k.split("/")
+                    # get input-list
+                    input_list_str = "\n".join(self.wrapper_dict[src_module][src_inst]["input"])
+                    # get output-list
+                    output_list_str = "\n".join(list(self.wrapper_dict[src_module][src_inst]["map"][sub_k].keys()))
+                    # get next-input-list
+                    if self.wrapper_dict.get(dst_module, False):
+                        next_input_list_str = "\n".join(self.wrapper_dict[dst_module][dst_inst]["input"])
+                    else:
+                        next_input_list_str = "null"
+                    # form the edge
+                    self.pipeline_to_save.append(
+                        (
+                            "INPUT\n{}\nNAME\n{}/{}".format(input_list_str, src_module, src_inst),
+                            "INPUT\n{}\nNAME\n{}/{}".format(next_input_list_str, dst_module, dst_inst),
+                            "GROUP-{}\nTAG-{}\n{}".format(src_group, dst_tag, output_list_str),
+                        )
+                    )
         return self.pipeline_to_save
 
     """
@@ -216,32 +202,24 @@ class ConfigHandler:
                 item_key = utils.get_first_key(item)
                 item_value = utils.get_first_value(item)
                 item_params_path = os.path.join(self.params_path, module_type, item_value)
-                self.params_dict[module_type][item_key] = utils.load_yaml(item_params_path)
-                ## wrapper # TODO:
-                # if module_type in self.output_wrapper_list:
-                #     item_wrapper_path = os.path.join(self.wrapper_path, module_type, class_value + ".yaml")
-                #     try:
-                #         item_wrapper_dict = utils.load_yaml(item_wrapper_path)
-                #         logging.info("Load specific wrapper config: {}".format(item_wrapper_path))
-                #     except:
-                #         item_wrapper_path = os.path.join(self.wrapper_path, module_type, "_DEFAULT.yaml")
-                #         item_wrapper_dict = utils.load_yaml(item_wrapper_path)
-                #         logging.info("Load default wrapper config: {}".format(item_wrapper_path))
-                #     # search pipeline
-                #     new_map = {}
-                #     for k, v in item_wrapper_dict["map"].items():
-                #         query_key = "/".join([module_type, item_key, k])
-                #         target_route = None
-                #         for pipe_k, pipe_v in self.pipeline_setting.items():
-                #             # TODO: for multi output 
-                #             # for single output
-                #             if query_key in pipe_k:
-                #                 target_route = pipe_v
-                #         assert target_route is not None, "NO target-route matched with {}".format(query_key)
-                #         new_k = target_route
-                #         new_map[new_k] = v
-                #     item_wrapper_dict["map"] = new_map
-                #     self.wrapper_dict[module_type][item_key] = item_wrapper_dict
+                item_params_dict = utils.load_yaml(item_params_path)
+                self.params_dict[module_type][item_key] = item_params_dict
+                # wrapper
+                if module_type in self.output_wrapper_list:
+                    wrapper_info = self.pipeline_setting[module_type][item_key]
+                    new_map = {"input": wrapper_info["input"], "map": {}}
+                    for sub_k, sub_v in wrapper_info["map"].items():
+                        if "->" in sub_k:
+                            sub_k = sub_k.replace("->", "/")
+                        else:
+                            sub_k = sub_k + "/"
+                        new_map["map"][sub_k] = {
+                            wrapper_info["output"][idx]: idx
+                            for idx in sub_v
+                        }
+                    ### wildcard character SETTING
+                    logging.warning("Remain to handle the wildcard characters!") # TODO:
+                    self.wrapper_dict[module_type][item_key] = new_map
         return self.params_dict, self.wrapper_dict
 
     def get_params_dict(self, link_config=None, modify_link_dict=None):
@@ -279,21 +257,22 @@ class ConfigHandler:
     About initialization of objects
     """
 
-    def _maybe_search_params(self, module_params, instance_name):
-        module_args = module_params[PARAMS_KEY]
-        if isinstance(module_args, dict):
-            for k, v in module_args.items():
+    def _maybe_search_params(self, module_args, instance_name):
+        class_name = utils.get_first_key(module_args)
+        module_params = module_args[class_name]
+        if isinstance(module_params, dict):
+            for k, v in module_params.items():
                 search_func_name = SEARCH_PARAMS_CONDITION(v)
                 if search_func_name:
                     top_class = SEARCH_TOP_CLASS(v)
                     target_name = SEARCH_TAR_NAME(v)
                     search_func_name = search_func_name.replace(SEARCH_PARAMS_FLAG, "").lower()
-                    module_args[k] = getattr(self, search_func_name)(
+                    module_params[k] = getattr(self, search_func_name)(
                         top_class=top_class, 
                         instance_name=instance_name, 
                         target_name=target_name
                     )
-        return module_args
+        return module_params
     
     def _search_with_same_name_(self, top_class, instance_name, **kwargs):
         instance_dict = utils.operate_dict_recursively(
@@ -335,7 +314,7 @@ class ConfigHandler:
                 output = {}
                 for sub_k, sub_v in v.items():
                     self._maybe_search_params(
-                        module_params=sub_v,
+                        module_args=sub_v,
                         instance_name=sub_k
                     )
                     output[sub_k] = self.creator_manager.create(
@@ -345,10 +324,11 @@ class ConfigHandler:
                     logging.info(
                         "... {}: {} created, id={}".format(
                             sub_k,
-                            sub_v[CLASS_KEY],
+                            utils.get_first_key(sub_v),
                             id(output[sub_k])
                         )
                     )
+                    logging.info("---------------------------")
                 self.objects_dict[k] = output
         return self.objects_dict
 
@@ -372,7 +352,8 @@ class ConfigHandler:
                     ))
                     raise KeyError("Plase check key/value pairs!")
                 else:
-                    instance_dict[PARAMS_KEY][attr_name] = v
+                    class_name = utils.get_first_key(instance_dict)
+                    instance_dict[class_name][attr_name] = v
                     logging.info("{}/{}/{} is changed to {}".format(
                         top_class, instance_name, attr_name, v
                     ))
@@ -444,6 +425,6 @@ class ConfigHandler:
                     operation=lambda x, params: x
                 )[instance_name]
                 # record parameters
-                curr_dict[modify_path] = instance_dict[PARAMS_KEY][attr_name]
+                curr_dict[modify_path] = instance_dict[attr_name]
             output_dict[k] = curr_dict
         return output_dict

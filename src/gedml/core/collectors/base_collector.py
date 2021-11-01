@@ -24,15 +24,8 @@ class BaseCollector(WithRecorder, metaclass=ABCMeta):
         super().__init__(**kwargs)
         self.metric = metric
     
-    def update(self, *args, **kwargs):
-        """
-        Define the interface that collector can update itself by giving specific information (default do nothing)
-        """
-        pass
-
     def forward(
         self, 
-        data, 
         embeddings, 
         labels
     ) -> tuple:
@@ -44,8 +37,6 @@ class BaseCollector(WithRecorder, metaclass=ABCMeta):
         3. compute some regularization term using embeddings
 
         Args:
-            data (torch.Tensor):
-                Images with RGB channels. size: :math:`B \\times C \\times H \\times W`
             embeddings (torch.Tensor):
                 Embedding. size: :math:`B \\times dim`
             lables (torch.Tensor): 

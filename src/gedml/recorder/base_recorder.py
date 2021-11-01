@@ -117,14 +117,12 @@ class BaseRecorder:
                     sub_save_path = os.path.join(sub_param_path, item_name + "-" + yaml_name)
                     # get dictionary to save
                     sub_dict = deepcopy(self.params_to_save[class_name][item_name])
-                    object_name = sub_dict.pop("type")
-                    sub_dict = {object_name: sub_dict}
                     # save
                     with open(sub_save_path, mode="w", encoding="utf-8") as f:
                         yaml.dump(sub_dict, f, allow_unicode=True)
     
     def save_pipeline(self):
-        if self.pipeline_to_save is not None:
+        if self.pipeline_to_save is not None and len(self.pipeline_to_save) > 0:
             try:
                 from graphviz import Digraph
                 file_path = os.path.join(self.root, "pipeline")

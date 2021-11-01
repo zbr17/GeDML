@@ -4,8 +4,8 @@ from copy import deepcopy
 from torchdistlog import logging
 import torch.distributed as dist 
 import torch.nn.functional as F
-from ..base_collector import BaseCollector
-from ...misc import utils
+from .base_collector import BaseCollector
+from ..misc import utils
 
 class MoCoCollector(BaseCollector):
     """

@@ -79,42 +79,27 @@ class Storage:
 
         cur_module_dict = self.indices_dict.get(cur_module, {})
         cur_wrapper_dict = self.wrapper_params.get(cur_module, {})
-        if cur_module_dict is not None:
-            dict_len = len(cur_module_dict)
-            for k, v in cur_module_dict.items():
-                # get module
-                if not isinstance(modules, dict):
-                    module = modules
-                    assert dict_len == 1 # if not dict, dict_len must be ONE!
-                else:
-                    if len(modules) == 1:
-                        module = utils.get_first_value(modules)
-                    else:
-                        module = modules[k]
-                
-                # pass parameters
-                sub_wrapper_dict = cur_wrapper_dict[k]
-                for group_key, params in v.items():
-                    # get output tuple
-                    input_kwargs = self.filter_dict(
-                        sub_wrapper_dict["input"],
-                        total_dict=params
-                    )
-                    sub_value_tuple = module(**input_kwargs)
-                    if not isinstance(sub_value_tuple, tuple):
-                        sub_value_tuple = (sub_value_tuple,)
-                    # distributed gather
-                    if is_distributed:
-                        sub_value_tuple = utils.distributed_gather_objects(*sub_value_tuple)
-                    # output wrapper
-                    for sub_k, sub_v in sub_wrapper_dict["map"].items():
-                        sub_item_output_dict, new_sub_k = self.output_wrapper(sub_value_tuple, sub_k, sub_v)
-                        value_dict[new_sub_k+group_key].update(sub_item_output_dict)
+        for inst_name, module in modules.items():
+            group_params = cur_module_dict[inst_name]
+            
+            # pass parameters
+            sub_wrapper_dict = cur_wrapper_dict[inst_name]
+            for group_key, params in group_params.items():
+                # get output tuple
+                input_kwargs = self.filter_dict(sub_wrapper_dict["input"], total_dict=params)
+                sub_value_tuple = module(**input_kwargs)
+                if not isinstance(sub_value_tuple, tuple):
+                    sub_value_tuple = (sub_value_tuple,)
+                # distributed gather
+                if is_distributed:
+                    sub_value_tuple = utils.distributed_gather_objects(*sub_value_tuple)
+                # output wrapper
+                for sub_k, sub_v in sub_wrapper_dict["map"].items():
+                    sub_item_output_dict, new_sub_k = self.output_wrapper(sub_value_tuple, sub_k, sub_v)
+                    value_dict[new_sub_k + group_key].update(sub_item_output_dict)
 
         # add to storage
-        self.add_dict(
-            value_dict
-        )
+        self.add_dict(value_dict)
 
         return value_dict
     

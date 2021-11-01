@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F 
 import torch.distributions as distributions
 
-from ..base_collector import BaseCollector
+from .base_collector import BaseCollector
 
 class DVMLCollector(BaseCollector):
     """
@@ -96,7 +96,6 @@ class DVMLCollector(BaseCollector):
 
     def forward(
         self,
-        data,
         embeddings,
         features,
         labels

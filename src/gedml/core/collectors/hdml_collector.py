@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np 
-from ..base_collector import BaseCollector
+from .base_collector import BaseCollector
 
 class HDMLCollector(BaseCollector):
     """
@@ -107,7 +107,6 @@ class HDMLCollector(BaseCollector):
     
     def forward(
         self, 
-        data, 
         embeddings, 
         features,
         labels

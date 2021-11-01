@@ -1,10 +1,5 @@
 import os
 
-CLASS_KEY = "type"
-PARAMS_KEY = "params"
-INITIATE_KEY = "INITIATE"
-WRAPPER_KEY = "WRAPPER"
-OBJECTS_KEY = "objects"
 DEFAULT_NAME = "default"
 WILDCARD = "*"
 SPLITER = "/"

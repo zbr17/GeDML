@@ -1,22 +1,16 @@
 from abc import ABCMeta, abstractmethod
-from ....config.setting.launcher_setting import (
-    CLASS_KEY,
-    PARAMS_KEY,
-    INITIATE_KEY,
-)
 from torchdistlog import logging
 import torch
+from ...misc import utils
 
 class BaseCreator(metaclass=ABCMeta):
-    def __init__(self, creator_mode=None):
-        self.creator_mode = creator_mode
+    def __init__(self):
         self.init_packages()
 
     def __call__(self, module_params):
         assert isinstance(module_params, dict) 
-        module_type = module_params[CLASS_KEY]
-        module_args = module_params[PARAMS_KEY]
-        self.creator_mode = module_params[INITIATE_KEY]
+        module_type = utils.get_first_key(module_params)
+        module_args = module_params[module_type]
         module_args = {} if module_args is None else module_args
         return self.create(module_type, module_args)
     

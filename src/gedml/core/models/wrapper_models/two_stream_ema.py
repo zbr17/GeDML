@@ -17,6 +17,7 @@ class TwoStreamEMA(WithRecorder):
         *args,
         **kwargs
     ):
+        raise NotImplementedError # TODO:
         super(TwoStreamEMA, self).__init__(*args, **kwargs)
         self.m = m
         self.query_model = base_module

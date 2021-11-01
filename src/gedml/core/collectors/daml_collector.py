@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 
-from ..base_collector import BaseCollector
+from .base_collector import BaseCollector
 
 class DAMLCollector(BaseCollector):
     """
@@ -59,7 +59,6 @@ class DAMLCollector(BaseCollector):
 
     def forward(
         self,
-        data,
         embeddings,
         features,
         labels

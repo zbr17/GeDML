@@ -485,48 +485,44 @@ class BNInception(nn.Module):
         inception_5b_output_out = torch.cat([inception_5b_relu_1x1_out,inception_5b_relu_3x3_out,inception_5b_relu_double_3x3_2_out,inception_5b_relu_pool_proj_out], 1)
         return inception_5b_output_out
     
-    def forward(self, input):
-        feat = self.features(input)
+    def forward(self, data):
+        feat = self.features(data)
         ap_feat = self.adavgpool(feat)
         mp_feat = self.admaxpool(feat)
         output = ap_feat + mp_feat
         output = output.view(output.size(0), -1)
         return output
 
-def bninception(num_classes=1000, pretrained='imagenet',bn_freeze=True,freeze_all=False):
-    r"""BNInception model architecture from <https://arxiv.org/pdf/1502.03167.pdf>`_ paper.
+class bninception(nn.Module):
     """
-    model = BNInception(num_classes=1000)
-    if pretrained is not None:
-        settings = pretrained_settings['bninception'][pretrained]
-        assert num_classes == settings['num_classes'], \
-            "num_classes should be {}, but is {}".format(settings['num_classes'], num_classes)
-        model.load_state_dict(model_zoo.load_url(settings['url']))
-        model.input_space = settings['input_space']
-        model.input_size = settings['input_size']
-        model.input_range = settings['input_range']
-        model.mean = settings['mean']
-        model.std = settings['std']
-    
-    # freeze all parameters
-    if freeze_all:
-        for param in model.parameters():
-            param.requires_grad = False
-    
-    # bn freeze
-    if bn_freeze:
-        for m in model.modules():
-            if isinstance(m, nn.BatchNorm2d):
-                m.eval()
-                m.weight.requires_grad_(False)
-                m.bias.requires_grad_(False)
-    
-    return model
+    Container for BNInception
+    """
+    def __init__(self, num_classes=1000, pretrained="imagenet", bn_freeze=True):
+        super(bninception, self).__init__()
 
+        self.model = BNInception(num_classes=num_classes)
+        
+        if pretrained is not None:
+            settings = pretrained_settings['bninception'][pretrained]
+            assert num_classes == settings['num_classes'], \
+                "num_classes should be {}, but is {}".format(settings['num_classes'], num_classes)
+            self.model.load_state_dict(model_zoo.load_url(settings['url']))
+            self.input_space = settings['input_space']
+            self.input_size = settings['input_size']
+            self.input_range = settings['input_range']
+            self.mean = settings['mean']
+            self.std = settings['std']
 
-if __name__ == '__main__':
-
-    model = bninception()
-    data = torch.randn(32, 3, 227, 227)
-    output = model(data)
-    pass
+        self.fc = self.model.last_linear
+        
+        # bn freeze
+        if bn_freeze:
+            for m in self.modules():
+                if isinstance(m, nn.BatchNorm2d):
+                    m.eval()
+                    m.weight.requires_grad_(False)
+                    m.bias.requires_grad_(False)
+    
+    def forward(self, data):
+        return self.model(data)
+    
