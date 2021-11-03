@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="gedml",
-    version="0.1.4",
+    version="0.2.0",
     author="Borui Zhang",
     author_email="zhang-br21@mails.tsinghua.edu.cn",
     description="GeDML is an easy-to-use generalized deep metric learning library, \

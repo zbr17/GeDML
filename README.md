@@ -15,10 +15,13 @@
 </p>
 
 # News
+- **[2021-11-3]**: **`v0.2.0` has been released:
+  - ***New features:***
+    - Change the format of `link` configuration.
+---
 - **[2021-10-27]**: **`v0.1.4` has been released:
   - ***New features:***
     - Add contrastive representation learning methods (MoCo-V2).
----
 - **[2021-10-24]**: **`v0.1.2` has been released:
   - ***New features:***
     - Add distributed (DDP) support.
@@ -268,6 +271,3 @@ This project is modular in design. The pipeline diagram is as follows:
 - [ ] distributed tester for matrix-form input.
 - [ ] add metrics module.
 - [ ] how to improve the running efficiency.
-
-# Important TODO:
-- [ ] redefine the ROUTE module.
