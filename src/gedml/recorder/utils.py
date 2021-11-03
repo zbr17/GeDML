@@ -37,8 +37,8 @@ def create_folder(
         else:
             if delete_old_folders:
                 if hint_if_exist:
-                    delete_choice = input("{path} exists! DELETE or NOT (Y/N): ".format(path=path))
-                    if delete_choice != 'Y':
+                    delete_choice = input("{path} exists! DELETE or NOT (Y(y)/N): ".format(path=path))
+                    if delete_choice.upper() != 'Y':
                         sys.exit(-1)
                 shutil.rmtree(path)
                 logging.info("{path} is RE-created!".format(path=path))

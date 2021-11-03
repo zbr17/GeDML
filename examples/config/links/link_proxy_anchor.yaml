@@ -56,9 +56,34 @@ LINK_SETTING:
   to_device_list: [models, collectors]
 
 PIPELINE_SETTING:
-  - models/trunk/default -> models/embedder/
-  - models/embedder/default -> collectors/collector/
-  - collectors/collector/default -> selectors/selector/
-  - selectors/selector/default -> losses/loss/
-  - losses/loss/default -> FINISH/default/proxy_anchor_loss
-  - collectors/collector/loss_reg -> FINISH/default/reg_loss
+  models:
+    trunk:
+      input: [data]
+      output: [data]
+      map: 
+        models/embedder: [0]
+    embedder:
+      input: [data]
+      output: [embeddings]
+      map:
+        collectors/collector: [0]
+  collectors:
+    collector:
+      input: [embeddings, labels]
+      output: [metric_mat, row_labels, col_labels, is_same_source, loss, weight]
+      map:
+        selectors/selector: [0,1,2,3]
+        FINISH/default->reg_loss: [4, 5]
+  selectors:
+    selector:
+      input: [metric_mat, row_labels, col_labels, is_same_source]
+      output: [metric_mat, row_labels, col_labels, is_same_source, indices_tuple, weight]
+      map:
+        losses/loss: [0,1,2,3,4,5]
+  losses:
+    loss:
+      input: [metric_mat, row_labels, col_labels, indices_tuple, weights, is_same_source]
+      output: [loss]
+      map:
+        FINISH/default->proxy_anchor_loss: [0]
+

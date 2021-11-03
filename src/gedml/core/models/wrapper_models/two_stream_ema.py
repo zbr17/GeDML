@@ -4,29 +4,31 @@ from copy import deepcopy
 from torchdistlog import logging
 import torch.distributed as dist
 
-from ...modules import WithRecorder
+from .default_model_wrapper import DefaultModelWrapper
 from ... import models
 from ...misc import utils
 
-class TwoStreamEMA(WithRecorder):
+class TwoStreamEMA(DefaultModelWrapper):
     def __init__(
         self,
-        base_module: nn.Module,
         batch_shuffle: bool,
         m: float,
         *args,
         **kwargs
     ):
-        raise NotImplementedError # TODO:
         super(TwoStreamEMA, self).__init__(*args, **kwargs)
         self.m = m
-        self.query_model = base_module
         self.batch_shuffle = batch_shuffle
-        self.key_model = deepcopy(base_module)
+
+        self.query_model = None
+        self.key_model = None
 
         self.initiate_models()
     
     def initiate_models(self):
+        self._initiate_model_(self.base_model, self.initiate_models)
+        self.query_model = self.base_model
+        self.key_model = deepcopy(self.base_model)
         for param_k in self.key_model.parameters():
             param_k.requires_grad = False # not update by gradient
 

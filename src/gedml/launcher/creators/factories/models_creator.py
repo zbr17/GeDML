@@ -11,29 +11,28 @@ class modelsCreator(BaseCreator):
     def prepare_packages(self):
         self.package = [models]
     
-    def create_object(self, module_class, module_args):
+    def maybe_modify_args(self, module_args):
         # if initializing
-        initiate_name = module_args.pop("INITIATE", None)
+        self.initiate_name = module_args.pop("INITIATE", None)
         # if wrapping
-        wrapper_args = module_args.pop("WRAPPER", None)
-        if wrapper_args is not None:
-            wrapper_name = utils.get_first_key(wrapper_args)
-            wrapper_params = wrapper_args[wrapper_name]
-            wrapper = getattr(models, self.wrapper_name)
+        self.wrapper_args = module_args.pop("WRAPPER", None)
+        return module_args
+    
+    def maybe_modify_object(self, module_object):
+        # get wrapper
+        if self.wrapper_args is not None:
+            wrapper_name = utils.get_first_key(self.wrapper_args)
+            wrapper_params = self.wrapper_args[wrapper_name]
+            wrapper = getattr(models, wrapper_name)
             module_object = wrapper(
-                initiate_method=initiate_name,
-                base_class=module_class,
-                base_args=module_args,
+                initiate_method=self.initiate_name,
+                base_model=module_object,
                 **wrapper_params
             )
         else:
             module_object = models.OneStream(
-                initiate_method=initiate_name,
-                base_class=module_class,
-                base_args=module_args,
+                initiate_method=self.initiate_name,
+                base_model=module_object,
             )
-            pass
-
         return module_object
-
     

@@ -2,6 +2,6 @@ resnet50:
   pretrained: false
   INITIATE: delete_last_linear
   WRAPPER: 
-    TwoStreamEMA
+    TwoStreamEMA:
       m: 0.999
       batch_shuffle: true

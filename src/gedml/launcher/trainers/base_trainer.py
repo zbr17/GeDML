@@ -169,7 +169,7 @@ class BaseTrainer:
                     item,
                     (torch.nn.DataParallel, torch.nn.parallel.DistributedDataParallel)
                 ):
-                    func = getattr(item, func_name.module, None)
+                    func = getattr(item.module, func_name, None)
                 else:
                     func = getattr(item, func_name, None)
                 if func is not None:

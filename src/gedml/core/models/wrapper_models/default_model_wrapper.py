@@ -4,19 +4,29 @@ from ...modules import WithRecorder
 from ... import models
 from ....launcher.misc import utils
 
+# NOTE: These named hyper-parameters are IMPORATANT for transforms!
+_hyper_info_ = [
+    "input_space", "input_size", "input_range", "mean", "std", "num_classes"
+]
+
 class DefaultModelWrapper(WithRecorder):
     def __init__(
         self,
         initiate_method: str,
-        base_class,
-        base_args,
+        base_model: nn.Module,
         *args,
         **kwargs
     ):
         super(DefaultModelWrapper, self).__init__(*args, **kwargs)
         self.initiate_method = initiate_method
-        self.base_class = base_class
-        self.base_args = base_args
+        self.base_model = base_model
+        self._regester_hyperinfo()
+    
+    def _regester_hyperinfo(self):
+        for _hyper_name in _hyper_info_:
+            _hyper_value = getattr(self.base_model, _hyper_name, None)
+            if _hyper_value is not None:
+                setattr(self, _hyper_name, _hyper_value)
     
     def _initiate_model_(self, model, initiate_method):
         # if initializing
