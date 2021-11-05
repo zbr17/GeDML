@@ -40,6 +40,7 @@ name,type,default,help,mocov2,margin,proxy_anchor,simsiam
 """--T_max""",int,200,"""schedulers: CosineAnnealing""","[""schedulers/trunk-T_max"", ""schedulers/embedder-T_max""]",,,
 """--embeddings_dim""",int,512,"""models, collectors""","[""models/embedder-output_dim"", ""collectors/collector-embeddings_dim""]","[""models/embedder-output_dim""]","[""models/embedder-output_dim"", ""collectors/collector-embeddings_dim""]",
 """--moco_t""",float,0.7,"""collectors: MoCo-v2""","[""collectors/collector-T""]",,,
+"""--hardneg_cutoff""",float,0.5,"""selectors""","[""selectors/selector-hardneg_cutoff""]",,,
 """--num_classes""",int,100,"""losses, collectors""",,"[""losses/loss-num_classes""]","[""collectors/collector-num_classes""]",
 """--margin_alpha""",float,0.2,"""losses""",,"[""losses/loss-alpha""]",,
 """--margin_beta""",float,1.2,"""losses""",,"[""losses/loss-beta""]",,

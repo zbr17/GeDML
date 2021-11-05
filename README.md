@@ -271,3 +271,6 @@ This project is modular in design. The pipeline diagram is as follows:
 - [ ] distributed tester for matrix-form input.
 - [ ] add metrics module.
 - [ ] how to improve the running efficiency.
+
+# IMPORTANT TODO:
+- [ ] re-define pipeline setting!!!

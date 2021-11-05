@@ -146,10 +146,10 @@ class BaseTrainer:
         self.pbar = tqdm(range(self.iterations_per_epoch))
         for self.iteration in self.pbar:
             self.prepare_forward()
-            self.forward_models()
-            self.forward_collectors()
-            self.forward_selectors()
-            self.forward_losses()
+            probe = self.forward_models()
+            probe = self.forward_collectors()
+            probe = self.forward_selectors()
+            probe = self.forward_losses()
             self.backward_and_update()
             self.update_record(self.recorders)
             self.pbar.set_description(
@@ -297,18 +297,22 @@ class BaseTrainer:
         if self.is_distributed:
             labels, = utils.distributed_gather_objects(labels)
             self.storage.labels = labels
+        return probe
 
     def forward_collectors(self):
         # forward collector
         probe = self.storage.update(self.collectors, cur_module="collectors")
+        return probe
     
     def forward_selectors(self):
         probe = self.storage.update(self.selectors, cur_module="selectors")
+        return probe
 
     def forward_losses(self):
         probe = self.storage.update(self.losses, cur_module="losses")
         # update loss_values
         self.loss_handler.update_losses(self.storage.return_loss_dict())
+        return probe
 
     def backward_and_update(self):
         self.loss_handler.backward()

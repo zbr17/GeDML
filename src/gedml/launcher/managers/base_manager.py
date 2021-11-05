@@ -36,6 +36,7 @@ class BaseManager:
         to_device_list=["models", "collectors"],
         to_wrap_list=["models"],
         patience=10,
+        early_stop_thres=0.6,
     ):
         self.trainer = trainer
         self.tester = tester
@@ -56,6 +57,7 @@ class BaseManager:
         self.to_device_list = to_device_list
         self.to_wrap_list = to_wrap_list
         self.patience = patience
+        self.early_stop_thres = early_stop_thres
 
         self.best_metric = -1
         self.patience_counts = 0
@@ -257,11 +259,6 @@ class BaseManager:
                 self.release_memory()
 
                 # test phase
-                # to_test = True
-                # if self.is_distributed:
-                #     if dist.get_rank() != 0:
-                #         to_test = False
-                # if to_test:
                 if is_test:
                     if (self.epochs % interval) == 0:
                         self.metrics = self.tester.test()
@@ -274,6 +271,9 @@ class BaseManager:
                 # early stop
                 if self.patience_counts >= self.patience:
                     logging.info("Training terminated!")
+                    break
+                if self.cur_metric <= self.early_stop_thres * self.best_metric:
+                    logging.info("Setting collapsed!")
                     break
         elif self.phase == "evaluate":
             self.metrics = self.tester.test()
@@ -323,9 +323,9 @@ class BaseManager:
     
     def display_metrics(self):
         # best metric check
-        cur_metric = self.metrics[self.primary_metric[0]][self.primary_metric[1]]
-        if cur_metric > self.best_metric:
-            self.best_metric = cur_metric
+        self.cur_metric = self.metrics[self.primary_metric[0]][self.primary_metric[1]]
+        if self.cur_metric > self.best_metric:
+            self.best_metric = self.cur_metric
             self.is_best = True
             logging.info("NEW BEST METRIC!!!")
             self.patience_counts = 0
