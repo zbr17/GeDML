@@ -1,11 +1,17 @@
 import torch
 import torch.nn as nn 
+import torch.nn.init as init
 
 from ...modules import WithRecorder
 
 """
 Normal multi-layer perceptron
 """
+
+def _initiate_linear_layer_(layer: nn.Linear):
+    init.kaiming_normal_(layer.weight, mode="fan_out")
+    init.constant_(layer.bias, 0)
+    return layer
 
 class MLP(WithRecorder):
     '''
@@ -34,7 +40,11 @@ class MLP(WithRecorder):
         # construct MLP
         layer_list = [nn.ReLU(inplace=True)] if first_relu else []
         for idx in range(len(layer_size_list)-1):
-            layer_list.append(nn.Linear(layer_size_list[idx], layer_size_list[idx+1]))
+            layer_list.append(
+                _initiate_linear_layer_(
+                    nn.Linear(layer_size_list[idx], layer_size_list[idx+1])
+                )
+            )
             if idx != len(layer_size_list) - 2:
                 layer_list.append(nn.ReLU(inplace=True))
         if last_relu:
@@ -55,7 +65,11 @@ class BatchNormLayer(WithRecorder):
         super(BatchNormLayer, self).__init__(**kwargs)
         layers_list = []
         # add linear 
-        layers_list.append(nn.Linear(in_dim, out_dim))
+        layers_list.append(
+            _initiate_linear_layer_(
+                nn.Linear(in_dim, out_dim)
+            )
+        )
         # add batch norm
         if is_bn:
             layers_list.append(nn.BatchNorm1d(out_dim))
@@ -122,15 +136,6 @@ class BatchNormMLP(WithRecorder):
     
     def forward(self, data):
         return self.net(data)
-
-# if __name__ == "__main__":
-#     model = BatchNormMLP(
-#         layer_size_list=[512, 512, 1024],
-#         relu_list=[True, False],
-#         bn_list=[True, False],
-#         first_bn=False
-#     )
-#     print(model)
 
 if __name__ == '__main__':
     model = MLP(layer_size_list=[512, 100], first_relu=False)

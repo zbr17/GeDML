@@ -1,6 +1,5 @@
 resnet50:
   pretrained: false
-  INITIATE: delete_last_linear
   WRAPPER: 
     TwoStreamEMA:
       m: 0.999

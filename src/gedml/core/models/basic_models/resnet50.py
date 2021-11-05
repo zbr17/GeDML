@@ -1,41 +1,43 @@
-import pretrainedmodels as ptm
 import torch
-import torch.nn as nn 
-from torchdistlog import logging
+import torch.nn as nn
+import math
+import torch.nn.functional as F
+from torch.autograd import Variable
+import numpy as np
+import torch.nn.init as init
+from torchvision.models import resnet50 as raw_resnet50
+import torch.utils.model_zoo as model_zoo
 
-# Code from: Pytorch Metric BaseLine
 class resnet50(nn.Module):
-    """
-    Container for ResNet50 s.t. it can be used for metric learning.
-    The Network has been broken down to allow for higher modularity, if one wishes
-    to target specific layers/blocks directly.
-    """
-    def __init__(self, pretrained=True, list_style=False, no_norm=False):
+    def __init__(self, pretrained=True, bn_freeze = True):
         super(resnet50, self).__init__()
 
-        if pretrained:
-            logging.info('Getting pretrained weights...')
-            self.model = ptm.__dict__['resnet50'](num_classes=1000, pretrained='imagenet')
-        else:
-            logging.info('Not utilizing pretrained weights!')
-            self.model = ptm.__dict__['resnet50'](num_classes=1000, pretrained=None)
+        self.model = raw_resnet50(pretrained)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.gap = nn.AdaptiveAvgPool2d(1)
+        self.model.gmp = nn.AdaptiveMaxPool2d(1)
 
-        for module in filter(lambda m: type(m) == nn.BatchNorm2d, self.model.modules()):
-            module.eval()
-            module.train = lambda _: None
-            
-        # self.last_linear = self.model.last_linear
-        self.last_linear = self.model.last_linear
-        self.model.last_linear = torch.nn.Linear(self.model.last_linear.in_features, 128)
+        if bn_freeze:
+            for m in self.model.modules():
+                if isinstance(m, nn.BatchNorm2d):
+                    m.eval()
+                    m.weight.requires_grad_(False)
+                    m.bias.requires_grad_(False)
 
-        self.layer_blocks = nn.ModuleList([self.model.layer1, self.model.layer2, self.model.layer3, self.model.layer4])
+    def forward(self, x):
+        x = self.model.conv1(x)
+        x = self.model.bn1(x)
+        x = self.model.relu(x)
+        x = self.model.maxpool(x)
+        x = self.model.layer1(x)
+        x = self.model.layer2(x)
+        x = self.model.layer3(x)
+        x = self.model.layer4(x)
 
-    def forward(self, x, is_init_cluster_generation=False):
-        x = self.model.maxpool(self.model.relu(self.model.bn1(self.model.conv1(x))))
+        avg_x = self.model.gap(x)
+        max_x = self.model.gmp(x)
 
-        for layerblock in self.layer_blocks:
-            x = layerblock(x)
-
-        x = self.model.avgpool(x)
-        x = x.view(x.size(0),-1)
+        x = max_x + avg_x
+        x = x.view(x.size(0), -1)
+        
         return x

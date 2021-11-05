@@ -1,3 +1,2 @@
 resnet50:
-  pretrained: imagenet
-  INITIATE: delete_last_linear
+  pretrained: true
