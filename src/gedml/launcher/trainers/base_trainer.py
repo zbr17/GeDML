@@ -58,7 +58,7 @@ class BaseTrainer:
             ["models", "collectors", "losses"]
         )
         # recordable list
-        self.recordable_object_list = ["models"]
+        self.recordable_object_list = ["models", "collectors", "selectors", "losses"]
         # trainable list
         self.trainable_object_list = [
             "models",
