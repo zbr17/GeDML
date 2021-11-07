@@ -107,13 +107,11 @@ Use `ConfigHandler` to create all objects.
 >>> link_path = ...
 >>> assert_path = ...
 >>> param_path = ...
->>> wrapper_path = ...
 >>> config_handler = ConfigHandler(
     convert_dict=convert_dict,
     link_path=link_path,
     assert_path=assert_path,
     params_path=param_path,
-    wrapper_path=wrapper_path,
     is_confirm_first=True
 )
 >>> config_handler.get_params_dict()
