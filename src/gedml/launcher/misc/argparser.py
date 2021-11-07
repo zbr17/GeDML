@@ -56,7 +56,7 @@ class ParserWithConvert:
                 ]
                 self.info_dict[idx] = dict(zip(headers, row))
 
-    def get_parser(self):
+    def get_parser(self, args=None):
         parser = argparse.ArgumentParser(self.name)
         for values in self.info_dict.values():
             if values["name"] == "--setting":
@@ -83,7 +83,10 @@ class ParserWithConvert:
         # add <setting> argument
         parser.add_argument("--setting", type=str, help="Please input the setting")
         # get the args
-        opt = parser.parse_args()
+        if args is None:
+            opt = parser.parse_args()
+        else:
+            opt = parser.parse_args(args=args)
         self.setting = opt.setting if self.setting is None else self.setting
         return opt
 

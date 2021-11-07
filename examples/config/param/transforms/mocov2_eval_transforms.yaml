@@ -4,5 +4,5 @@ eval_transforms:
     - Resize:
         size: 256
     - CenterCrop:
-        size: 227
+        size: 224
   wrapper: DefaultTransformWrapper
