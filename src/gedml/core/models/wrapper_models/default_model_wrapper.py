@@ -6,7 +6,7 @@ from ....launcher.misc import utils
 
 # NOTE: These named hyper-parameters are IMPORATANT for transforms!
 _hyper_info_ = [
-    "input_space", "input_size", "input_range", "mean", "std", "num_classes"
+    "input_space", "input_size", "input_range", "mean", "std", "num_classes", "to_record_list"
 ]
 
 class DefaultModelWrapper(WithRecorder):
@@ -21,6 +21,7 @@ class DefaultModelWrapper(WithRecorder):
         self.initiate_method = initiate_method
         self.base_model = base_model
         self._regester_hyperinfo()
+        self.is_wrap_module = True
     
     def _regester_hyperinfo(self):
         for _hyper_name in _hyper_info_:

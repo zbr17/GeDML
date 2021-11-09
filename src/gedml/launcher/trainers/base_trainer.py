@@ -41,6 +41,7 @@ class BaseTrainer:
         self.freeze_trunk_batchnorm = freeze_trunk_batchnorm
         self.dataset_num_workers = dataset_num_workers
         self.is_distributed = is_distributed
+        self.is_warm_up = False
         
         self.epochs = 0
         self.storage = Storage(wrapper_params)
@@ -74,12 +75,14 @@ class BaseTrainer:
     """
     
     def set_activated_optims(self, optim_list=None):
+        self.is_warm_up = optim_list is not None
         self.optim_list = (
             list(self.optimizers.keys()) 
             if optim_list is None
             else optim_list
         )
         logging.info("Set activated optims: {}".format(self.optim_list))
+        logging.info("Warm-up Mode: {}".format(self.is_warm_up))
         
     """
     Train
@@ -328,13 +331,14 @@ class BaseTrainer:
         """
         All schedulers step at the end of each epoch for the moment
         """
-        if self.schedulers is not None:
-            for k in self.optim_list:
-                v = self.schedulers[k]
-                if isinstance(v, torch.optim.lr_scheduler.ReduceLROnPlateau):
-                    v.step(**kwargs)
-                else:
-                    v.step()
+        if not self.is_warm_up:
+            if self.schedulers is not None:
+                for k in self.optim_list:
+                    v = self.schedulers[k]
+                    if isinstance(v, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                        v.step(**kwargs)
+                    else:
+                        v.step()
 
     def update_record(self, recorders=None):
         if recorders is not None:
@@ -351,11 +355,12 @@ class BaseTrainer:
                 for k, v in recordable_object.items():
                     if k == "trunk": # TODO:
                         continue
-                    to_record_obj = (
-                        v.module
-                        if isinstance(v, torch.nn.DataParallel) or isinstance(v, torch.nn.parallel.DistributedDataParallel)
-                        else v
-                    )
+                    if isinstance(v, torch.nn.DataParallel) or isinstance(v, torch.nn.parallel.DistributedDataParallel):
+                        to_record_obj = v.module
+                    elif getattr(v, "is_wrap_module", False):
+                        to_record_obj = v.base_model
+                    else:
+                        to_record_obj = v
                     data, _ = recorders.get_data(to_record_obj, k)
                     recorders.update(data, total_iterations)
 
