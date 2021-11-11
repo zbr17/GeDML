@@ -458,7 +458,10 @@ class BaseModelHandler:
                 curr_model_path = os.path.join(model_path, curr_model_name)
 
                 try:
-                    v.load_state_dict(torch.load(curr_model_path, map_location=device))
+                    if isinstance(v, torch.nn.Module):
+                        v.load_state_dict(torch.load(curr_model_path, map_location=device))
+                    else:
+                        v.load_state_dict(torch.load(curr_model_path))
                 except:
                     state_dict = torch.load(curr_model_path, map_location=device)
                     from collections import OrderedDict
@@ -466,7 +469,10 @@ class BaseModelHandler:
                     for p_k, p_v in state_dict.items():
                         name = LOAD_EXCEPT_FUNC(p_k)
                         new_state_dict[name] = p_v
-                    v.load_state_dict(new_state_dict)
+                    if isinstance(v, torch.nn.Module):
+                        v.load_state_dict(new_state_dict, map_location=device)
+                    else:
+                        v.load_state_dict(new_state_dict)
                     v = v.to(device)
                 logging.info('{} is loaded from {}'.format(curr_model_name, curr_model_path))
         return max(max_index_list)

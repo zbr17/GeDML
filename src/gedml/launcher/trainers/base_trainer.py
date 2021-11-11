@@ -56,7 +56,7 @@ class BaseTrainer:
         setattr(
             self,
             TO_SAVE_LIST,
-            ["models", "collectors", "losses"]
+            ["models", "collectors", "losses", "optimizers", "schedulers"]
         )
         # recordable list
         self.recordable_object_list = ["models", "collectors", "selectors", "losses"]

@@ -169,73 +169,78 @@ class BaseManager:
         is_to_device = "models" in self.to_device_list
         is_to_wrap = "models" in self.to_wrap_list
         if is_to_device:
-            self._members_to_device("models", to_warp=is_to_wrap)
+            for k, v in self.models.items():
+                is_to_wrap = (
+                    "models/{}".format(k) in self.to_wrap_list or
+                    "models" in self.to_wrap_list
+                )
+                self.models[k] = self._members_to_device(v, to_wrap=is_to_wrap)
     
     def initiate_collectors(self):
         # to device
         is_to_device = "collectors" in self.to_device_list
         is_to_wrap = "collectors" in self.to_wrap_list
         if is_to_device:
-            self._members_to_device("collectors", to_warp=is_to_wrap)
+            for k, v in self.collectors.items():
+                self.collectors[k] = self._members_to_device(v, to_wrap=is_to_wrap)
     
     def initiate_selectors(self):
         # to device
         is_to_device = "selectors" in self.to_device_list
         is_to_wrap = "selectors" in self.to_wrap_list
         if is_to_device:
-            self._members_to_device("selectors", to_warp=is_to_wrap)
+            for k, v in self.selectors.items():
+                self.selectors[k] = self._members_to_device(v, to_wrap=is_to_wrap)
 
     def initiate_losses(self):
         # to device
         is_to_device = "losses" in self.to_device_list
         is_to_wrap = "losses" in self.to_wrap_list
         if is_to_device:
-            self._members_to_device("losses", to_warp=is_to_wrap)
+            for k, v in self.losses.items():
+                self.losses[k] = self._members_to_device(v, to_wrap=is_to_wrap)
     
     def initiate_schedulers(self):
         if self.schedulers is None:
             self.schedulers = {}
     
-    def _members_to_device(self, module_name: str, to_warp=True):
-        members = getattr(self, module_name)
+    def _members_to_device(self, module, to_wrap=True):
         # to device
         if not self.is_distributed:
             # single-device
             if self.multi_gpu:
-                for k, v in members.items():
-                    members[k] = members[k].to(self.device)
-                    if to_warp:
-                        if self.device_wrapper_type == "DP":
-                            members[k] = torch.nn.DataParallel(
-                                v,
-                                device_ids=self.device_ids
+                module = module.to(self.device)
+                if to_wrap:
+                    if self.device_wrapper_type == "DP":
+                        module = torch.nn.DataParallel(
+                            module,
+                            device_ids=self.device_ids
+                        )
+                    else:
+                        try:
+                            module = DDP(
+                                module,
+                                device_ids=self.device_ids,
+                                find_unused_parameters=True
                             )
-                        else:
-                            try:
-                                members[k] = DDP(
-                                    v,
-                                    device_ids=self.device_ids,
-                                    find_unused_parameters=True
-                                )
-                            except:
-                                trace = traceback.format_exc()
-                                logging.warning("{}".format(trace))
+                        except:
+                            trace = traceback.format_exc()
+                            logging.warning("{}".format(trace))
             else:
-                for k, v in members.items():
-                    members[k] = v.to(self.device)
+                module = module.to(self.device)
         else:
             # multi-device
-            for k, v in members.items():
-                members[k] = members[k].to(self.device)
-                try:
-                    members[k] = DDP(
-                        members[k], 
-                        device_ids=self.device_ids,
-                        find_unused_parameters=True
-                    )
-                except:
-                    trace = traceback.format_exc()
-                    logging.warning("{}".format(trace))
+            module = module.to(self.device)
+            try:
+                module = DDP(
+                    module, 
+                    device_ids=self.device_ids,
+                    find_unused_parameters=True
+                )
+            except:
+                trace = traceback.format_exc()
+                logging.warning("{}".format(trace))
+        return module
     
     """
     Run
@@ -262,11 +267,13 @@ class BaseManager:
                 if is_test:
                     if (self.epochs % interval) == 0:
                         self.metrics = self.tester.test()
-                        self.display_metrics()
+                        self.check_if_best()
                         self.save_metrics()
                         self.release_memory()
                 if is_save:
                     self.save_models()
+                if is_test:
+                    self.display_metrics()
                 
                 # early stop
                 if self.patience_counts >= self.patience:
@@ -277,6 +284,7 @@ class BaseManager:
                     break
         elif self.phase == "evaluate":
             self.metrics = self.tester.test()
+            self.check_if_best()
             self.display_metrics()
     
     def prepare(self):
@@ -314,6 +322,7 @@ class BaseManager:
         self.epochs = -1
         self.test()
         self.save_metrics()
+        self.check_if_best()
         self.display_metrics()
     
     def save_metrics(self):
@@ -321,7 +330,7 @@ class BaseManager:
             data, _ = self.recorder.get_data({k:v})
             self.recorder.update(data, self.epochs)
     
-    def display_metrics(self):
+    def check_if_best(self):
         # best metric check
         self.cur_metric = self.metrics[self.primary_metric[0]][self.primary_metric[1]]
         if self.cur_metric > self.best_metric:
@@ -334,6 +343,7 @@ class BaseManager:
             self.patience_counts += 1
         self.metrics[self.primary_metric[0]]["BEST_" + self.primary_metric[1]] = self.best_metric
 
+    def display_metrics(self):
         # display
         for k, v in self.metrics.items():
             logging.info("{} Metrics ---".format(k.upper()))

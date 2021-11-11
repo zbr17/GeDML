@@ -272,3 +272,4 @@ This project is modular in design. The pipeline diagram is as follows:
 
 # IMPORTANT TODO:
 - [ ] re-define pipeline setting!!!
+- [ ] simplify distribution setting!!

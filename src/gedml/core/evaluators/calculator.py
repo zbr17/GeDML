@@ -144,7 +144,7 @@ class Calculator:
         Returns:
             dict: A dictionary which contains all results.
         """
-        logging.info('Start computing metrics!...')
+        # logging.info('Start computing metrics!...')
         embeds_same_source = embeds_same_source or (query is reference)
         self.curr_function_dict = self.get_function_dict(include, exclude)
 

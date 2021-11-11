@@ -128,7 +128,7 @@ class CalculatorFromMat:
         Returns:
             dict: A dictionary which contains all results.
         """
-        logging.info('Start computing metrics!...')
+        # logging.info('Start computing metrics!...')
         self.curr_function_dict = self.get_function_dict(include, exclude)
 
         kwargs = {
