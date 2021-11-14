@@ -273,7 +273,8 @@ class BaseManager:
                 if is_save:
                     self.save_models()
                 if is_test:
-                    self.display_metrics()
+                    if (self.epochs % interval) == 0:
+                        self.display_metrics()
                 
                 # early stop
                 if self.patience_counts >= self.patience:
