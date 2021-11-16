@@ -35,7 +35,7 @@ class BaseManager:
         primary_metric=["test", "recall_at_1"],
         to_device_list=["models", "collectors"],
         to_wrap_list=["models"],
-        patience=10,
+        patience=15,
         early_stop_thres=0.6,
     ):
         self.trainer = trainer
@@ -248,6 +248,7 @@ class BaseManager:
     
     def run(self, phase="train", start_epoch=0, total_epochs=61, is_test=True, is_save=True, interval=1, warm_up=2, warm_up_list=None):
         self.phase = phase
+        self.interval = interval if interval > 1 else 1
         self.assert_phase()
         self.prepare()
         self.maybe_resume(is_save=is_save)
@@ -341,7 +342,7 @@ class BaseManager:
             self.patience_counts = 0
         else:
             self.is_best = False
-            self.patience_counts += 1
+            self.patience_counts += self.interval
         self.metrics[self.primary_metric[0]]["BEST_" + self.primary_metric[1]] = self.best_metric
 
     def display_metrics(self):
