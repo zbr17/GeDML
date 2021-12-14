@@ -4,6 +4,7 @@ import torch.distributed as dist
 from torchdistlog import logging
 import pandas as pd 
 import traceback
+import numpy as np 
 
 from ...core import models
 from ..misc import utils
@@ -246,12 +247,25 @@ class BaseManager:
     Run
     """
     
-    def run(self, phase="train", start_epoch=0, total_epochs=61, is_test=True, is_save=True, interval=1, warm_up=2, warm_up_list=None):
+    def run(self, phase="train", start_epoch=0, total_epochs=61, is_test=True, is_save=True, interval=1, to_test_epoch=[0], warm_up=2, warm_up_list=None):
         self.phase = phase
         self.interval = interval if interval > 1 else 1
+        self.to_test_epoch = to_test_epoch
         self.assert_phase()
         self.prepare()
         self.maybe_resume(is_save=is_save)
+        def to_test(epoch):
+            if epoch < np.max(self.to_test_epoch):
+                if epoch in self.to_test_epoch:
+                    return True
+                else:
+                    return False
+            else:
+                if epoch % self.interval == 0:
+                    return True
+                else:
+                    return False
+
         if self.phase == "train":
             for _ in range(start_epoch, total_epochs):
                 # train phase
@@ -266,7 +280,7 @@ class BaseManager:
 
                 # test phase
                 if is_test:
-                    if (self.epochs % interval) == 0:
+                    if to_test(self.epochs):
                         self.metrics = self.tester.test()
                         self.check_if_best()
                         self.save_metrics()
@@ -274,16 +288,15 @@ class BaseManager:
                 if is_save:
                     self.save_models()
                 if is_test:
-                    if (self.epochs % interval) == 0:
+                    if to_test(self.epochs):
                         self.display_metrics()
-                
-                # early stop
-                if self.patience_counts >= self.patience:
-                    logging.info("Training terminated!")
-                    break
-                if self.cur_metric <= self.early_stop_thres * self.best_metric:
-                    logging.info("Setting collapsed!")
-                    break
+                        # early stop
+                        if self.patience_counts >= self.patience:
+                            logging.info("Training terminated!")
+                            break
+                        if self.cur_metric <= self.early_stop_thres * self.best_metric:
+                            logging.info("Setting collapsed!")
+                            break
         elif self.phase == "evaluate":
             self.metrics = self.tester.test()
             self.check_if_best()

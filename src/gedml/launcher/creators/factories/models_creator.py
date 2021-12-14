@@ -29,10 +29,10 @@ class modelsCreator(BaseCreator):
                 base_model=module_object,
                 **wrapper_params
             )
-        else:
-            module_object = models.OneStream(
-                initiate_method=self.initiate_name,
-                base_model=module_object,
-            )
+        # else: # NOTE: not used!
+        #     module_object = models.OneStream(
+        #         initiate_method=self.initiate_name,
+        #         base_model=module_object,
+        #     )
         return module_object
     
