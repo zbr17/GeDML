@@ -15,10 +15,11 @@
 </p>
 
 # News
+- **[2022-3-22]**: **`v0.2.2` has been released:
+  - Fix some bugs.
 - **[2021-11-3]**: **`v0.2.0` has been released:
   - ***New features:***
     - Change the format of `link` configuration.
----
 - **[2021-10-27]**: **`v0.1.4` has been released:
   - ***New features:***
     - Add contrastive representation learning methods (MoCo-V2).
